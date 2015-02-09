@@ -1,0 +1,103 @@
+<html>
+<head>
+<style type="text/css">
+.prefstable {
+height: 40px !important;
+border-bottom-color: gray !important;
+border-collapse: separate !important;
+border-left-color: gray !important;
+border-right-color: gray !important;
+border-top-color: gray !important;
+color: black !important;
+display: table-row !important;
+font-size: 16px !important;
+font-style: normal !important;
+font-variant: normal !important;
+font-weight: normal !important;
+line-height: normal !important;
+vertical-align: middle !important;
+white-space: normal !important;
+width: 400px !important;
+}
+
+table {
+margin-top: 5px;
+width:450px
+}
+
+.tdclass {
+vertical-align:top !important;
+margin-top:4px !important;
+margin-left:2px !important;
+border-bottom-color: black !important;
+border-collapse: separate !important;
+border-left-color: black !important;
+border-right-color: black !important;
+border-top-color: black !important;
+color: black !important;
+display: table-cell !important;
+font-size: 16px !important;
+font-style: normal !important;
+font-variant: normal !important;
+font-weight: normal !important;
+height: 20px !important;
+line-height: normal !important;
+margin-left: 0px !important;
+margin-top: 0px !important;
+vertical-align: top !important;
+white-space: normal !important;
+width: 57px !important;
+}
+</style>
+
+</head>
+<body>
+
+<span>
+<div>
+<form>
+<table border=0 cellpadding=0 cellspacing=0>
+    <tr class="prefstable">
+	<td class="tdclass"><b>Jobs  </b></td><td class="tdclass"><font style="align: left; valign: center">Choose which jobs to show.</font><input type="button" onmousedown=SaveCookie() onclick=SaveCookie() value="Save" style="float: right"></td></tr>
+    <tr class="prefstable">
+	<td class="tdclass">Job Age</td><td class="tdclass">Show Jobs published <select id="fromage">
+						    <option value=any>anytime</option>
+						    <option value=30>within 30 days</option>
+						    <option value=15>within 15 days</option>
+						    <option value=7>whithin 7 days</option>
+						    <option value=3>whithin 3 days</option>
+						    <option value=1>whithin yesterday</option>
+						</select></td></tr>
+    <tr class="prefstable">
+	<td class="tdclass">Distance</td><td class="tdclass">Show Jobs <select id="radius">
+						    <option value="5">whithin 5 miles</option>
+						    <option value="10">whithin 10 miles</option>
+						    <option value="15">whithin 15 miles</option><option value="25" selected>whithin 25 miles</option>
+						    <option value="50">whithin 50 miles</option>
+						    <option value="100">whithin 100 miles</option>
+						</select> for city or zip code searches.</td></tr>
+    <tr class="prefstable">
+	<td class="tdclass"><b>Results  </b></td><td class="tdclass"><font style="align: left">Customize how your search results are presented.</font></td></tr>
+
+    <tr class="prefstable">
+	<td class="tdclass">How many</td><td class="tdclass"> Display <select id="limit">
+					    <option value="5">5 jobs</option>
+					    <option value="10">10 jobs</option>
+					    <option value="15" selected>15 jobs</option>
+					    <option value="20">20 jobs</option>
+					    <option value="30">30 jobs</option>
+					    <option value="50">50 jobs</option>
+					    </select>per search results page.</td>
+    <tr class="prefstable">
+	<td class="tdclass">Browser</td><td class="tdclass"><select id="target">
+															<option value="_self" selected> Show Jobs in the same Tab or Window.</option>
+															<option value="_blank"> Show Jobs in new Tab or Window.</option>
+														</select>
+			    </td></tr>
+<tr class="prefstable"><td class="tdclass"></td><td class="tdclass">
+		<input type="button" onmousedown="SaveCookie()" onclick="SaveCookie()" value="Save" style="float: right"></td></tr>
+	</table>
+</form>
+</div>
+</span>
+</body></html>

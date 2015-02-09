@@ -1,0 +1,66 @@
+<div class="content">
+	<table id="main-table">
+		<tr>
+			<td class="left">
+				{include file="mods/employer/_main_box.html"}
+				<table>
+					<tr>
+						<td width="260"><p class="top-title"><img src="{$imgDir}title/company_credits.gif" alt="Company Credits" /></p></td>
+						<td>{if $is_user}<p class="gear-add"><img src="{$imgDir}gear_add_ico.gif" alt="Add" /><a href="{$siteAdr}profile.php?act=resume&amp;what=add&amp;uid={$uid}">Post a new entry</a></p>{/if}</td>
+					</tr>
+				</table>	
+
+				<div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+					<table class="gear-t">
+							{section name=i loop=$rl}
+                            <tr>
+                                <td class="first">{if $rl[i].image}<a href="{$siteAdr}profile{$uid}/resume/?id={$rl[i].id}"><img src="{$icPath}/{$rl[i].image}" alt="{$rl[i].title}" /></a>{/if}</td>
+								<td><a href="{$siteAdr}profile{$uid}/resume/?id={$rl[i].id}"><b>{$rl[i].title}</b></a>{if $rl[i].prof}<br />{$rl[i].prof}{/if}{if $rl[i].year && '0000' != $rl[i].year}<br /><span>{if $rl[i].month}{assign var="ov" value=$rl[i].month-1}{$ma.$ov} {/if}{$rl[i].year}</span>{/if}</td>
+                        
+                                <td class="first">{if $rl[i].image2}<a href="{$siteAdr}profile{$uid}/resume/?id={$rl[i].id}"><img src="{$icPath}/{$rl[i].image2}" alt="{$rl[i].company}" /></a>{/if}</td>
+					            <td><a href="{$siteAdr}profile{$uid}/resume/?id={$rl[i].id}">{$rl[i].company|wordwrap}</a></td>
+					
+                    			{if $is_user}<td class="end"><a href="{$siteAdr}profile{$uid}/resume/?what=add&amp;id={$rl[i].id}"><img src="{$imgDir}pencil.gif" alt="Edit" /></a><a href="{$siteAdr}profile{$uid}/resume/?what=del&amp;id={$rl[i].id}"><img src="{$imgDir}crestik.gif" alt="Delete" /></a></td>{/if}
+                            </tr>
+                            {/section}
+						</table>
+						
+					</div>
+				<div class="grey-box-bottom">&nbsp;</div>
+				
+				<table>
+					<tr>
+						<td width="300"><p class="top-title"><img src="{$imgDir}title/affilations.gif" alt="#" /></p></td>
+						<td><p class="gear-add"><img src="{$imgDir}gear_add_ico.gif" alt="#" /><a href="{$siteAdr}profile.php?act=resume&amp;what=addaward&amp;uid={$uid}">Post new affilations/award</a></p></td>
+					</tr>
+				</table>
+				
+				<div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+					{if $is_user}
+                    <p>
+                    <table>
+                    {foreach name=n key=k item=i from=$al}
+                    <tr>
+                        <td style="width:200px;"><a href="{$i.link}">{$i.title}</a></td>
+                        <td><a href="{$siteAdr}profile{$uid}/resume/?what=addaward&amp;id={$i.id}">Edit</a> | <a href="{$siteAdr}profile{$uid}/resume/?what=delaward&amp;id={$i.id}">Delete</a></td>
+                    </tr>
+                    {/foreach}  
+                    </table>
+                    </p>
+                    {else}
+                    <p>{foreach name=n key=k item=i from=$al}{if !$smarty.foreach.n.first}, {/if}<a href="{$i.link}">{$i.title}</a>{/foreach}</p>	
+                    {/if}						                    
+				</div>
+				<div class="grey-box-bottom">&nbsp;</div>
+				
+				<div class="banner02"><a href="#"><img src="{$imgDir}banner02.gif" alt="#" /></a></div>
+				
+			</td>
+			<td class="right">
+			    {include file="mods/employer/_left_box.html"}	
+			</td>
+		</tr>
+	</table>
+</div>

@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>{$supportSiteName|escape} - {#adminpanel#}</title>
+<meta http-equiv="Content-Type" content="text/html; charset={$charset}" /> 
+
+<script type="text/javascript" language="JavaScript" src="{$siteAdmin}templates/js/main.js"></script>
+<script type="text/javascript" language="JavaScript" src="{$siteAdmin}templates/js/base.js"></script>
+
+<link type="text/css" href="{$siteAdmin}templates/styles/main.css" rel="StyleSheet" />
+</head>
+<body class="bcl">
+<table cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td bgcolor="#666666" valign="top">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <td width="100%" bgcolor="#FFFFFF">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td class="PageHeaderCell">
+                         <h1><font color="#FFFFFF">&nbsp;Administration panel</font></h1>
+                         &nbsp;<img src="{$imgDir}icon_user.gif" width="16" height="16" border="0" alt="Current user" style="vertical-align:middle" />&nbsp;<a href="index.php"><font color="#FFFFFF">{$system_login}</font></a>&nbsp;&nbsp;|&nbsp;<img src="{$imgDir}exit.gif" width="16" height="16" border="0" alt="Logout" style="vertical-align:middle" />&nbsp;<a href="logout.php"><font color="#FFFFFF">Logout</font></a>
+                </td>
+            </tr>
+            <tr>
+                <td class="PageHeaderCell" style="BACKGROUND-COLOR: gainsboro" noWrap>
+                </td>       
+            </tr>
+
+            <tr>
+                <td nowrap style="BACKGROUND-COLOR: white">
+                 <table cellspacing="0" cellpadding="0" width="100%" border="0">
+
+                 <tr>
+                 <td height="400" valign="top" width="170"> 
+
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                          <tr> 
+                            <td rowspan="2" width="5"></td>
+                            <td height="2"></td></tr>
+                          <tr> 
+                             <td valign="top" width="200" style="background-color:#f5f5f5;border :1px solid Silver; padding-left:5px;"> 
+                            <br />
+                            {section name = i loop = $gmodules}
+                                {if $gmodules[i].vals}
+								<b><font color="#666666">{$gmodules[i].name}:</font></b><br /> 
+                                {section name = j loop = $gmodules[i].vals}
+                                     &#8226;&nbsp;<a href="{$gmodules[i].vals[j].fname}.php">{$gmodules[i].vals[j].name}</a><br /> 
+                                {/section}
+                                 <br />
+								{/if}
+                            {/section}     
+                        </td>
+                          </tr>
+                        </table>
+                    
+                     </td>
+                 <td width="15"></td>
+                 <td valign="top"> 
+
+                {$main_content}
+
+                 </td>
+                 </tr>
+             
+                 </table>   
+                           <hr size="1" />
+						   <div align="center" style="margin-bottom:4px">
+                            Copyright &#169; 2007 <a href="http://Engine37.com/" target="_blank">Engine37.com</a><br />
+                            <span style="font-size: 8px;">[Icons: <a href="http://www.gnu.org/copyleft/lesser.html" target="_blank"><b>GNU LGPL</b></a>] [
+                            {php}
+                                global $beginScriptTime;
+                                $scriptTime = round((get_mt_time()-$beginScriptTime)*1000)/1000;
+                                echo 'Generated for '.$scriptTime.' sec</small>';
+								global $gCnt;
+                            {/php}
+                             ] {if 1 == $GZ_COMPRESS}[ GZ-compress <font color="green"><b>enabled</b></font> ]{else}[ GZ-compress <font color="red"><b>disabled</b></font> ]{/if}  [ Compatible: IE 5.0+, FireFox 1.4+, Opera 8.0+ ]</span>
+                            </div>
+                </td>
+            </tr>
+        </table>
+
+    </td>
+</tr>
+</table>
+</body>
+</html>

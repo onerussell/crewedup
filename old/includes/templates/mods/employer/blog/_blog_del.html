@@ -1,0 +1,42 @@
+<div class="content">
+	<table id="main-table">
+		<tr>
+			<td class="left">
+				{include file="mods/employer/_main_box.html"}
+
+				<p class="top-title"><img src="{$imgDir}title/blog.gif" alt="Blog" /></p><br />
+				
+                <div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+					<div class="comments_re">
+                        <p class="color_grey">Delete blog entry with all commentaries:</p>
+                            {if $errs}
+                            <p><font style="color:#990000">
+                                {foreach key=k item=i from=$errs}
+                                    {$i}<br />
+                                {/foreach}
+                            </font></p>
+                            {/if}
+								
+                                <div class="info-box02" align="left">
+							        <b>{$fm.title}</b><br />
+                                    <p>{$fm.story}</p>
+						         	<p><span>{$fm.pdate}</span><span><a href="{$siteAdr}profile.php?uid={$fm.uid}">{if 1 == $fm.status}{$fm.name|wordwrap} {$fm.lname|wordwrap}{else}{$fm.company|wordwrap}{/if}</a></span> {if $fm.person_title}({$fm.person_title}){/if}</p>
+					         	</div>						
+                                <div class="comments-sep">&nbsp;</div>
+                                <div class="clear" style="height:6px;"><!-- --></div>
+                                <p align="right"><a href="{$siteAdr}blog.php?uid={$uid}"><img src="{$imgDir}cancel_b.gif" alt="" /></a> <a href="{$siteAdr}blog.php?id={$id}&amp;uid={$uid}&amp;what=del&conf=1"><img src="{$imgDir}delete_b.gif" alt="delete" /></a></p>
+						  
+					</div>
+				<div class="clear">&nbsp;</div>
+				</div>
+				<div class="grey-box-bottom">&nbsp;</div>
+                				
+			      
+			</td>
+			<td class="right">
+			    {include file="mods/employer/_left_box.html"}	
+			</td>
+		</tr>
+	</table>
+</div>

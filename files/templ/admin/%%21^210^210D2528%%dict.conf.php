@@ -1,0 +1,15 @@
+<?php $_config_vars = array (
+  'spage' => 'Dictionary',
+  'spageo' => 'value',
+  'name' => 'Value',
+  'dictname' => 'Unique dictionary name',
+  'pageuniq' => 'Dictionary name must be unique!',
+  'delpage' => 'Delete value',
+  'sort' => 'Order ID',
+  'pcatalog' => 'Dictionary',
+  'category' => 'dictionary',
+  'catname' => 'Dictionary title',
+  'delcat' => 'Delete dictionary',
+  'delctg' => 'Delete dictionary',
+  'delwith' => 'with all elements',
+); ?>

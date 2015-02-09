@@ -1,0 +1,215 @@
+<div class="content">
+	<table id="main-table">
+		<tr>
+			<td class="left">
+				<div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+					<div class="grey-box-left">
+						<div class="container05" style="margin:0">
+							<div class="tl"><div class="tlc"></div><div class="trc"></div></div>
+							<div class="ml">{if $is_user && !$is_public}<a href="{$siteAdr}?mod=bprofile&amp;uid={$uid}">{/if}<img src="{if $ui.image}{$icPath}{$ui.image}{else}{$imgDir}no_photo{if !($is_user && !$is_public)}2{/if}.gif{/if}" alt="Photo" />{if $is_user && !$is_public}</a>{/if}</div>
+							<div class="bl"><div class="blc"></div><div class="brc"></div></div>
+						</div> 					
+						<p class="upload-logo2"><img src="{$imgDir}see_ico.gif" alt="See" />&nbsp;<a href="{$siteAdr}gallery.php?uid={$uid}">See All Photos</a></p>
+						{if $is_user && !$is_public}
+                        <p class="upload-logo2"><img src="{$imgDir}upload_photo_ico.gif" alt="Upload Photo" />&nbsp;<a href="{$siteAdr}gallery.php?uid={$uid}&amp;what=add">Upload Photo</a></p>
+                        {/if}
+                        
+                        {if $system_login}
+						<div class="swhite-box-top">
+							<div class="swhite-box-bottom">
+								{if !$is_user || $is_public}
+                                <ul class="smenu">
+									
+                                    <li><img src="{$imgDir}message2_ico.gif" alt="Send Message" /><a href="{$siteAdr}mc.php?mod=send&amp;uid={$uid}">Send Message</a></li>
+
+                                    {if !$cf}
+                                        <li><img src="{$imgDir}add_me_ico.gif" alt="Add Me" /><a class="color_green" href="{$siteAdr}friend.php?mod=add&amp;fid={$uid}">Add Me</a></li>
+	                                {else}
+		                                <li><img src="{$imgDir}del_ico.gif" alt="Delete Me" /><a href="javascript: CGo('{$siteAdr}friend.php?mod=del&amp;fid={$uid}', 'Are you sure you want to delete this User from your contacts\' list?');">Delete Me</a></li>
+	                                {/if}
+    
+                         			<li><img src="{$imgDir}block_me_ico.gif" alt="Block Me" /><a class="color_red" href="{$siteAdr}profile{$uid}?act=chgblock">{if $bf}Unblock Me{else}Block Me{/if}</a></li>
+									<li><img src="{$imgDir}forward2_ico.gif" alt="Forward" /><a href="{$siteAdr}profile{$uid}?act=forward">Forward</a></li>
+                                    {if $is_public}
+                                    <li><img src="{$imgDir}view_ico.gif" alt="Edit view" /><a href="{$siteAdr}profile.php?uid={$uid}">Edit View</a></li>
+                                    {/if}
+								</ul>
+                                {else}
+                                <ul class="smenu">
+									<li><img src="{$imgDir}mail_ico.gif" alt="Mail" /><a href="{$siteAdr}mc.php">Mail</a></li>
+									<li><img src="{$imgDir}edit_ico.gif" alt="Edit profile" /><a href="{$siteAdr}?mod=bprofile&amp;uid={$uid}">Edit Profile</a></li>
+									<li><img src="{$imgDir}view_ico.gif" alt="Public view" /><a href="{$siteAdr}profile.php?uid={$uid}&amp;public=1">Public View</a></li>
+									<li><img src="{$imgDir}wire_ico.gif" alt="The Wire" /><a href="{$siteAdr}profile{$uid}/wire">The Wire</a></li>
+									<li><img src="{$imgDir}blog_ico.gif" alt="Blog" /><a href="{$siteAdr}blog{$uid}">Blog</a></li>
+									<li><img src="{$imgDir}ico12.gif" alt="Gear" /><a href="{$siteAdr}gear{$uid}">Gear</a></li>
+									<li><img src="{$imgDir}ac_setting_ico.gif" alt="Settings" /><a href="{$siteAdr}?mod=profile&amp;uid={$uid}">Account Settings</a></li>
+								</ul>
+                                {/if}
+							</div>
+						</div>
+						{/if}
+                        
+						<div class="mini-calentar">
+							<p class="month-celect"><a href="{$siteAdr}profile.php?pdate={$prev_next.0}&amp;uid={$uid}"><img src="{$imgDir}calendar_month_arrow_green1.gif" alt="Prev" /></a>{$cdi.mmonth} {$cdi.year}<a href="{$siteAdr}profile.php?pdate={$prev_next.1}&amp;uid={$uid}"><img src="{$imgDir}calendar_month_arrow_green2.gif" alt="Next" /></a></p>	
+							<table class="calendar-small">
+							<tr>
+								<th>Sun</th>
+								<th>Mon</th>
+								<th>Tue</th>
+								<th>Wed</th>
+								<th>Thu</th>
+								<th>Fri</th>
+								<th>Sat</th>
+							</tr>
+                            
+                            {foreach key=k item=i from=$cdi.days}
+                            <tr>
+                                {foreach key=k2 item=i2 from=$i}
+                                {assign var="ov" value=$i2.1}
+                                    <td><a href="{$siteAdr}profile.php?act=calendar&amp;pdate={$i2.1}&amp;uid={$uid}"{if 1 == $cevents.$ov.status} class="green"{elseif 2 == $cevents.$ov.status} class="red"{/if}>{$i2.0}</a></td>
+                                {/foreach}
+                            </tr>
+                            {/foreach}
+                            <!-- class="green" class="red" -->
+						</table>
+						
+						<p><b>Colors:</b></p>
+						<div class="select-color2">
+							<p><img src="{$imgDir}green_cub2.gif" alt="Available" />Available</p>
+							<p><img src="{$imgDir}red_cub2.gif" alt="Booked" />Booked</p>
+						</div>
+					    </div>	
+					</div>
+                    
+					<div class="grey-box-right">
+						{if !$is_user || $is_public}
+                         <span style="float:right; color:#999999;">{if $ui.view_cnt}Profile views: {$ui.view_cnt}<br />{/if}{if $ui.dt}Member Since: {$ui.dt}<br />{/if}{if $ui.llogin}Last Login: {$ui.llogin}{/if}</span>
+                        {/if}
+                        
+                        <div style="float:left; width: 350px;">
+                            <h1>{$ui.name|wordwrap} {$ui.lname|wordwrap}</h1>
+						    <p><b>{$ui.person_title}</b></p> 
+						</div>
+                        
+                        {if !$is_user || $is_public}
+                            <div class="cl" style="width: 100%; clear: both;"><!-- --></div>
+                            <p>&nbsp;</p>
+						    <p><span class="color_brown">{$ui.title}</span></p>
+						    <p>&nbsp;</p>
+						    <p>{if $ui.age}<b>{$ui.age}</b> y.o.,{/if} {if $ui.city}{$ui.city}, {/if}{$ui.state}</p>
+						    <p>&nbsp;</p>
+						
+                            {if $ui.about_me}
+                            <div class="mini-title">
+							    <p><img src="{$imgDir}ico13.gif" alt="About me" /><b>About Me</b></p>
+						    </div>	
+						    <p class="clr">{$ui.about_me}</p>
+                            {/if}
+                        
+                            {if $ui.interests}
+						    <div class="mini-title">
+							    <p><img src="{$imgDir}ico14.gif" alt="Interests" /><b>Interests</b></p>
+						    </div>							
+                            <p class="clr">{$ui.interests}</p>
+						    <p>&nbsp;</p>
+						    {/if}
+                        {else}
+                            <div class="mini-title">
+							    <p style="width: 150px;"><img src="{$imgDir}wire2_ico.gif" alt="The Wire" /><a href="javascript: ShowWire('{$uid}');" id="wire_up"><img src="{$imgDir}arrow_up2.gif" alt="Down" /></a><a href="javascript: HideWire();" id="wire_down" style="display:none;"><img src="{$imgDir}arrow_down2.gif" alt="Up" /></a><b>The Wire</b> | <a href="{$siteAdr}rss.php?mod=wire" target="_blank"><b>News</b></a></p>
+							    <div class="mini-nav">
+								    <div>
+									    <ul>
+										    <li><img src="{$imgDir}small_view_ico.gif" alt="View" /><a href="{$siteAdr}profile{$uid}/wire">View</a></li>
+										    {*<li><img src="{$imgDir}small_edit_ico.gif" alt="Edit" /><a href="#">Edit</a></li>*}
+									    </ul>
+								    </div>
+							    </div>
+					    	</div>
+						    <span id="wire_box"><!-- --></span>
+                        {/if}
+                        
+						<div class="mini-title">
+							<p style="width: 124px;"><img src="{$imgDir}ico04_.gif" alt="Resume" /><a href="javascript: ShowResume('{$uid}');" id="resume_up"><img src="{$imgDir}arrow_up2.gif" alt="Down" /></a><a href="javascript: HideResume();" id="resume_down" style="display:none;"><img src="{$imgDir}arrow_down2.gif" alt="Up" /></a><b>Live Resume</b></p>
+							
+                            <div class="mini-nav">
+								<div>
+									<ul>
+										<li><img src="{$imgDir}small_view_ico.gif" alt="View" /><a href="{$siteAdr}profile{$uid}/resume">View</a></li>
+										{if $is_user && !$is_public}<li><img src="{$imgDir}small_edit_ico.gif" alt="Post" /><a href="{$siteAdr}profile{$uid}/resume/?what=add">Post</a></li>{/if}
+										<li><img src="{$imgDir}small_print_ico.gif" alt="Print" /><a href="{$siteAdr}profile{$uid}/resume?print=1" target="_blank">Print</a></li>
+                                        <li><img src="{$imgDir}small_fr_ico.gif" alt="Forward" /><a href="{$siteAdr}profile{$uid}/resume?what=forward">Forward</a></li>
+									</ul>
+								</div>
+							</div>
+                            
+						</div>	
+                        <span id="resume_box"><!-- --></span>
+						
+                        
+						<div class="mini-title">
+							<p style="width: 170px;"><img src="{$imgDir}ico07.gif" alt="Awards" /><a href="javascript: ShowAward('{$uid}');" id="award_up"><img src="{$imgDir}arrow_up2.gif" alt="Down" /></a><a href="javascript: HideAward();" id="award_down" style="display:none;"><img src="{$imgDir}arrow_down2.gif" alt="Up" /></a><b>Affiliations/Awards </b></p>
+                            {if $is_user && !$is_public}
+                            <div class="mini-nav">
+								    <div>
+									    <ul>
+										    <li><img src="{$imgDir}small_view_ico.gif" alt="View" /><a href="{$siteAdr}profile{$uid}/resume">View</a></li>
+										    <li><img src="{$imgDir}small_edit_ico.gif" alt="Post" /><a href="{$siteAdr}profile{$uid}/resume?what=addaward">Post</a></li>
+									    </ul>
+								    </div>
+							 </div>
+                             {/if}
+                             <div class="clear"><!-- --></div>
+                             <span id="award_box"><!-- --></span>                             
+						</div>	
+
+						<div class="info-box02">
+							<span style="float:left;"><a href="javascript: void(0);" id="b_com_a"><img style="float:none;margin:0" src="{$imgDir}comments_b.gif" alt="Comments" /></a><a href="javascript: ShowComment('{$uid}', '');" id="b_com" style="display: none;"><img style="float:none;margin:0;" src="{$imgDir}comments_b2.gif" alt="Comments" /></a></span>
+                            <span style="float:left;"><a href="javascript: void(0);" id="b_rec_a" style="display:none;"><img style="float:none;margin:0" src="{$imgDir}recommendation_b.gif" alt="Recommendation" /></a><a href="javascript: ShowComment('{$uid}', 'r');" id="b_rec"><img style="float:none;margin:0" src="{$imgDir}recommendation_b2.gif" alt="Recommendation" /></a></span>
+                            <span style="float:left;"><a href="{$siteAdr}profile{$uid}/comments?wh=a"><img style="float:none;margin:0" src="{$imgDir}all_b2.gif" alt="All" /></a></span>
+                            
+							
+                            <div class="clear" style="height: 5px;"><!-- --></div>
+                            <span id="comment_box">
+                            {section name=i loop=$coml}
+                            <p>{$coml[i].story|strip_tags|truncate:200:"..."}<br />
+							<span>{$coml[i].pdate} {$coml[i].ptime}</span><span><a href="{$siteAdr}profile{$coml[i].author}">{$coml[i].name|wordwrap} {$coml[i].lname|wordwrap}</a></span>{if $coml[i].person_title} ({$coml[i].person_title}){/if}</p>
+							{if !$smarty.section.i.last}
+                            <div class="clear" style="height:10px;"><!-- --></div>
+                            {/if}
+                            {sectionelse}
+                            No comments
+                            {/section}
+                            <div class="clear" style="height:5px;"><!-- --></div>
+                            {if $gSystemLogin && (!$is_user || $is_public)}{if 'r' == $wh}<a href="{$siteAdr}profile{$uid}/comments?wh=r#newc">Post Recommendation</a>{else}<a href="{$siteAdr}profile{$uid}/comments#newc">Post Comment</a>{/if}  | {/if}
+                            {*{if $coml}<a href="{$siteAdr}profile{$uid}/comments{if $wh == 'r'}?wh=r{/if}">Show All{if $wh == 'r'} Recommendations{else} Comments{/if}</a>{/if}*}                            
+                            
+                            {if $uid != $UserInfo.uid}
+                            <form method="post" action="{$siteAdr}profile.php" name="fmtx" id="fmtx">
+                            <input type="hidden" name="act" value="comments" />
+                            <input type="hidden" name="what" value="add" />
+                            <input type="hidden" name="uid" value="{$uid}" />
+                            <input type="hidden" name="wh" value="{$wh}" />
+					        {if 'r' == $wh}<b>New Recommendation</b>{else}<b>New Comment</b>{/if}<br />
+					        <p><textarea name="fm[story]" id="story" style="height: 60px; width: 470px;">{$fm.story}</textarea></p>
+					        <div style="float:right;"><a href="javascript: _v('fmtx').submit();"><img src="{$imgDir}post_b.gif" alt="Post" /></a></div>
+					        </form> 
+                            {/if}
+                            
+                            </span>
+						</div>
+						
+					
+					</div>	
+				<div class="clear">&nbsp;</div>		
+				</div>
+				<div class="grey-box-bottom">&nbsp;</div>
+
+			</td>
+			<td class="right">
+            
+			    {include file="mods/member/_left_box.html"}	
+			</td>
+		</tr>
+	</table>
+</div>

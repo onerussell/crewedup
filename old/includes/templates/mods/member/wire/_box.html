@@ -1,0 +1,10 @@
+                            <div class="white-box-top">
+							    <div class="white-box-bottom">
+								    {foreach key=k item=i from=$wl}
+                                    <p><img src="{$imgDir}ico{if 1 == $i.ptype || 7 == $i.ptype}06{elseif 2 == $i.ptype}04{elseif 3 == $i.ptype}02{elseif 4 == $i.ptype}12{elseif 5 == $i.ptype}05{elseif 6 == $i.ptype}01{/if}.gif" alt="" /><span><a href="{$siteAdr}profile{$i.uid}">{$i.fname}</a></span><a href="{$siteAdr}{$i.link}">{$i.title}</a><span>{$i.pdate}</span></p>
+							    	<div class="sep">&nbsp;</div>
+									{foreachelse}
+									    No items
+									{/foreach}
+								</div>
+							</div>

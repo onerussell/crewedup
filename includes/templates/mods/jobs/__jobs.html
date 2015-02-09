@@ -1,0 +1,96 @@
+{*
+http://dklab.ru/lib/JsHttpRequest/
+*}
+
+<script type="text/javascript"
+src="http://www.indeed.com/ads/apiresults.js">
+</script>
+
+
+<link rel="stylesheet" type="text/css" href="{$stlDir}jobs.css">
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >	
+
+
+	
+
+
+<div class="jobheader">
+	<table><tr><td><p style="align: left"><img src="/includes/templates/images/title/all_jobs.gif" alt="All Jobs" /></p><p class="gear-add" style="align: left"></td><td><img src="/includes/templates/images/gear_add_ico.gif" alt="" /><a href="http://www.indeed.com/p/postjob.php?pid=8253132128796554" rel="nofollow" rel="nofollow">Post new job</a></p></td></tr></table>
+	<form method="get" action="jobs.php" style="align :center" target="{$target}">
+		What:<input type="text" name="what" size=20 maxlength=512 value="{$what}">
+		Where:<input type="text" name="where" size=20 maxlength=512 value="{$_where}">
+		<input type="submit">
+	</form>
+	 
+</div>
+
+<div class="jobfilter">
+		<ul style="display: block; margin-left: 0px;">
+
+	
+		<a href="javascript: void(0);" onmousedown='ChgView(1);' style="color: black;">
+			<p style="font-size: 16px; color: black;">Company</p>
+		</a>
+		<ul id="ul1" class="jobfilter" style="display: none; padding-left: 0px;">
+		{foreach from=$companies key="key" item="val"}
+		<li><a href="jobs.php?what={$what}&amp;where={$where}&amp;sortby=1&amp;sort={$key}">{$key}</a>(<b>{$val}</b>)
+				</li>
+			{/foreach}
+	</ul></ul>
+	
+	
+	<ul style="display: block; margin-left: 0px; padding-top: 25px;">
+		  <a href="javascript: void(0);" onmousedown='ChgView(2);' style="color: black;">
+			<p style="font-size: 16px; color: black;">Title</p>
+		</a>
+		<ul id="ul2" class="jobfilter" style="display: none; padding-left: 0px;">
+		{foreach from=$titles key="key" item="val"}
+		<li><a href="jobs.php?what={$what}&amp;where={$where}&amp;sortby=2&amp;sort={$key}">{$key}</a>(<b>{$val}</b>)
+				</li>
+			{/foreach}
+	</ul></ul>
+		
+	<ul style="display: block; margin-left: 0px; padding-top: 25px;">
+		  <a href="javascript: void(0);" onmousedown='ChgView(3);' style="color: black;">
+			<p style="font-size: 16px; color: black;">Location</p>
+		</a>
+		<ul id="ul3" class="jobfilter" style="display: none; padding-left: 0px;">
+		{foreach from=$locations key="key" item="val"}
+		<li><a href="jobs.php?what={$what}&amp;where={$where}&amp;sortby=3&amp;sort={$key}">{$key}</a>(<b>{$val}</b>)
+				</li>
+			{/foreach}
+	</ul></ul>
+</div>
+                            
+
+
+
+
+
+	<div id="content" style="width: 700; border: 1px; solid: #000">
+			{foreach from=$data key="k" item="job" }
+			    <div class="jobcontent">
+		  		    <a href="http://www.indeed.com/rc/clk?jk={$job.jobkey}"><p>{$job.title}</p></a><br>
+		  		    {$job.company}<br>
+		  		    <div class="jobcontent-snippet">{$job.snippet}</div><br>
+		  		    From:{$job.source} - {$job.age} - <a href="{$job.url}" onclick={$job.onmousedown}>See More</a>
+			    </div><br>
+				    {/foreach}
+	
+	  
+</td></tr></table>
+
+	<table align="center">
+		<tr>
+			<td width=100 align=:center></td><td width="150" align="center">{if $page>1}<a href="jobs.php?what={$what}&where={$where}{if $page}&page={$page-1}{/if}&sortby={$sortby}&sort={$sort}"><font align="right">< < <</font></a>{/if}
+			
+			<p>{$page}</p>		
+			{if $page<$tp}<a href="jobs.php?what={$what}&where={$where}&page={$page+1}&sortby={$sortby}&amp;sort={$sort}"><font align="left">> > ></font></a>{/if}
+<td width="100" align="right"></td>
+</tr>
+</table>
+<span id=indeed_at><a href="http://www.indeed.com/">jobs</a> by <a
+href="http://www.indeed.com/" title="Job Search"><img
+src="http://www.indeed.com/p/jobsearch.gif" style="border: 0;
+vertical-align: middle;" alt="Indeed job search"></a></span>

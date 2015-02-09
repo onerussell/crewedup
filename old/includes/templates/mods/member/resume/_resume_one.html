@@ -1,0 +1,38 @@
+<div class="content">
+	<table id="main-table">
+		<tr>
+			<td class="left">
+				{include file="mods/member/_main_box.html"}
+				<table>
+					<tr>
+						<td width="210"><p class="top-title"><img src="{$imgDir}title/live_resume.gif" alt="Live Resume" /></p></td>
+						<td></td>
+					</tr>
+				</table>	
+
+				<div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+                    <div class="comments_re">
+					    <div style="float: left; padding-right: 4px;">{if $fm.image}<img src="{$icPath}/{$fm.image}" alt="" />{/if}</div> 
+                        <div style="float: left;" class="color_blue"><font style="font-size:18px">{$fm.title}</font><font style="color:#999;">{if $fm.prof}<br />{$fm.prof}{/if}{if $fm.year && '0000' != $fm.year}{if $fm.prof}, {else}<br />{/if}{if $fm.month}{assign var="ov" value=$fm.month-1}{$ma.$ov} {/if}{$fm.year}{/if}</font></div>
+                        <div style="float: right;" align="center">{if $fm.image2}<img src="{$icPath}/{$fm.image2}" alt="" /><br />{/if}&nbsp;{$fm.company}</div>
+                        <div class="clear"><!-- --></div>
+                        <br />
+                    <p>{$fm.story}</p>
+                    <br />{if $fm.uid == $UserInfo.uid}
+                    <a href="{$siteAdr}profile{$fm.uid}/resume/?id={$fm.id}&amp;what=add">Edit</a> | <a href="{$siteAdr}profile{$fm.uid}/resume/?id={$fm.id}&amp;what=del">Delete</a> | 
+                    {/if}
+                    <a href="{$siteAdr}profile{$fm.uid}/resume/">Back to resume list</a> 
+				    </div>
+				</div>
+				<div class="grey-box-bottom">&nbsp;</div>
+				
+				<div class="banner02"><a href="#"><img src="{$imgDir}banner02.gif" alt="#" /></a></div>
+				
+			</td>
+			<td class="right">
+			    {include file="mods/member/_left_box.html"}	
+			</td>
+		</tr>
+	</table>
+</div>

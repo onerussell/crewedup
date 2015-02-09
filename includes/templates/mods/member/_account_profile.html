@@ -1,0 +1,134 @@
+<script type="text/javascript" src="{$jsDir}jquery.js"></script>
+<script type="text/javascript" src="{$jsDir}jquery.bgiframe.js"></script>
+<script type="text/javascript" src="{$jsDir}jquery.ajaxQueue.js"></script>
+<script type="text/javascript" src="{$jsDir}jquery.autocomplete.js"></script>
+<link rel="stylesheet" type="text/css" href="{$stlDir}jquery.autocomplete.css" />
+
+<script type="text/javascript">
+{literal}
+// <![CDATA[
+$().ready(function() {
+
+	function formatItem(row) 
+    {
+		return row[1];
+	}
+
+    function formatResult(row) 
+    {
+		return row[1].replace(/(<.+?>)/gi, '');
+	}
+
+    $("#fm_prof1").autocomplete(siteAdr + 'dict.php?action=get_jobs', 
+    {
+		width: 270,
+		formatItem: formatItem,
+    	formatResult: formatResult
+	});
+    $("#fm_prof2").autocomplete(siteAdr + 'dict.php?action=get_jobs', 
+    {
+		width: 270,
+		formatItem: formatItem,
+    	formatResult: formatResult
+	});
+    $("#fm_prof3").autocomplete(siteAdr + 'dict.php?action=get_jobs', 
+    {
+		width: 270,
+		formatItem: formatItem,
+    	formatResult: formatResult
+	});
+});
+// ]]>
+{/literal}
+</script>
+
+<div class="content">
+	<table id="main-table">
+		<tr>
+			<td class="left">
+				{include file="mods/member/_main_box.html"}
+
+				<p class="top-title"><img src="{$imgDir}title/edit_profile.gif" alt="Edit Profile" /></p><br />
+
+				<div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+					<form class="account-setting-form" method="post" action="{$siteAdr}" id="fmx" enctype="multipart/form-data">
+                    <input type="hidden" name="mod" value="bprofile" />
+                    <input type="hidden" name="uid" value="{$uid}" />
+					<div class="clear">&nbsp;</div><br />
+					{if $errs}
+                    <p style="color: red;">
+                    {foreach key=k item=i from=$errs}
+                         - {$i}<br />
+                    {/foreach}
+                    </p>
+                    {/if}
+					{if $save}
+					    <p style="color: green;">Profile was changed</p>
+					{/if}
+					<table class="pass-t" style="width:640px;">
+						<tr>
+							<td style="width: 100px;"><label>Photo</label></td><td ><input type="file" name="fm[image]" /> {if $ui.image}<a href="javascript: CGo('{$siteAdr}?mod=bprofile&amp;uid={$uid}&amp;delphoto=1', 'Do You want to delete the photo?');">Delete Photo</a>{/if}</td>
+						</tr>
+                        <tr>
+							<td><label>Job Title</label></td>
+                            <td>
+                                <input type="text" value="{$fm.prof1}" name="fm[prof1]" style="margin-bottom: 4px;width:270px;" id="fm_prof1" maxlength="30"/>
+                                <input type="text" value="{$fm.prof2}" name="fm[prof2]" style="margin-bottom: 4px;width:270px;" id="fm_prof2" maxlength="30"/>
+                                <input type="text" value="{$fm.prof3}" name="fm[prof3]" style="margin-bottom: 4px;width:270px;" id="fm_prof3" maxlength="30"/>
+                            </td>
+						</tr>
+						<tr>
+							<td><label>Motto/Quote</label></td><td >
+							<script type="text/javascript" src="{$siteAdr}tmpl/fck/fckeditor.js"></script>
+							<script type="text/javascript">
+				        	var sBasePath = '{$siteAdr}tmpl/fck/';
+                            var oFCKeditor3 = new FCKeditor( 'fm[title]' ) ;
+                            oFCKeditor3.BasePath	  = sBasePath ;
+                            oFCKeditor3.ToolbarSet = 'Basic2' ;
+                            oFCKeditor3.Height	  = '60px';
+                            oFCKeditor3.Value	  = '{$fm.title|escape:javascript}' ;
+                            oFCKeditor3.Create() ;
+                            </script>
+							
+						    </td>
+						</tr>
+						<tr>
+							<td><label>About me</label></td><td>
+				        	<script type="text/javascript">
+                            var oFCKeditor = new FCKeditor( 'fm[about_me]' ) ;
+                            oFCKeditor.BasePath	  = sBasePath ;
+                            oFCKeditor.ToolbarSet = 'Basic2' ;
+                            oFCKeditor.Height	  = '120px';
+                            oFCKeditor.Value	  = '{$fm.about_me|escape:javascript}' ;
+                            oFCKeditor.Create() ;
+                            </script>
+							
+							</td>
+						</tr>
+						<tr>
+							<td><label>Interests</label></td><td>
+				        	<script type="text/javascript">
+                            var oFCKeditor2 = new FCKeditor( 'fm[interests]' ) ;
+                            oFCKeditor2.BasePath	  = sBasePath ;
+                            oFCKeditor2.ToolbarSet = 'Basic2' ;
+                            oFCKeditor2.Height	  = '120px';
+                            oFCKeditor2.Value	  = '{$fm.interests|escape:javascript}' ;
+                            oFCKeditor2.Create() ;
+                            </script>
+                            
+							
+						</td>
+						</tr>
+                    </table>
+						<p class="tools"><a href="javascript: Go('{$siteAdr}profile.php?uid={$uid}');"><img src="{$imgDir}cancel_b.gif" alt="Cancel" /></a><a href="javascript: _v('fmx').submit();"><img src="{$imgDir}save_b.gif" alt="Save" /></a></p>
+					</form>
+				</div>
+				<div class="grey-box-bottom">&nbsp;</div>
+			</td>
+			<td class="right">
+			    {include file="mods/member/_left_box.html"}	
+			</td>
+		</tr>
+	</table>
+</div>

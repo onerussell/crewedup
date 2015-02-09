@@ -1,0 +1,20 @@
+<div class="content">
+	<p><img src="{$imgDir}title/all_crew_members.gif" alt="#" /></p>
+	<br />
+	<table id="main-table">
+		<tr>
+			{assign var="ix" value=0}
+            {foreach name=n key=k item=i from=$cat}
+            {if $smarty.foreach.n.index mod $cat_c == 0}
+            <td{if !$smarty.foreach.n.index} class="leftbar"{else} class="rightbar"{/if}>
+            {/if}
+				<p class="grey-line{if $ix > 0}-no{assign var="ix" value=0}{else}{assign var="ix" value=1}{/if}"><a href="{$siteAdr}crew.php?cat={$i.id}">{$i.cat}</a>{$i.users_cnt}</p>
+            {assign var="ov" value=$smarty.foreach.n.index+1}
+            {if  $ov mod $cat_c == 0 || $smarty.foreach.n.last}    
+			{assign var="ix" value=0}
+            </td>
+            {/if}
+            {/foreach}
+		</tr>
+	</table>
+</div>

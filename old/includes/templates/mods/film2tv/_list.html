@@ -1,0 +1,26 @@
+<div class="content">
+	<h1 style="color:#000;font-size:2.4em;font-weight:normal;"><div style="float: left;"><img src="{$imgDir}title/all_cont.gif" alt="" /></div><div style="float:left; margin-top: 8px;">{$ci.title}</div></h1>
+    <br /><br /><br /><br /><br /><br />
+        
+		<table class="employers-t">
+		<tr>
+			<th width="165">Title</th>
+			<th width="165">Subtitle</th>
+			<th width="165"></th>
+			<th></th>
+		</tr>		
+		{foreach name=n key=k item=i from=$pl}
+		<tr{if $smarty.foreach.n.index mod 2 == 0} class="grey"{/if}>
+			<td class="first"><a href="{$siteAdr}film2tv.php?id={$i.id}">{$i.title}</a></td>
+			<td><a href="{$siteAdr}film2tv.php?id={$i.id}">{$i.subtitle}</a></td>
+			<td>&nbsp;</td>
+			<td class="end"></td>
+		</tr>
+		{/foreach}
+
+		<tr>
+			<td class="nav-employer" colspan="2"></td>
+			<td class="nav-employer" colspan="2" align="right">{$pagging}</td>
+		</tr>
+	</table>
+</div>

@@ -1,0 +1,51 @@
+# --------------------------------------
+# This file used with Apache WebServers
+#
+# @package    engine37 Community 1.0
+# @version    1.1
+# @since      04.12.2007
+# @copyright  2006-2007 engine37 Team
+# @link       http://engine37.com
+# --------------------------------------
+
+AddType application/zip .sql .txt 
+
+# < Base settings >
+# PHP Errors - Default behavior
+#php_flag  register_globals       off
+#php_flag  register_long_arrays   off
+#php_flag  register_argc_argv     off
+#php_flag  display_errors         1
+#php_flag  display_startup_errors 1
+#php_value error_reporting        2047
+#php_value upload_max_filesize    5M
+#php_value memory_limit           24M
+# DirectoryIndex index.php
+# ErrorDocument 403 /404.html
+# ErrorDocument 404 /404.html
+
+# Disable adding of quotes in PHP Super-Globals-Arrays
+#php_flag magic_quotes_gpc off
+#php_flag magic_quotes_runtime off
+
+# <files paycheck.php>
+# php_value post_max_size 10K
+# </files> 
+# </ Base settings >
+
+
+RewriteEngine On
+Options +FollowSymlinks
+RewriteBase /
+
+RewriteRule ^tmpl/(.+)$ includes/templates/$1     [L,NC]
+
+RewriteRule ^(reg|login)/(.*)$ index.php?mod=$1&path=$2&%{QUERY_STRING} [L]
+RewriteRule ^profile([0-9]+)(.*)$ profile.php?uid=$1&act=$2&%{QUERY_STRING} [L]
+RewriteRule ^friend([0-9]+)(.*)$ friend.php?uid=$1&%{QUERY_STRING} [L]
+RewriteRule ^roster([0-9]+)(.*)$ roster.php?uid=$1&%{QUERY_STRING} [L]
+RewriteRule ^gear([0-9]+)(.*)$ gear.php?uid=$1&%{QUERY_STRING} [L]
+RewriteRule ^rental([0-9]+)(.*)$ gear.php?uid=$1&%{QUERY_STRING} [L]
+RewriteRule ^blog([0-9]+)(.*)$ blog.php?uid=$1&%{QUERY_STRING} [L]
+RewriteRule ^gallery([0-9]+)(.*)$ gallery.php?uid=$1&%{QUERY_STRING} [L]
+

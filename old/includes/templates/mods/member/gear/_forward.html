@@ -1,0 +1,57 @@
+﻿<!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />-->
+
+<div class="content">
+	<table id="main-table">
+		<tr>
+			<td class="left">
+				{include file="mods/member/_main_box.html"}
+
+				<p class="top-title"><img src="{$imgDir}title/forward_gear.gif" alt="Forward Gear" /></p><br />
+				
+                <div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+					<div class="comments_re">
+
+                    
+<form method="post" action="{$siteAdr}gear{$uid}" id="fmx">
+<input type="hidden" name="mod" value="forward" />
+<table>
+    <tr>
+	    <td style="width: 100px;"></td>
+		<td valign="top">
+            <br />
+			<br />
+            {if $errs}
+                <br /> 
+			    <font color="#990000">
+			   	{foreach key=key item=item from=$errs}
+			         {$item}<br />
+			   	{/foreach}
+			     </font><br />      	 
+            {/if}
+            {if $send}
+                <br /><font color="green">Gears was forwarded</font><br /><br />
+            {/if}
+            <b style="font-size: 14px;">Specify e-mail:</b> <input type="text" name="fm[email]" value="{$fm.email}" style="width: 280px;" />
+            <br /><br /> <br />
+            <a href="javascript: void(0)"><img src="{$imgDir}save_b.gif" alt="" onclick="_v('fmx').submit();" /></a>&nbsp;&nbsp;<a href="javascript: void(0)"><img src="{$imgDir}cancel_b.gif" alt="" onclick="Go('{$siteAdr}profile{$uid}');" /></a>
+		</td>
+		
+	</tr>
+</table>
+</form>
+
+
+					</div>
+				<div class="clear">&nbsp;</div>
+				</div>
+				<div class="grey-box-bottom">&nbsp;</div>
+                				
+			      
+			</td>
+			<td class="right">
+			    {include file="mods/member/_left_box.html"}	
+			</td>
+		</tr>
+	</table>
+</div>

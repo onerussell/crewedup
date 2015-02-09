@@ -1,0 +1,23 @@
+<div class="content">
+	<table id="main-table">
+		<tr>
+			<td class="left">
+				{include file="mods/member/_main_box_print.html"}
+	
+					<table class="gear-t">
+							{section name=i loop=$rl}
+                            <tr>
+                                <td class="first" style="background: none;">{if $rl[i].image}<a href="{$siteAdr}profile{$uid}/resume/?id={$rl[i].id}"><img src="{$icPath}/{$rl[i].image}" alt="{$rl[i].title}" /></a>{/if}</td>
+								<td><a href="{$siteAdr}profile{$uid}/resume/?id={$rl[i].id}"><b>{$rl[i].title}</b></a>{if $rl[i].prof}<br />{$rl[i].prof}{/if}{if $rl[i].year && '0000' != $rl[i].year}<br /><span>{if $rl[i].month}{assign var="ov" value=$rl[i].month-1}{$ma.$ov} {/if}{$rl[i].year}</span>{/if}</td>
+                        
+                                <td class="first" style="background: none;">{if $rl[i].image2}<a href="{$siteAdr}profile{$uid}/resume/?id={$rl[i].id}"><img src="{$icPath}/{$rl[i].image2}" alt="{$rl[i].company}" /></a>{/if}</td>
+					            <td><a href="{$siteAdr}profile{$uid}/resume/?id={$rl[i].id}">{$rl[i].company}</a></td>				
+                            </tr>
+                            {/section}
+				   </table>
+				   
+				   <div align="center">Live Resume courtesy of CrewedUp.com</div>      
+			</td>
+		</tr>
+	</table>
+</div>

@@ -1,0 +1,81 @@
+<script language="javascript" type="text/javascript">
+{literal}
+    function SubmCom()
+	{
+	    if ('' == _v('story').value)
+		    _v('errs').innerHTML = '<font style="color:#990000">Error: Please specify message text</font>';
+		else
+		    _v('fmx').submit();
+	}
+{/literal}
+</script>
+	
+<div class="content">
+	<table id="main-table">
+		<tr>
+			<td class="left">
+				{include file="mods/employer/_main_box.html"}
+
+				<p class="top-title"><img src="{$imgDir}title/blog.gif" alt="Blog" /></p><br />
+                {if $is_user}    
+                    <p class="gear-add"><a href="{$siteAdr}blog.php?uid={$ui.uid}&amp;what=add"><img src="{$imgDir}gear_add_ico.gif" alt="Plus" />Post a new entry</a></p>
+				    <div id="drop"><!-- --></div>
+                {/if}                
+				<div class="info-box02" style="padding-left: 20px; width: 95%; float: none;">
+					<div class="comments-close">{if $is_user}<a href="{$siteAdr}blog.php?id={$fi.id}&amp;what=del&amp;uid={$uid}"><img src="{$imgDir}crestik.gif" alt="Delete" /></a>{/if}</div>
+                    <p class="color_blue"><font style="font-size:18px">{$fi.title}</font><br  />{$fi.pdate}</p>
+					<p>{$fi.story}</p>
+					<div class="clear" style="height: 12px;"><!-- --></div>
+					{if $system_login}<div style="width: 100%; height:1px;"><!-- --></div><p>{if $is_user}<a href="{$siteAdr}blog.php?id={$fi.id}&amp;what=add&amp;uid={$uid}" class="f11">Edit</a> | {/if}<a class="f11" href="#reply">Post a reply</a></p>{/if}
+				</div>
+				<div id="drop"><!-- --></div>
+                
+                
+                <div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+					<div class="comments_re">
+						{if $com}
+                        {foreach key=ka item=ia from=$com}
+                        <div class="info-box02">
+							<div class="comments-close">{if $is_user || $ia.uid == $UserInfo.uid}<a href="{$siteAdr}blog.php?id={$fi.id}&amp;mid={$ia.id}&amp;what=delcom"><img src="{$imgDir}crestik.gif" alt="Delete" /></a>{/if}</div>
+							<p>{$ia.story}</p>
+							<p><span>{$ia.pdate}</span><span><a href="{$siteAdr}profile.php?uid={$ia.uid}">{$ia.name|wordwrap} {$ia.lname|wordwrap}</a></span> {if $ia.person_title}({$ia.person_title}){/if}</p>
+							{if $system_login}<div style="width: 100%; height:1px;"><!-- --></div>{*<p><a class="f11" href="#reply">Post a reply</a></p>*}<p>{if $is_user || $ia.uid == $UserInfo.uid}<a class="f11" href="{$siteAdr}blog.php?id={$fi.id}&amp;mid={$ia.id}&amp;what=editcom">Edit</a>{/if}</p>{/if}
+						</div>						
+                        <div class="comments-sep">&nbsp;</div>
+                        {/foreach}
+                        {/if}
+                        
+                        {if $system_login}
+                        <a name="reply" />
+                        <br /><p><b style="color:#a3a2a2">Post a reply</b></p>
+                            <p id="errs">
+                            {if $errs}
+                            <font style="color:#990000">
+                                {foreach key=k item=i from=$errs}
+                                    {$i}<br />
+                                {/foreach}
+                            </font>
+                            {/if}
+                            </p>
+                            <form class="comments_re-form" method="post" action="{$siteAdr}blog.php" id="fmx">
+                            <input type="hidden" name="what" value="addcom" />
+                            <input type="hidden" name="id" value="{$fi.id}" />
+								<textarea name="fm[story]" id="story">{$fm.story}</textarea>
+								<p><a href="javascript: SubmCom();"><img src="{$imgDir}post_b.gif" alt="Post" /></a></p>
+							</form>
+                        {/if}    
+					</div>
+				<div class="clear">&nbsp;</div>
+				</div>
+				<div class="grey-box-bottom">&nbsp;</div>
+                			
+				<p><a class="f12" href="{$siteAdr}blog.php?uid={$fi.uid}">Back to Blog</a></p>
+                
+			</td>
+			<td class="right">
+			    {include file="mods/employer/_left_box.html"}	
+			</td>
+		</tr>
+	</table>
+</div>

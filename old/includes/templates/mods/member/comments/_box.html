@@ -1,0 +1,25 @@
+                            {section name=i loop=$coml}
+                            <p>{$coml[i].story|strip_tags|truncate:200:"..."}<br />
+							<span>{$coml[i].pdate} {$coml[i].ptime}</span><span><a href="{$siteAdr}profile.php?uid={$coml[i].uid}">{$coml[i].name|wordwrap} {$coml[i].lname|wordwrap}</a></span>{if $coml[i].person_title} ({$coml[i].person_title}){/if}</p>
+							{if !$smarty.section.i.last}
+                            <div class="clear" style="height:10px;"><!-- --></div>
+                            {/if}
+                            {sectionelse}
+                            No comments
+                            {/section}
+							<div class="clear" style="height:5px;"><!-- --></div>
+                            {if !$is_user || $is_public}{if 'r' == $wh}<a href="{$siteAdr}profile{$uid}/comments?wh=r#newc">Post Recommendation</a>{else}<a href="{$siteAdr}profile{$uid}/comments#newc">Post Comment</a>{/if}  | {/if}
+                            {*{if $coml}<a href="{$siteAdr}profile{$uid}/comments{if $wh == 'r'}?wh=r{/if}">Show All{if $wh == 'r'} Recommendations{else} Comments{/if}</a>{/if}*}                            
+                    
+                    {if $euid != $UserInfo.uid}
+                    <form method="post" action="{$siteAdr}profile.php" name="fmtx" id="fmtx">
+                    <input type="hidden" name="act" value="comments" />
+                    <input type="hidden" name="what" value="add" />
+                    <input type="hidden" name="uid" value="{$euid}" />
+                    <input type="hidden" name="wh" value="{$wh}" />
+					{if 'r' == $wh}<b>New Recommendation</b>{else}<b>New Comment</b>{/if}<br />
+					<p><textarea name="fm[story]" id="story" style="height: 60px; width: 470px;">{$fm.story}</textarea></p>
+					<p class="tools"><a href="javascript: _v('fmtx').submit();"><img src="{$imgDir}post_b.gif" alt="Post" /></a></p>
+					</form> 
+                    {/if}
+                      

@@ -1,0 +1,37 @@
+<div class="content">
+	<table id="main-table">
+		<tr>
+			<td class="left">
+				{include file="mods/member/_main_box.html"}
+				<table>
+					<tr>
+						<td width="210"><p class="top-title"><img src="{$imgDir}title/gear.gif" alt="Gear" /></p></td>
+						<td></td>
+					</tr>
+				</table>	
+
+				<div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+                    <div class="comments_re">
+					    <div style="float: left; padding-right: 4px;">{if $fm.image}<a href="{$iPath}/{$fm.image}" class="lightwindow page-options" title="{$fm.title}"><img src="{$icPath}/{$fm.image}" alt="" /></a>{/if}</div> 
+                        <div style="float: left;" class="color_blue"><font style="font-size:18px">{$fm.title}</font><font style="color:#999;">{if $fm.cat}<br />Category: <a href="{$siteAdr}gear.php?ctg={$fm.cat.id}">{$fm.cat.title}</a>{/if}</font></div>
+                        <div class="clear"><!-- --></div>
+                        <br />
+                    <p>{$fm.story}</p>
+                    <br />{if $is_user}
+                    <a href="{$siteAdr}gear{$fm.uid}/?id={$fm.id}&amp;mod=add">Edit</a> | <a href="{$siteAdr}gear{$fm.uid}/?id={$fm.id}&amp;mod=del">Delete</a> | 
+                    {/if}
+                    <a href="{$siteAdr}gear{$uid}/">Back to gear listing</a> 
+				    </div>
+				</div>
+				<div class="grey-box-bottom">&nbsp;</div>
+				
+				<div class="banner02"><a href="#"><img src="{$imgDir}banner02.gif" alt="#" /></a></div>
+				
+			</td>
+			<td class="right">
+			    {include file="mods/member/_left_box.html"}	
+			</td>
+		</tr>
+	</table>
+</div>

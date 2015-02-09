@@ -1,0 +1,81 @@
+                <!-- Contact Box -->
+				{if 'friend' != $mod}
+                <p class="right-title"><img src="{$imgDir}contact_ico.gif" alt="Contacts" /><a href="{$siteAdr}friend{$uid}">Contacts</a></p>
+				{if $lfriends}
+                <p>Latest adds:</p>
+				<table class="contact-t">
+				{section name=i loop=$lfriends}
+                {if $smarty.section.i.index mod 2 == 0}
+                	<tr>
+                {/if}    
+						<td class="av1" style="width:10%;">
+						{if $lfriends[i].image}
+                        <div class="container02">
+						    <div class="tl"><div class="tlc"></div><div class="trc"></div></div>
+							<div class="ml"><a href="{$siteAdr}profile{$lfriends[i].uid}"><img src="{$icPath}{$lfriends[i].subdir}s_{$lfriends[i].image}" alt="{if 2 == $lfriends[i].status}{$lfriends[i].company|wordwrap}{else}{$lfriends[i].name|wordwrap} {$lfriends[i].lname|wordwrap}{/if}" /></a></div>
+							<div class="bl"><div class="blc"></div><div class="brc"></div></div>
+					    </div>
+                        {else}
+                         <div class="container02">
+                             <a href="{$siteAdr}profile{$lfriends[i].uid}"><img src="{$imgDir}empty.gif" alt="{if 2 == $lfriends[i].status}{$lfriends[i].company|wordwrap}{else}{$lfriends[i].name|wordwrap} {$lfriends[i].lname|wordwrap}{/if}" /></a>
+                         </div>
+                        {/if}
+						</td>
+						<td class="av2"><a href="{$siteAdr}profile{$lfriends[i].uid}">{if 2 == $lfriends[i].status}{$lfriends[i].company|wordwrap}{else}{$lfriends[i].name|wordwrap} {$lfriends[i].lname|wordwrap}{/if}</a></td>
+                {if $smarty.section.i.index_next mod 2 == 0}
+					</tr>
+                {/if}
+                {/section}
+				</table>
+                {else}
+                    Contacts not found<br /><br />
+                {/if}
+                {/if}
+                
+                {if 'blog' != $act} 
+				<!-- Blog Box -->
+				<p class="right-title2">
+				{if !$is_user || $is_public} 
+				    <img src="{$imgDir}toby_ico.gif" alt="Blog" style="float:left;margin-top:-10px" />{$ui.name} {$ui.lname} <a href="{$siteAdr}blog{$ui.uid}">Blog</a> <a href="{$siteAdr}blog{$ui.uid}?what=rss" target="_blank"><img src="{$imgDir}rss2_ico.gif" alt="Rss" /></a>
+				{else}
+				    <img src="{$imgDir}toby_ico.gif" alt="Blog" style="float:left;margin-top:-10px" /><a href="{$siteAdr}blog{$ui.uid}">Blog</a>
+				{/if}
+				</p>
+				{if $lblog}
+                <p>Latest adds:</p>
+                {/if}
+				<div class="blog-box">
+					{section name=i loop=$lblog}
+                    <p><a href="{$siteAdr}blog.php/?id={$lblog[i].id}">{$lblog[i].title|wordwrap:40}</a><br />
+					<span>{$lblog[i].pdate}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;{$lblog[i].ptime}<br />{$lblog[i].com_cnt} comment{if $lblog[i].com_cnt}s{/if}</span></p>
+                    {/section}
+                    
+                    {if $is_user && !$is_public}    
+                    <p class="gear-add"><img src="{$imgDir}gear_add_ico.gif" alt="Plus" /><a href="{$siteAdr}blog.php?uid={$ui.uid}&amp;what=add">Post a new entry</a></p>
+				    {/if}
+                </div>
+                
+                {if !$is_user || $is_public}    
+                <p><a href="{$siteAdr}blog{$ui.uid}?what=rss" target="_blank">Subscribe to the blog</a><img src="{$imgDir}ico002.gif" alt="Subscribe to the blog" /></p>
+				<p>
+				  <a href="{$siteAdr}blog{$ui.uid}">Read other blog entries</a><img style="margin-bottom:-5px" src="{$imgDir}ico000.gif" alt="#" />
+				  <a href="#">All blogs</a><img style="margin-bottom:-5px" src="{$imgDir}ico000_.gif" alt="#" />
+				</p><br /><br />
+                {/if}
+                {/if}
+                
+                
+				<!-- Gear Box -->
+				{if 'gear' != $mod && 'gear' != $mwd}
+				<p class="right-title"><img src="{$imgDir}gear_ico.gif" alt="Gear" /><a href="{$siteAdr}gear{$ui.uid}">Gear</a></p>
+
+				<ul class="gear-list">
+					{section name=i loop=$lgear}
+                    <li><a href="{$siteAdr}gear{$uid}/?id={$lgear[i].id}">{$lgear[i].title|wordwrap:40}</a></li>
+					{/section}
+				</ul>
+				{if $is_user && !$is_public}
+                <p class="gear-add"><img src="{$imgDir}gear_add_ico.gif" alt="Plus" /><a href="{$siteAdr}gear{$ui.uid}/?mod=add">Post new gear</a></p>
+                {/if} 
+                {/if}
+				<div class="banner01"><a href="#"><img src="{$imgDir}banner01.gif" alt="#" /></a></div>

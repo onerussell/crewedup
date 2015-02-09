@@ -1,0 +1,16 @@
+                       {if $rl}
+						<table class="credits-t">
+							{section name=i loop=$rl}
+                            <tr>
+                                <td class="first" valign="top"><a href="{$siteAdr}profile{$uid}/resume/?id={$rl[i].id}">{if $rl[i].image}<img src="{$icPath}/{$rl[i].image}" alt="{$rl[i].title}" />{else}<img src="{$imgDir}empty.gif" alt="{$rl[i].title}" />{/if}</a></td>
+								<td valign="top"><a href="{$siteAdr}profile{$uid}/resume/?id={$rl[i].id}"><b>{$rl[i].title}</b></a>{if $rl[i].prof}<br />{$rl[i].prof}{/if}{if $rl[i].year && '0000' != $rl[i].year}<br />{if $rl[i].month}{assign var="ov" value=$rl[i].month-1}{$ma.$ov} {/if}{$rl[i].year}{/if}</td>
+                                <td class="middle" valign="top"><a href="{$siteAdr}profile{$uid}/resume/?id={$rl[i].id}">{if $rl[i].image2}<img src="{$icPath}/{$rl[i].image2}" alt="{$rl[i].company}" />{else}<img src="{$imgDir}empty.gif" alt="{$rl[i].title}" />{/if}</a></td>
+								<td valign="top"><a href="{$siteAdr}profile{$uid}/resume/?id={$rl[i].id}">{$rl[i].company|wordwrap}</a></td>                            
+                            </tr>
+                            {/section}
+						</table>
+                        {else}
+                        <table class="credits-t">
+                            <tr><td>No Credits</td></tr>
+                        </table>
+                        {/if}

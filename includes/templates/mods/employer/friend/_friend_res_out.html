@@ -1,0 +1,94 @@
+<div class="content">
+	<table id="main-table">
+		<tr>
+			<td class="left">
+					{include file="mods/employer/_main_box.html"}
+				<table>
+					<tr>
+						<td width="190"><p class="top-title"><img src="{$imgDir}title/contacts.gif" alt="#" /></p></td>
+						<td><h1>({$rcnt})</h1></td>
+					</tr>
+				</table>
+				<br />
+
+					<p class="contacts-top"><a href="{$siteAdr}friend{$uid}">{if $letter}All{else}<img src="{$imgDir}all_b.gif" alt="All" />{/if}</a>
+						{foreach key=k item=i from=$la}<a href="{$siteAdr}friend{$uid}?letter={$i}"{if $letter == $i} style="background-color:#CCC; padding: 3px;"{/if}>{$i}</a>{/foreach}
+				    </p>
+					
+					<table class="user-contacts-t">
+						{section name=i loop=$pl}
+        {if $smarty.section.i.index mod 2 == 0}
+        <tr>
+        {/if}
+			<td class="bt">
+			<div class="tt">
+			
+            <div class="container04">
+				<div class="tl"><div class="tlc"></div><div class="trc"></div></div>
+				<div class="ml"><a href="{$siteAdr}profile{$pl[i].uid}"><img src="{if $pl[i].image}{$icPath}/{$pl[i].image}{else}{$imgDir}no_photo2.gif{/if}" alt="Photo" width="79px" /></a></div>
+				<div class="bl"><div class="blc"></div><div class="brc"></div></div>
+			</div>
+            
+			<p><a class="f18" href="{$siteAdr}profile{$pl[i].uid}">{if 1 == $pl[i].status}{$pl[i].name|wordwrap} {$pl[i].lname|wordwrap}{else}{$pl[i].company|wordwrap}{/if}</a></p>
+			<p><b>{$pl[i].person_title}</b></p>
+			<p>{if $pl[i].age}<b>{$pl[i].age}</b> y.o.,{/if} {if $pl[i].city}{$pl[i].city}, {/if} {assign var="ov" value=$pl[i].state}<a href="{$siteAdr}crew.php?cat={$cat}&amp;state={$pl[i].state}">{$states.$ov}</a></p>
+			{if $pl[i].lproj.title}<p>Latest work: <a href="{$siteAdr}profile{$pl[i].uid}/resume/?id={$pl[i].lproj.id}">{$pl[i].lproj.title|truncate:40}</a></p>{/if}
+            {if $system_login && $UserInfo.uid != $pl[i].uid}
+             <div class="clear" style="padding:0; margin-top: 0px;"><!-- --></div>
+             <table width="100%" style="margin-top: -10px;">
+               <tr>
+                   <td> <div style="margin-left: 5px;">
+                   {if !$pl[i].is_friend}
+                    <img src="{$imgDir}add2_ico.gif" alt="Add to Contacts" /><a href="{$siteAdr}friend.php?mod=add&amp;fid={$pl[i].uid}">Add to contacts</a>
+                   {else}
+                    <img src="{$imgDir}del3_ico.gif" alt="Delete from contacts" /><a href="javascript: CGo('{$siteAdr}friend.php?mod=del&amp;fid={$pl[i].uid}', 'Are you sure you want to delete this User from your friends\' list?');">Delete from contacts</a>
+                   {/if}</div>
+                   </td>
+                   <td>
+                   {if 2 == $UserInfo.status}
+                    <div style="margin-left: 5px;">
+                    {if !$pl[i].is_roster}
+                        <img src="{$imgDir}add2_ico.gif" alt="Add to Roster" /><a href="{$siteAdr}roster.php?mod=add&amp;fid={$pl[i].uid}">Add to roster</a>
+                    {else}
+                        <img src="{$imgDir}del3_ico.gif" alt="Delete from roster" /><a href="javascript: CGo('{$siteAdr}roster.php?mod=del&amp;fid={$pl[i].uid}', 'Are you sure you want to delete this User from your company roster?');">Delete from roster</a>
+                    {/if}
+                    </div>   
+                   {/if}
+                   </td>
+               </tr>
+            </table>
+			{/if}
+            </div>
+			</td>
+        {if $smarty.section.i.index_next mod 2 == 0}
+        </tr>
+        {if !$smarty.section.i.last}
+		<tr>
+			<td class="g-sep" colspan="2">&nbsp;</td>
+		</tr>
+        {/if}        
+        {/if}
+        {sectionelse}
+        <tr>
+           <td colspan="2">Users not found</td>
+        </tr>   
+        {/section}
+
+						<tr>
+							<td class="nav-usercontacts">
+								{if $rcnt}Showing {$from} to {$to} of {$rcnt} contacts{/if}
+							</td>
+							<td class="nav-usercontacts" align="right">
+								{$pagging}
+							</td>
+						</tr>
+					</table>
+
+
+			</td>
+			<td class="right">
+                {include file="mods/employer/_left_box.html"}	
+			</td>
+		</tr>
+	</table>
+</div>

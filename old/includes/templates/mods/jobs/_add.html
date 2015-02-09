@@ -1,0 +1,73 @@
+<div class="content">
+  <link rel="stylesheet" href="{$jsDir}calendar/dhtmlgoodies_calendar/dhtmlgoodies_calendar.css?random=20051112" media="screen"></LINK> 
+  <script type="text/javascript" language="javascript" src="{$jsDir}calendar/dhtmlgoodies_calendar/dhtmlgoodies_calendar.js?random=20051112"></script>
+
+	<table id="main-table">
+		<tr>
+			<td class="left">
+				{include file="mods/employer/_main_box.html"}
+				<table>
+					<tr>
+						<td width="210"><p class="top-title"><img src="{$imgDir}title/jobs.gif" alt="Jobs" /></p></td>
+						<td></td>
+					</tr>
+				</table>	
+
+				<div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+					
+                    {if $errs}
+                    <p><font style="color:#990000">
+                    {foreach key=k item=i from=$errs}
+                        {$i}<br />
+                    {/foreach}
+                    </font></p>
+                    {/if}
+					<form class="write-mail-form" method="post" action="{$siteAdr}jobs.php" name="fmx" id="fmx" enctype="multipart/form-data">
+                    <input type="hidden" name="mod" value="add" />
+                    {if $id}
+                    <input type="hidden" name="id" value="{$id}" />
+                    {/if}
+                    
+                    <p><label style="color:#333;">{if !$id}Post new{else}Edit{/if} job</label></p>
+					<p><label>Job Title:</label> <input type="text" value="{$fm.job_title }" name="fm[job_title]" size="68" /></p>
+  				    <!--<p><label>City, State:</label> <input type="text" value="{$fm.city}" name="fm[city]" size="35" />, <select name="fm[state]">{foreach key=k item=i from=$states}<option value="{$i.code}">{$i.code}</option>{/foreach}</select></p>-->
+                    
+                    <p><label>Category:</label> 
+                                <select name="fm[cid]">
+                                <option value="0">Please select</option>
+                                {foreach key=k item=i from=$prof}
+                                <optgroup label="{$k}">
+                                    {foreach key=k2 item=i2 from=$i}   
+                                    <option value="{$i2}"{if $fm.cid == $i2} selected="selected"{/if}>{$i2}</option>
+                                    {/foreach}
+                                </optgroup>
+                                {/foreach}
+                                </select>
+                    </p>
+                    <!-- 
+					<p><label>Picture:</label> <input type="file" name="fm[image]" />{if $fi.image}<img src="{$icPath}/{$fi.image}" alt="" /> <a href="javascript: void(0)" onclick="CGo('{$siteAdr}gear{$uid}/?mod=add&id={$id}&delimg=1', 'Do You want to delete this image?');">Delete image</a>{/if}</p>
+                    -->
+  				    <p><label>Start Date:</label> <input type="text" name="fm[start_date]" id="start_date" onclick="displayCalendar(_v('start_date'),'mm/dd/yyyy',this)" value="{$fm.start_date}" />  (mm/dd/YYYY)</p>
+					
+                    <p><label>Project Title:</label> <input type="text" value="{$fm.project_title}" name="fm[project_title]" size="48" /> &nbsp;&nbsp;<input type="checkbox" name="fm[show_proj]" value="1"{if $fm.show_proj} checked="checked"{/if} /> Remain Confidential</p>
+
+                    
+					<p>Job Description:</p>
+					<p><textarea name="fm[descr]" style="height: 200px;">{$fm.descr}</textarea></p>
+					<p class="tools"><a href="{$siteAdr}jobs.php"><img src="{$imgDir}cancel_b.gif" alt="" /></a> <a href="javascript:_v('fmx').submit();">{if $id}<img src="{$imgDir}save_b.gif" alt="Save" />{else}<img src="{$imgDir}post_b.gif" alt="Post" />{/if}</a></p>
+					</form>
+			
+				</div>
+				
+				<div class="grey-box-bottom">&nbsp;</div>
+				
+				<div class="banner02"><a href="#"><img src="{$imgDir}banner02.gif" alt="#" /></a></div>
+				
+			</td>
+			<td class="right">
+			    {include file="mods/member/_left_box.html"}	
+			</td>
+		</tr>
+	</table>
+</div>

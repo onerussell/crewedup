@@ -1,0 +1,27 @@
+                        {if $rol}
+                         <table class="roster-t">
+                            {section name=i loop=$rol}
+                                {if $smarty.section.i.index mod 3 == 0}
+                                <tr>
+                                {/if}
+                                <td class="av1">
+								<div class="container02">
+									<div class="tl"><div class="tlc"></div><div class="trc"></div></div>
+									<div class="ml"><a href="{$siteAdr}profile{$rol[i].uid}"><img src="{if $rol[i].image}{$icPath}{$rol[i].subdir}s_{$rol[i].image}{else}{$imgDir}empty.gif{/if}" alt="{if 1 == $rol[i].status}{$rol[i].name} {$rol[i].lname}{else}{$rol[i].company}{/if}" /></a></div>
+									<div class="bl"><div class="blc"></div><div class="brc"></div></div>
+								</div>
+								</td>
+								<td class="av2"><a href="{$siteAdr}profile{$rol[i].uid}">{$rol[i].name|wordwrap} {$rol[i].lname|wordwrap}</a><br />{$rol[i].person_title|truncate:20:"..."}</td>
+                                {if $smarty.section.i.last || $smarty.section.i.index_next mod 3 == 0}
+                                </tr>
+                                {/if}
+                            {/section}
+                         </table>   
+                        {else}
+                           <table class="roster-t">
+						   <tr><td>
+						   Company roster is empty
+						   </td></tr>
+						   </table>
+                        {/if}
+                      

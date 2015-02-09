@@ -1,0 +1,42 @@
+	
+<div class="content">
+	<table id="main-table">
+		<tr>
+			<td class="left">
+
+				<table>
+					<tr>
+						<td width="210"><p class="top-title"><img src="{$imgDir}title/jobs.gif" alt="Jobs" /></p></td>
+						<td></td>
+					</tr>
+				</table>	
+                
+                {if $is_user && 2 == $UserInfo.status}    
+                    <p class="gear-add"><img src="{$imgDir}gear_add_ico.gif" alt="Plus" /><a href="{$siteAdr}jobs.php?mod=add">Post new job</a></p>
+				    <div id="drop"><!-- --></div>
+                {/if}   
+                
+                <div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+
+					<div class="comments-close">{if $system_login && $fi.uid == $UserInfo.uid}<a href="{$siteAdr}jobs.php?id={$fi.id}&amp;mod=del"><img src="{$imgDir}crestik.gif" alt="Delete" /></a>{/if}</div>
+                    <p class="color_blue"><font style="font-size:18px">{$fi.job_title}</font><br  />Start Date: {$fi.sd}{if $fi.cid}<br  />Category: {$fi.cid}{/if}{if $fi.show_proj && $fi.project_title}<br  />Project: {$fi.project_title}{/if}<br />Company: {if $fi.isRSS == "NOT"}<a href="{$siteAdr}profile{$fi.uid}" style="font-size: 12px;">{$ui.company}</a>{else}{$fi.rssCompany}{/if} - {if $fi.therssCompany == "MTV"}<form name="job" action="http://jobhuntweb.viacom.com/jobhunt/main/displayjob1.asp" method="post">
+<input type="hidden" id="jobid" name="jobid" value="{$fi.theJobURL}"><input type="submit" value="Apply for this job">
+</form>{else}<form name="job" action="{$fi.theJobURL}" method="post">
+<input type="submit" value="Apply for this job">
+</form>{/if}</p>
+					<div class="clear"><!-- --></div>
+                    <br /><p>{$fi.descr}</p>
+                    <div style="width: 100%; height:1px;"><!-- --></div>
+                    <div id="drop"><!-- --></div> 
+                    <br />
+                    <p>
+					{if $system_login}{if $fi.uid == $UserInfo.uid}<a href="{$siteAdr}jobs.php?id={$fi.id}&amp;mod=add" class="f11">Edit</a> | {/if}{/if}
+                    <a class="f11" href="{$siteAdr}jobs.php">Back to Jobs</a>
+                    </p>        		
+                </div>
+                <div class="grey-box-bottom">&nbsp;</div>
+			</td>
+		</tr>
+	</table>
+</div>

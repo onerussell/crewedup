@@ -1,0 +1,46 @@
+<div class="content">
+	<table id="main-table">
+		<tr>
+			<td class="left">
+				{include file="mods/member/_main_box.html"}
+				
+				<table>
+					<tr>
+						<td width="130"><p class="top-title"><img src="{$imgDir}title/photos.gif" alt="Photos" /></p></td>
+						<td>{if $is_user}<p class="gear-add"><a href="{$siteAdr}gallery.php?what=add"><img src="{$imgDir}gear_add_ico.gif" alt="Add" />Upload new photo</a></p>{/if}</td>
+					</tr>
+				</table>	
+
+				<div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+					<table class="photos-t">
+						{section name=i loop=$pl}
+                        {if $smarty.section.i.index mod 3 == 0 }
+                        <tr>
+                        {/if}
+							<td><a href="{$iPath}{$pl[i].image}" class="lightwindow page-options" rel="Photos[gallery]" title="{$pl[i].title|escape:javascript}" caption="{$pl[i].story|escape:javascript}" author="" caption=""><img src="{$icPath}{$pl[i].image}" alt="{$pl[i].title}" /></a>
+							<p><b>{$pl[i].title}</b></p>
+							<p>{$pl[i].story}<br />
+							<span>Uploaded on {$pl[i].pdate} {$pl[i].ptime}</span>
+                            {if $is_user}<br /><a href="{$siteAdr}gallery.php?what=add&amp;id={$pl[i].id}">Edit</a> | <a href="{$siteAdr}gallery.php?what=del&amp;id={$pl[i].id}">Delete</a>{/if}
+							</p>
+							</td>
+						{if $smarty.section.i.index_next mod 3 == 0 || $smarty.section.i.last}	
+						</tr>
+                        {/if}
+                        {sectionelse}
+                        <tr><td><p>Images not found</p></td></tr> 
+                        {/section}	
+					</table>				
+				</div>
+				<div class="grey-box-bottom">&nbsp;</div>
+				
+				{include file="_banner02.html"}
+				
+			</td>
+			<td class="right">
+                {include file="mods/member/_left_box.html"}	
+			</td>
+		</tr>
+	</table>
+</div>

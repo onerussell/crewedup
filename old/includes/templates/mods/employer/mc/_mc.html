@@ -1,0 +1,132 @@
+﻿<!-- Content -->
+<div class="content">
+	<table id="main-table">
+		<tr>
+			<td class="left">
+                {include file="mods/employer/_main_box.html"}
+				<table>
+					<tr>
+						<td width="120"><p class="top-title"><img src="{$imgDir}title/mail.gif" alt="Mail" /></p></td>
+						<td>{if $friends_c}<p class="gear-add"><img src="{$imgDir}gear_add_ico.gif" alt="Compose message" /><a href="{$siteAdr}mc.php?mod=send">Compose message</a></p>{/if}</td>
+					</tr>
+					
+				</table>
+				
+				<div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+					<div class="mail_inbox">
+						<p>{if 'inbox' == $action}<a href="{$siteAdr}mc.php?mod=mc&action=inbox"><img src="{$imgDir}inbox_b.gif" alt="Inbox" style="margin-right: 0px; margin-left: 0px;" /></a>{else} <a class="f10" href="{$siteAdr}mc.php?mod=mc&action=inbox">Inbox</a>&nbsp;{/if}
+                           {if 'sent' == $action}<a class="f10" href="{$siteAdr}mc.php?mod=mc&action=sent"><img src="{$imgDir}sent_b.gif" alt="Sent message" style="margin-right: 0px; margin-left: 0px;" /></a>{else} <a class="f10" href="{$siteAdr}mc.php?mod=mc&action=sent">Sent messages</a>&nbsp;{/if}
+                           {if 'deleted' == $action}<a href="{$siteAdr}mc.php?mod=mc&action=deleted"><img src="{$imgDir}deleted_b.gif" alt="Deleted message" style="margin-right: 0px; margin-left: 0px;" /></a>{else} <a class="f10" href="{$siteAdr}mc.php?mod=mc&action=deleted">Deleted messages</a>&nbsp;{/if}</p>
+						
+                        {if $action == 'inbox' || $action == 'sent' || $action == 'deleted'}
+                        {if !$add_action || $add_action=='view'}
+                            <form action="{$siteAdr}mc.php" name="MessagesForm" method="post" enctype="application/x-www-form-urlencoded">
+                            <input type="hidden" name="mod"            value="mc" />
+                            <input type="hidden" name="id"             value="-1" />
+                            <input type="hidden" name="action"         value="{$action}" />
+                            <input type="hidden" name="add_action"     value="delete" />
+                            <input type="hidden" name="pvstart"        value="{$pvstart}" />
+                            <input type="hidden" name="order"          value="{$order}" />
+                            {if $action == 'inbox'}
+                                <table class="mail-t">
+					    		{section name=iim loop=$mess}
+                                <tr>
+					    			<td class="first">
+                                    {if $mess[iim].image}
+                                    <div class="container02">
+									    <div class="tl"><div class="tlc"></div><div class="trc"></div></div>
+									    <div class="ml"><a href="{$siteAdr}profile{$mess[iim].uid}"><img src="{$icPath}{$mess[iim].subdir}s_{$mess[iim].image}" alt="{if 1 == $mess[iim].status}{$mess[iim].name|wordwrap} {$mess[iim].lname|wordwrap}{else}{$mess[iim].company|wordwrap}{/if}" /></a></div>
+									    <div class="bl"><div class="blc"></div><div class="brc"></div></div>
+								    </div>
+                                    {else}<a href="{$siteAdr}profile.php?uid={$mess[iim].uid}"><img src="{$imgDir}empty.gif" alt="No Photo" /></a>{/if}</td>
+					    			<td><a href="{$siteAdr}profile.php?uid={$mess[iim].uid}" class="f12 color_green">{if 1 == $mess[iim].status}{$mess[iim].name|wordwrap} {$mess[iim].lname|wordwrap}{else}{$mess[iim].company|wordwrap}{/if}</a><span>{$mess[iim].sendtime|date_format:"%m/%d/%Y %I:%M %p"|lower|ucfirst}</span><br />
+					    			<b>Subject:</b> <a href="{$siteAdr}mc.php?mod=mc&action={$action}&pvstart={$pvstart}&order={$order}&add_action=read&id={$mess[iim].id}" class="f10 color_grey">{$mess[iim].subject}</a> {if $action == 'inbox' && !$mess[iim].readed}<b style="color:#990000">New message!</b>{/if}<br />
+                                    {$mess[iim].message|strip_tags|truncate:200:"..."}<br />
+								    <a href="{$siteAdr}mc.php?mod=mc&action={$action}&pvstart={$pvstart}&order={$order}&add_action=read&id={$mess[iim].id}">more</a>
+					    			</td>
+					    			<td class="end">
+                                    {if !$mess[iim].is_invite}
+                                        {*<a href="{$siteAdr}mc.php?mod=mc&action={$action}&pvstart={$pvstart}&order={$order}&add_action=read&id={$mess[iim].id}"><img src="{$imgDir}arrow_left.gif" alt="Show" /></a>*}<a href="{$siteAdr}mc.php?mod=mc&action={$action}&pvstart={$pvstart}&order={$order}&add_action=reply&id={$mess[iim].id}"><img src="{$imgDir}quest.gif" alt="Answer" /></a><a href="{$siteAdr}mc.php?mod=mc&action={$action}&pvstart={$pvstart}&order={$order}&add_action=delete&id={$mess[iim].id}" onClick="if (!confirmLink(this, 'Are you sure you want to delete this message?')) return false;"><img src="{$imgDir}close.gif" alt="Delete" /></a>
+                                    {else}
+                                        <a href="{$siteAdr}friend.php?mod=confirm&af=1&fid={$mess[iim].is_invite}"><img src="{$imgDir}approve.gif" alt="Approve" /></a>
+                                        <a href="{$siteAdr}friend.php?mod=ccancel&fid={$mess[iim].is_invite}"><img src="{$imgDir}unapprove.gif" alt="Reject" /></a>
+                                    {/if}
+                                    
+                                    
+                                    </td>
+					    		</tr>
+					    		{/section}
+                            
+					    		{if $mess}
+                                <tr>
+                                    <td colspan="2" class="nav-mail">
+						    	    {math equation="x + y" x=$pvstart y=$ResOnPage assign="sum"}
+                                    Showing  {$pvstart+1} to {if $sum > $mess_cnt}{$mess_cnt}{else}{$sum}{/if} of {$mess_cnt} messages
+						    	    </td>
+						    	    <td class="nav-mail" align="right">
+									{if $curPage>0}<a href="{$siteAdr}mc.php?mod=mc&action={$action}&pvstart={$pvstart-$ResOnPage}&order={$order}">PREV</a>{else}<span>PREV</span>{/if}&nbsp;&nbsp;&nbsp;{foreach name=n key=k item=i from=$pgArr}<a href="{$siteAdr}mc.php?mod=mc&action={$action}&pvstart={$i}&order={$order}"{if $i == $pvstart} style="font-weight: bold; color:#666; text-decoration: none;"{/if}>{$smarty.foreach.n.index+1}</a>{foreachelse}<b>1</b>{/foreach}&nbsp;&nbsp;&nbsp;{if $curPage < $pages-1}<a href="{$siteAdr}mc.php?mod=mc&action={$action}&pvstart={$pvstart+$ResOnPage}&order={$order}">Next</a>{else}<span>Next</span>{/if}
+						    	    </td>
+                                </tr>
+                                {else}
+                                   <tr>
+                                       <td><p>Contacts not found</p></td>
+                                   </tr>
+                                {/if}
+					    	</table>
+                            {elseif $action == 'sent' || $action == 'deleted'}
+                            <table class="mail-t">
+							{section name=iim loop=$mess}
+                            <tr>
+								<td style="width:90%"><b>{if $action =='deleted' && $ui.uid == $mess[iim].toid}From{else}To{/if}:&nbsp;&nbsp;</b><a href="{$siteAdr}profile.php?uid={$mess[iim].uid}" class="f12 color_green">{if 1 == $mess[iim].status}{$mess[iim].name|wordwrap} {$mess[iim].lname|wordwrap}{else}{$mess[iim].company|wordwrap}{/if}</a><span>{$mess[iim].sendtime|date_format:"%m/%d/%Y %I:%M %p"|lower|ucfirst}</span>
+                                {if $action =='deleted'}<b>{if $ui.uid == $mess[iim].toid}[Inbox]{else}[Sent Message]{/if}</b>{/if}
+                                <br />
+                                <b>Subject:</b> <a href="{$siteAdr}mc.php?mod=mc&action={$action}&pvstart={$pvstart}&order={$order}&add_action=read&id={$mess[iim].id}" class="f10 color_grey">{$mess[iim].subject}</a><br />
+                                {$mess[iim].message|strip_tags|truncate:200:"..."}<br />
+								<a href="{$siteAdr}mc.php?mod=mc&action={$action}&pvstart={$pvstart}&order={$order}&add_action=read&id={$mess[iim].id}">more</a>
+								</td>
+								<td class="end2"><a href="{$siteAdr}mc.php?mod=mc&action={$action}&pvstart={$pvstart}&order={$order}&add_action=delete&id={$mess[iim].id}" onClick="if (!confirmLink(this, 'Are you sure you want to delete this message?')) return false;"><img src="{$imgDir}close.gif" alt="#" /></a></td>
+							</tr>
+							{/section}
+						   	{if $mess}
+                            <tr>
+						    	<td class="nav-mail">
+							       {math equation="x + y" x=$pvstart y=$ResOnPage assign="sum"}
+                                    Showing  {$pvstart+1} to {if $sum > $mess_cnt}{$mess_cnt}{else}{$sum}{/if} of {$mess_cnt} messages
+                                </td>
+							    <td class="nav-mail" align="right">
+                                {if $curPage>0}<a href="{$siteAdr}mc.php?mod=mc&action={$action}&pvstart={$pvstart-$ResOnPage}&order={$order}">PREV</a>{else}<span>PREV</span>{/if}&nbsp;&nbsp;&nbsp;{foreach name=n key=k item=i from=$pgArr}<a href="{$siteAdr}mc.php?mod=mc&action={$action}&pvstart={$i}&order={$order}"{if $i == $pvstart} style="font-weight: bold; color:#666; text-decoration: none;"{/if}>{$smarty.foreach.n.index+1}</a>{foreachelse}<b>1</b>{/foreach}&nbsp;&nbsp;&nbsp;{if $curPage < $pages-1}<a href="{$siteAdr}mc.php?mod=mc&action={$action}&pvstart={$pvstart+$ResOnPage}&order={$order}">Next</a>{else}<span>Next</span>{/if}								     
+							    </td>
+						    </tr>
+                            {else}
+                            <tr>
+                                <td><p>Contacts not found</p></td>
+                            </tr>
+                            {/if}
+						    </table>                        
+                            {/if}
+
+                        {elseif $add_action == 'read'}
+                        
+                            {include file="mods/employer/mc/_read.html"}
+                        
+                        {elseif $add_action == 'reply' && $action =='inbox'}
+				        
+                            {include file="mods/employer/mc/_reply.html"}
+                        
+                        {/if}	
+                        {/if}
+					</div>				
+				</div>
+				<div class="grey-box-bottom">&nbsp;</div>
+				
+				<div class="banner02"><a href="#"><img src="{$imgDir}banner02.gif" alt="#" /></a></div>
+				
+			</td>
+			<td class="right">
+			    {include file="mods/employer/_left_box.html"}	
+			</td>
+		</tr>
+	</table>
+</div>
+<!-- /Content -->

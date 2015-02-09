@@ -1,0 +1,105 @@
+<div class="content">
+	<p class="top-title"><img src="{$imgDir}title/search_results.gif" alt="#" /></p>
+	<p>{$search_c} result{if 1 < $search_c}s{/if} found for "<span class="color_brown">{$sstr}</span>"</p><br />
+	<table id="main-table">
+		<tr>
+			<td class="left">
+				<div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+					
+                    {if $mc}
+                    <p><b>Crew Members</b></p>
+					{*<p>Top 12 from 245 results</p>*}
+					<table class="roster-t">
+						{section name=i loop=$mcl}
+                                {if $smarty.section.i.index mod 3 == 0}
+                                <tr>
+                                {/if}
+                                <td class="av1">
+								<div class="container02">
+									<div class="tl"><div class="tlc"></div><div class="trc"></div></div>
+									<div class="ml"><a href="{$siteAdr}profile{$mcl[i].uid}"><img src="{if $mcl[i].image}{$icPath}{$mcl[i].subdir}s_{$mcl[i].image}{else}{$imgDir}empty.gif{/if}" alt="{if 1 == $mcl[i].status}{$mcl[i].name} {$mcl[i].lname}{else}{$mcl[i].company}{/if}" /></a></div>
+									<div class="bl"><div class="blc"></div><div class="brc"></div></div>
+								</div>
+								</td>
+								<td class="av2"><a href="{$siteAdr}profile{$mcl[i].uid}">{if 1 == $mcl[i].status}{$mcl[i].name} {$mcl[i].lname}{else}{$mcl[i].company}{/if}</a><br />{$mcl[i].person_title|truncate:20:"..."}</td>
+                                {if $smarty.section.i.last || $smarty.section.i.index_next mod 3 == 0}
+                                </tr>
+                                {/if}
+                            {/section}
+					</table>
+					{if 1 < $mc}<p class="view-all-found"><a href="{$siteAdr}search.php?mod=member&amp;sstr={$sstr}">View all found Crew Members ({$mc}) </a></p>{/if}
+                    {/if}
+
+                    {if $ec}
+					<p><b>Employers</b></p>
+					{*<p>Top 12 from 245 results</p>*}
+					<table class="roster-t">
+						{section name=i loop=$ecl}
+                                {if $smarty.section.i.index mod 3 == 0}
+                                <tr>
+                                {/if}
+                                
+                                <td class="av1">
+								<div class="container02">
+									<div class="tl"><div class="tlc"></div><div class="trc"></div></div>
+									<div class="ml"><a href="{$siteAdr}profile{$ecl[i].uid}"><img src="{if $ecl[i].image}{$icPath}{$ecl[i].subdir}s_{$ecl[i].image}{else}{$imgDir}empty.gif{/if}" width="32px;" height="32px;" alt="{if 1 == $ecl[i].status}{$ecl[i].name} {$ecl[i].lname}{else}{$ecl[i].company}{/if}" /></a></div>
+									<div class="bl"><div class="blc"></div><div class="brc"></div></div>
+								</div>
+								</td>
+								<td class="av2"><a href="{$siteAdr}profile{$ecl[i].uid}">{if 1 == $ecl[i].status}{$ecl[i].name} {$ecl[i].lname}{else}{$ecl[i].company}{/if}</a><br />{$ecl[i].person_title|truncate:20:"..."}</td>
+                                
+                                
+                                {if $smarty.section.i.last || $smarty.section.i.index_next mod 3 == 0}
+                                </tr>
+                                {/if}
+                        {/section}
+					</table>
+					{if $ec > 1}<p class="view-all-found"><a href="{$siteAdr}search.php?mod=employers&amp;sstr={$sstr}">View all found Employers ({$ec}) </a></p>{/if}
+                    {/if}
+
+                    {if $jc}  
+					<p><b>Jobs</b></p>
+					{*<p>Top 12 from 245 results</p>*}
+					<p>&nbsp;</p>
+					{section name=i loop=$jcl}
+                    <p><a href="{$siteAdr}jobs.php?id={$jcl[i].id}">{$jcl[i].job_title}</a> needed at <a href="{$siteAdr}jobs.php?cat={$jcl[i].cid}">{$jcl[i].cid}</a> in <a href="{$siteAdr}jobs.php?city={$jcl[i].city}&amp;state={$jcl[i].state}">{$jcl[i].city}</a>, {assign var="ov" value=$jcl[i].state}<a href="{$siteAdr}jobs.php?state={$jcl[i].state}">{$jcl[i].state}</a> from {$jcl[i].start_date}</p>
+					{/section}
+                    {if 1 < $jc}<br /><p class="view-all-found"><a href="{$siteAdr}search.php?mod=jobs&amp;sstr={$sstr}">View all found Jobs ({$jc}) </a></p>{/if}
+					{/if}
+                    
+                    {if $gc}
+                    <br /><p><b>Gear</b></p>
+					{*<p>Top 12 from 245 results</p>*}
+					<p>&nbsp;</p>
+
+					    <table class="credits-t">
+                        {section name=i loop=$gcl}
+							<tr>
+								<td class="first" style="border:0">{if $gcl[i].image}<a href="{$siteAdr}gear{$gcl[i].uid}/?id={$gcl[i].id}"><img src="{$icPath}/{$gcl[i].image}" alt="{$gcl[i].title}" /></a>{else}&nbsp;{/if}</td>
+								<td style="border:0"><b><a href="{$siteAdr}gear{$gcl[i].uid}/?id={$gcl[i].id}">{$gcl[i].title}</a></b><br /></td>
+							</tr>
+                        {/section}    
+						</table>
+						{if $gc}<p class="view-all-found"><a href="{$siteAdr}search.php?mod=gear&amp;sstr={$sstr}">View all found Gear ({$gc}) </a></p>{/if}
+                     {/if}   
+				<div class="clear">&nbsp;</div>
+				</div>
+				<div class="grey-box-bottom">&nbsp;</div>
+
+			</td>
+			<td class="right">
+			<!-- Search Box -->
+				<p class="right-title"><img src="{$imgDir}search_ico.gif" alt="" />Search Categories</p>
+				<ul class="guide">
+					<li>All Categories</li>
+					{if $mc}<li><a href="{$siteAdr}search.php?mod=member&amp;sstr={$sstr}">Crew Members</a></li>{/if}
+                    {if $ec}<li><a href="{$siteAdr}search.php?mod=employers&amp;sstr={$sstr}">Employers</a></li>{/if}
+                    {if $jc}<li><a href="{$siteAdr}search.php?mod=jobs&amp;sstr={$sstr}">Jobs</a></li>{/if}
+                    {if $gc}<li><a href="{$siteAdr}search.php?mod=gear&amp;sstr={$sstr}">Gear</a></li>{/if}   
+				</ul>
+			</td>
+		</tr>
+	</table>
+</div>
+<!-- /Content -->

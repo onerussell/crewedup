@@ -1,0 +1,14 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Mail from {$SUPPORT_SITENAME}</title>
+<meta http-equiv="Content-Type" content="text/HTML; charset={$charset}" /> 
+<body>
+    User: <a href="http://{$DOMEN}{$siteAdr}profile{$ui.uid}">{if 1== $ui.status}{$ui.name} {$ui.lname}{else}{$ui.company}{/if}</a>
+    <br /><br />
+    <b>{if 1== $ui.status}Resume:{else}Company Credits:{/if}</b><br />	
+	{foreach name=n key=k item=i from=$pl}
+	<a href="http://{$DOMEN}{$siteAdr}profile{$ui.uid}/{if 1== $ui.status}resume{else}credits{/if}?id={$i.id}">{$i.title}</a><br />
+	{/foreach}
+	<br />
+</body>
+</html>

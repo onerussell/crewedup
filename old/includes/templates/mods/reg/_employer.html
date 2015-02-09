@@ -1,0 +1,80 @@
+<div class="content">
+	<div class="crew-members-reg" style="margin-left:220px">
+		<p style="margin-left:100px"><img src="{$imgDir}title/employers_registration.gif" alt="#" /></p>
+			<form class="members_reg-form" method="post" action="{$siteAdr}index.php" id="fmx">
+            <input type="hidden" name="mod" value="reg" />
+            <input type="hidden" name="rt" value="2" />
+					{if $errs}
+                    <p style="color: red;">
+                    {foreach key=k item=i from=$errs}
+                         - {$i}<br />
+                    {/foreach}
+                    </p>
+                    {/if}
+                    <table class="pass-t">
+						<tr>
+							<td><label>Company Name</label></td><td ><input type="text" name="fm[company]" value="{$fm.company}" size="40" /></td>
+						</tr>
+						<tr>
+							<td><label>Company Type</label></td><td ><input type="radio" value="1" name="fm[prof1]"{if !$fm.prof1 || '1' == $fm.prof1} checked="checked"{/if} /> production company <input type="radio" value="2" name="fm[prof1]"{if '2' == $fm.prof1} checked="checked"{/if} /> rental house</td>
+						</tr>
+                        
+                        <tr>
+							<td><label>Street Address</label></td><td><input type="text" name="fm[address]" value="{$fm.address}" size="60" /></td>
+						</tr>
+						<tr> 
+							<td><label>Suite/Stage</label></td><td><input type="text" name="fm[suite]" value="{$fm.suite}" size="40" /></td>
+						</tr>
+						<tr>
+							<td><label>City</label></td><td><input type="text" name="fm[city]" value="{$fm.city}" size="25" /></td>
+						</tr>
+						<tr>
+							<td><label>State</label></td>
+							<td>{*<input type="text" name="fm[state]" value="{$fm.state}" size="25" />*}
+                                <select name="fm[state]">
+                                <option value="0">Please select</option>
+                                {foreach key=k item=i from=$states}
+									<option value="{$i.code}"{if $i.code == $fm.state} selected="selected"{/if}>{$i.name}</option>
+                                {/foreach}    
+								</select>
+                            </td>
+						</tr>
+						<tr>
+							<td><label>ZIP</label></td><td><input type="text" name="fm[zip]" value="{$fm.zip}" size="15" /></td>
+						</tr>
+						<tr>
+							<td><label>Phone Number</label></td><td><input type="text" name="fm[phone]" value="{$fm.phone}" size="40" /></td>
+						</tr>
+						<tr>
+							<td><label>Fax Number</label></td><td><input type="text" name="fm[fax]" value="{$fm.fax}" size="40" /></td>
+						</tr>
+						<tr>
+							<td><label>Contact&nbsp;Person&nbsp;within&nbsp;Company</label></td><td><input type="text" name="fm[name]" value="{$fm.name}" size="40" /></td>
+						</tr>
+						<tr>
+							<td><label>Contact Person's Title</label></td><td><input type="text" name="fm[cperson_title]" value="{$fm.cperson_title}" size="40" /></td>
+						</tr>
+						<tr>
+							<td><label>Email Address</label></td><td><input type="text" name="fm[email]" value="{$fm.email}" size="40" /></td>
+						</tr>
+						<tr>
+							<td><label>Password</label></td><td><input type="password" name="fm[pass]" value="{if !$pass_err}{$fm.pass}{/if}" size="30" /></td>
+						</tr>
+						<tr>
+							<td><label>Confirm Password</label></td><td><input type="password" name="fm[pass2]" value="{if !$pass_err}{$fm.pass2}{/if}" size="30" /></td>
+						</tr>
+						
+						<tr>
+							<td>&nbsp;</td>
+							<td><input type="checkbox" name="fm[confirm]" value="1"{if $fm.confirm} checked="checked"{/if} />&nbsp;&nbsp;By checking this box you agree to the Crewed Up <a href="{$siteAdr}index.php?mod=page&amp;pn=terms">Terms of Services</a> and <a href="{$siteAdr}index.php?mod=page&amp;pn=privacy">Privacy&nbsp;Policy</a>. </td>
+						</tr>
+						<tr>
+							<td colspan="2"><p style="padding:15px 150px"><a href="javascript: _v('fmx').submit();"><img src="{$imgDir}go2_big_b.gif" alt="Go" /></a></p></td>
+						</tr>
+											
+					</table>
+					</form>
+					<p style="width:500px;text-align:center">Crewed Up staff will call to verify your production company status, normally, within 24 hours. <br />
+					Your account will be activated once it's verified. </p>
+	</div>
+</div>

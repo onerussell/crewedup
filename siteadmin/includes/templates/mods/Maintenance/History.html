@@ -1,0 +1,55 @@
+{strip}
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+        <td colspan="2" height="3"><img src="{$imgDir}s.gif" height="3" width="1" alt="" border="0" /></td>
+    </tr>
+
+    <tr>
+    <td colspan="2" height="450" align="left" valign="top" width="100%">
+
+
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr><td height="5"></td></tr>
+                <tr>
+                    <td>
+                             <br />
+                             {if $action=='view'&&$what=='list'}
+                             <h2><img src="{$imgDir}menu/history.gif" border="0" height="16" alt="Event viewer" />&nbsp;Event viewer</h2>
+                             <a href="{$curScriptName}?action=delete&what=all&start_date={$start_date}&end_date={$end_date}&pvstart={$pvstart}" onClick="return confirmLink(this, '{#confirm#} delete all events?');" ><img border="0" src="{$imgDir}12.gif" alt="" width="10" height="10" />&nbsp;<b>Delete all events</b></a><br /><br />
+                             <table cellSpacing="2" cellPadding="0" border="0" width="100%" bgcolor="#FFFFFF">
+                             <tr bgcolor="#DDDEDF" align="center" vAlign="middle" height="20">
+                                <td>&nbsp;<b>Date</b>&nbsp;</td>
+                                <td>&nbsp;<b>Action type</b>&nbsp;</td>
+                                <td>&nbsp;<b>What</b>&nbsp;</td>
+                                <td>&nbsp;<b>User</b>&nbsp;</td>
+                                <td>&nbsp;<b>IP</b>&nbsp;</td>
+                                <td><b>&nbsp;Actions&nbsp;</b></td>
+                             </tr>
+                             {section name=iif loop=$HA.rows}
+                             <tr align="center" vAlign="middle" height="35" bgcolor="#ECEEF1">
+                                 <td>&nbsp;{$HA.rows[iif].date_f}&nbsp;</td>
+                                 <td>&nbsp;{$HA.rows[iif].action}&nbsp;</td>
+                                 <td>&nbsp;{$HA.rows[iif].what}&nbsp;</td>
+                                 <td>&nbsp;<b>{$HA.rows[iif].login}</b>&nbsp;</td>
+                                 <td>&nbsp;{$HA.rows[iif].ip}&nbsp;</td>
+                                 <td width="70"><a href="{$curScriptName}?action=delete&what=record&id={$HA.rows[iif].id}&start_date={$start_date}&end_date={$end_date}&pstart={$pstart}" onClick="return confirmLink(this, '{#confirm#} delete this record?');" ><img alt="Delete" src="{$imgDir}b_drop.png" border="0" width="16" height="16" /></a></td>
+                             </tr>
+                             {/section}
+
+                             </table>
+                             <div align="right">{html_paginal_viewing m_arr=$HA.gp base_url="$curScriptName?action=view&what=list&start_date=$start_date&end_date=$end_date"}</div>
+                             {/if}
+                    </td>
+                </tr>
+        </table>
+
+    </td>
+    <td width="250"></td>
+  </tr>
+</table>
+
+    </td>
+    </tr>   
+
+</table>
+{/strip}

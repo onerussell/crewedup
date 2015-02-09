@@ -1,0 +1,38 @@
+﻿                        <table class="mail-t">
+							<tr>
+								{if $ui.uid == $message.toid}<td class="first">{if $message.image}<a href="{$siteAdr}profile.php?uid={$message.uid}"><img src="{$icPath}{$message.subdir}s_{$message.image}" alt="{if 1 == $message.status}{$message.name} {$message.lname}{else}{$message.company}{/if}" /></a>{else}<a href="{$siteAdr}profile.php?uid={$message.uid}"><img src="{$imgDir}empty.gif" alt="No Photo" /></a>{/if}</td>{/if}
+								<td>{if $ui.uid != $message.toid}<b>To:</b>{/if} <a href="{$siteAdr}profile.php?uid={$message.uid}" class="f12 color_green">{if 1 == $message.status}{$message.name|wordwrap} {$message.lname|wordwrap}{else}{$message.company|wordwrap}{/if}</a><span>{$message.sendtime|date_format:"%m/%d/%Y %I:%M %p"|lower|ucfirst}</span> 
+                                <b>{if $ui.uid == $message.toid}[Inbox]{else}[Sent Message]{/if}</b><br />
+								<b>Subject:</b> {$message.subject}<br />
+                                {$message.message|strip_tags}<br />
+                                
+								</td>
+							</tr>
+						</table>
+                        
+                    {if $bl}
+                        <br /><b><font color="#FF0000">Sorry, You are blocked by {if 1 == $message.status}{$message.name|wordwrap} {$message.lname|wordwrap}{else}{$message.company|wordwrap}{/if}</font></b>
+                    {else}
+                    <form class="write-mail-form" action="{$siteAdr}mc.php" name="ReplyMessagesForm" method="post" enctype="application/x-www-form-urlencoded">
+                    <input type="hidden" name="mod"            value="mc" />
+                    <input type="hidden" name="id"             value="{$message.id}" />
+                    <input type="hidden" name="action"         value="{$action}" />
+                    <input type="hidden" name="add_action"     value="reply" />
+                    <input type="hidden" name="do"             value="1" />
+                    <input type="hidden" name="pvstart"        value="{$pvstart}" />
+                    <input type="hidden" name="order"          value="{$order}" />	
+                    <p><label style="text-decoration:underline;">Post Reply</label></p> 
+                    {if $errs}
+                        <br /> 
+			            <font color="#990000">
+			         	{foreach key=key item=item from=$errs}
+			                {$item}<br />
+			         	{/foreach}
+			            </font>      	
+	                    
+                    {/if}
+                	<p><label>Subject:</label> <input type="text" name="mess[subject]" value="Re: {$message.subject|strip_tags}" style="width:562px;" /></p>
+					<p><textarea name="mess[message]" style="height:200px;">{$mess.message|strip_tags}</textarea></p>
+					<p class="tools"><a href="{$siteAdr}mc.php?mod={$mod}&amp;action={$action}"><img src="{$imgDir}cancel_b.gif" alt="Cancel" /></a><a href="javascript: void(0);"><img src="{$imgDir}post_b.gif" alt="Post" onclick="document.ReplyMessagesForm.submit();" /></a></p>
+					</form>
+                    {/if}

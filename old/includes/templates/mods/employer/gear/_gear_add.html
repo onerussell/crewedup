@@ -1,0 +1,59 @@
+<div class="content">
+	<table id="main-table">
+		<tr>
+			<td class="left">
+				{include file="mods/employer/_main_box.html"}
+				<table>
+					<tr>
+						<td width="210"><p class="top-title"><img src="{$imgDir}title/rentals.gif" alt="Rentals" /></p></td>
+						<td></td>
+					</tr>
+				</table>	
+
+				<div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+					
+                    {if $errs}
+                    <p><font style="color:#990000">
+                    {foreach key=k item=i from=$errs}
+                        {$i}<br />
+                    {/foreach}
+                    </font></p>
+                    {/if}
+					<form class="write-mail-form" method="post" action="{$siteAdr}rental{$uid}" name="fmx" id="fmx" enctype="multipart/form-data">
+                    <input type="hidden" name="mod" value="add" />
+                    {if $id}
+                    <input type="hidden" name="id" value="{$id}" />
+                    {/if}
+                    
+                    <p><label style="color:#333;">{if !$id}Post new{else}Edit{/if} rental</label></p>
+					<p><label>Title:</label> <input type="text" value="{$fm.title}" name="fm[title]" size="78" /></p>
+                    <p><label>Category:</label> 
+                    <select name="fm[cid]">
+                        <option value="0">Please select</option>
+                        {section name=i loop=$cats}
+                        <option value="{$cats[i].id}"{if $cats[i].id == $fm.cid} selected="selected"{/if}>{$cats[i].title}</option>
+                        {/section}
+                    </select>
+                    </p>
+
+					<p><label>Picture:</label> <input type="file" name="fm[image]" />{if $fi.image}<img src="{$icPath}/{$fi.image}" alt="" /> <a href="javascript: void(0)" onclick="CGo('{$siteAdr}rental{$uid}/?mod=add&id={$id}&delimg=1', 'Do You want to delete this image?');">Delete image</a>{/if}</p>
+
+					<p>Description:</p>
+					<p><textarea name="fm[story]" style="height: 200px;">{$fm.story}</textarea></p>
+					<p class="tools"><a href="{$siteAdr}rental{$uid}"><img src="{$imgDir}cancel_b.gif" alt="" /></a> <a href="javascript:_v('fmx').submit();">{if $id}<img src="{$imgDir}save_b.gif" alt="Save" />{else}<img src="{$imgDir}post_b.gif" alt="Post" />{/if}</a></p>
+					</form>
+			
+				</div>
+				
+				<div class="grey-box-bottom">&nbsp;</div>
+				
+				<div class="banner02"><a href="#"><img src="{$imgDir}banner02.gif" alt="#" /></a></div>
+				
+			</td>
+			<td class="right">
+			    {include file="mods/employer/_left_box.html"}	
+			</td>
+		</tr>
+	</table>
+</div>

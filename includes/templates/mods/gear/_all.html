@@ -1,0 +1,18 @@
+<div class="content">
+	<p><img src="{$imgDir}title/all_gear.gif" alt="All Gear" /></p>
+	<br />
+	<table id="main-table">
+		<tr>
+			<td class="leftbar">
+			{section name=i loop=$gl}
+			{if $smarty.section.i.index == $gcnt}
+			<td class="rightbar">
+			{/if}
+				<p class="grey-line{if $smarty.section.i.index mod 2 != 0}-no{/if}"><a href="{$siteAdr}gear.php?ctg={$gl[i].id}">{$gl[i].title}</a>{$gl[i].cnt}</p>
+			{if $smarty.section.i.index_next == $gcnt || $smarty.section.i.last}
+			</td>
+            {/if}
+			{/section}
+		</tr>
+	</table>
+</div>

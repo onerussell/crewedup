@@ -1,0 +1,107 @@
+<div class="content">
+	<table id="main-table">
+		<tr>
+			<td class="left">
+				{include file="mods/employer/_main_box.html"}
+
+				<p class="top-title"><img src="{$imgDir}title/contacts.gif" alt="Contacts" /></p><br />
+
+                {if $is_user}
+   				    {*
+					<div style="float:left;margin:0;"><a href="{$siteAdr}friend.php">{if !$inv}<img src="{$imgDir}my_contacts_b.gif" alt="" />{else}My Contacts{/if}</a></div>
+                    <div style="float:left;margin:0;">&nbsp;&nbsp;<a href="{$siteAdr}friend.php?inv=1">{if $inv}<img src="{$imgDir}my_invit_b.gif" alt="" />{else}My Invitations ({$icnt}){/if}</a></div>
+                    <br /><br />
+					*}
+                {/if}
+				<div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+					<div class="contacts-box">
+						{if !$inv}
+                        <p class="contacts-top"><a href="{$siteAdr}friend{$uid}">{if $letter}All{else}<img src="{$imgDir}all_b.gif" alt="All" />{/if}</a>
+						{foreach key=k item=i from=$la}<a href="{$siteAdr}friend{$uid}?letter={$i}"{if $letter == $i} style="background-color:#CCC; padding: 3px;"{/if}>{$i}</a>{/foreach}
+						</p>
+						<form class="contacts-form" action="{$siteAdr}friend{$uid}" id="src">
+							<input type="hidden" name="letter" value="{$letter}" />
+                            <label>Search contacts</label>
+							<input class="txt" type="text" name="sstr" value="{$sstr}" style="padding-top: 0px;" />
+							<input class="contacts-b" type="submit" value="" onclick="_v('src').submit();" />
+						</form>
+                        {/if}
+					<table>
+						{foreach name=n key=k item=i from=$pl}
+                        <tr>
+							<td class="av"{if $UserInfo.uid == $uid && $i.active != 1} style="border: none;"{/if}>
+							{if $i.image}
+                                    <div class="container02">
+									    <div class="tl"><div class="tlc"></div><div class="trc"></div></div>
+									    <div class="ml"><a href="{$siteAdr}profile{$i.uid}"><img src="{$icPath}{$i.subdir}s_{$i.image}" alt="{if 1 == $i.status}{$i.name} {$i.lname}{else}{$i.company}{/if}" /></a></div>
+									    <div class="bl"><div class="blc"></div><div class="brc"></div></div>
+								    </div>
+                            {else}<a href="{$siteAdr}profile{$i.uid}"><img src="{$imgDir}empty.gif" alt="No Photo" /></a>{/if}
+							</td>
+							<td{if $UserInfo.uid == $uid && $i.active != 1} style="border: none;"{/if}><a href="{$siteAdr}profile{$i.uid}">{if 1 == $i.status}{$i.name|wordwrap} {$i.lname|wordwrap}{else}{$i.company|wordwrap}{/if}</a><br /><span>{$i.person_title}</span></td>
+							<td{if $UserInfo.uid == $uid && $i.active != 1} style="border: none;"{/if}><p>{if $is_user && 1 == $i.active}{if $i.company && 1 == $i.status}<b>Company:&nbsp;&nbsp;</b><a href="{$siteAdr}profile{$i.uid}">{$i.company|wordwrap}</a><br />{/if}{if $i.lproj.title}<b>Current project:&nbsp;&nbsp;</b><a href="{$siteAdr}profile{$i.uid}/resume/?id={$i.lproj.id}">{$i.lproj.title}</a>{/if}{/if}</p></td>
+							<td{if $UserInfo.uid == $uid && $i.active != 1} style="border: none;"{/if}><p>{if $is_user && 1 == $i.active}<b>Email:&nbsp;&nbsp;</b><a href="mailto: {$i.email}">{$i.email}</a><br />{if $i.phone}<b>Phone:&nbsp;&nbsp;</b><span>{$i.phone}</span><br />{/if}{if $i.city}<a href="{if 1 == $i.status}{$siteAdr}crew.php?city={$i.city}&amp;state={$i.state}{if $i.prof1}&tag={$i.prof1}{elseif $i.prof2}&tag={$i.prof2}{elseif $i.prof3}&tag={$i.prof3}{/if}{else}{$siteAdr}employers.php?city={$i.city}&amp;state={$i.state}{/if}">{$i.city}</a> {/if}{if $i.state}<a href="{if 1 == $i.status}{$siteAdr}crew.php?state={$i.state}{if $i.prof1}&tag={$i.prof1}{elseif $i.prof2}&tag={$i.prof2}{elseif $i.prof3}&tag={$i.prof3}{/if}{else}{$siteAdr}employers.php?state={$i.state}{/if}">{assign var="st" value=$i.state}{$states.$st}</a>{/if}{/if}</p></td>
+							<td align="right" style="width: 100px;{if $UserInfo.uid == $uid && $i.active != 1}border: none;{/if}">
+                            	{if $is_user}
+                                <p><nobr><a href="{$siteAdr}mc.php?mod=send&amp;uid={$i.uid}"><img src="{$imgDir}arrow_left.gif" alt="Send message" /></a>&nbsp;&nbsp;
+	                               <a href="{$siteAdr}friend{$i.uid}"><img src="{$imgDir}quest.gif" alt="User contacts" /></a>&nbsp;&nbsp;
+	                               {if !$inv && $uid == $UserInfo.uid}
+	                                   {if $i.active != 1}
+	                                       <a href="javascript: CGo('{$siteAdr}friend.php?fid={$i.uid}&amp;mod=del', 'Do You want to delete user from contacts?');"><img src="{$imgDir}close.gif" alt="Delete" /></a>
+	                                   {else}
+	                                       <a href="javascript: CGo('{$siteAdr}friend.php?fid={$i.uid}&amp;mod=del', 'Do You want to delete user from contacts?');"><img src="{$imgDir}close.gif" alt="Delete" /></a>
+	                                   {/if}
+	                               {/if}
+                                   </nobr>
+                                </p>
+                                {/if}
+                            </td>
+						</tr>
+                        {if $UserInfo.uid == $uid && $i.active != 1} 
+                        <tr>
+                            <td colspan="5" style="padding: 0px; margin: 0px;">
+	                            {if !$i.active}
+	                                {if $inv}
+	                                <font color="#CC0000">The user has sent inquiry for addition you to the contact list.</font>
+	                                <div style="padding-top:5px;"><input type="button" name="addf{$i.uid}" value="Approve" class="inp" onclick="Go('{$siteAdr}friend.php?fid={$i.uid}&mod=confirm')" />&nbsp;&nbsp;<input type="button" name="addf{$i.uid}" value="Reject" class="inp" onclick="CGo('{$siteAdr}friend.php?mod=ccancel&fid={$i.uid}', 'Do You want to reject the invitation?');" /></div>
+	                                {else}
+	                                <font color="#CC0000">Your request is still pending. The User has not yet approved your invitation.</font>
+	                                {/if}
+	                            {elseif $i.active == 1}
+	
+	                            {elseif $i.active == 2}	
+	                            <font color="#CC0000"><b class="bb">Unfortunately, your request has been denied by the User.</b></font>
+	                            {/if} 
+                            </td>
+                        </tr> 
+                        {/if}  
+                        {foreachelse}
+                        <tr>
+							<td colspan="5">
+                            Contacts not found
+                            </td>
+                        </tr>    
+                        {/foreach}
+						
+						<tr>
+							<td colspan="3" class="nav-contacts">
+								{if $rcnt}Showing {$from} to {$to} of {$rcnt} contacts{/if}
+							</td>
+							<td class="nav-contacts" align="right" colspan="2">
+								{$pagging}
+							</td>
+						</tr>
+					</table>
+					</div>
+				<div class="clear">&nbsp;</div>
+				</div>
+				<div class="grey-box-bottom">&nbsp;</div>
+				{include file="_banner02.html"}
+			</td>
+			<td class="right">
+                {include file="mods/employer/_left_box.html"}	
+			</td>
+		</tr>
+	</table>
+</div>

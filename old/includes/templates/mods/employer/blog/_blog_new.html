@@ -1,0 +1,52 @@
+<div class="content">
+	<table id="main-table">
+		<tr>
+			<td class="left">
+				{include file="mods/employer/_main_box.html"}
+
+				<p class="top-title"><img src="{$imgDir}title/{if $id}edit_blog_entry{else}new_blog_entry{/if}.gif" alt="New Blog Entry" /></p><br />
+
+				<div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+                    {if $errs}
+                    <p><font style="color:#990000">
+                    {foreach key=k item=i from=$errs}
+                        {$i}<br />
+                    {/foreach}
+                    </font></p>
+                    {/if}
+					<form class="write-mail-form" method="post" action="{$siteAdr}blog.php" name="fmx" id="fmx">
+                    <input type="hidden" name="what" value="add" />
+                    <input type="hidden" name="uid" value="{$uid}" />
+                    {if $id}
+                    <input type="hidden" name="id" value="{$id}" />
+                    {/if}
+                    
+                    
+					<p><label>Subject:</label> <input type="text" value="{$fm.title}" name="fm[title]" size="88" /></p>
+					<p>Message</p>
+					<p>
+					 <script type="text/javascript" src="{$siteAdr}tmpl/fck/fckeditor.js"></script>
+					 <script type="text/javascript">
+                     var sBasePath = '{$siteAdr}tmpl/fck/';
+                     var oFCKeditor = new FCKeditor( 'fm[story]' ) ;
+                     oFCKeditor.BasePath	  = sBasePath ;
+                     oFCKeditor.ToolbarSet = 'Basic' ;
+                     FCKeditor.Height	  = 500;
+                     oFCKeditor.Value	  = '{$fm.story|escape:javascript}' ;
+                     oFCKeditor.Create() ;
+                     </script>
+                     </p>
+					<p class="tools"><a href="{$siteAdr}blog.php?uid={$uid}"><img src="{$imgDir}cancel_b.gif" alt="" /></a> <a href="javascript:_v('fmx').submit();">{if $id}<img src="{$imgDir}save_b.gif" alt="Save" />{else}<img src="{$imgDir}post_b.gif" alt="Post" />{/if}</a></p>
+					</form>
+				
+				</div>
+				<div class="grey-box-bottom">&nbsp;</div>
+				
+			</td>
+			<td class="right">
+		        {include file="mods/employer/_left_box.html"}	
+			</td>
+		</tr>
+	</table>
+</div>

@@ -1,0 +1,45 @@
+<div class="content">
+	{*
+    <p><img src="{$imgDir}title/featured_hd_cameras.gif" alt="#" /></p>
+	<div class="grey2-box-top">
+		<div class="grey2-box-bottom">
+			<p><a class="f16" href="#">Nick's Camera Rentals</a>&nbsp;&nbsp;&nbsp;<a href="#">Los Angeles</a>,&nbsp;<a href="#">California</a></p>
+			<p>NCR a nationally located equipment rental company for broadcast, A/V, audio, and computer equipment. We have the largest inventory in the nation with a full line of products including high definition/24P video projection, plasma screens, projectors, LED display walls,VTR's and cameras- all …
+			NCR a nationally located equipment rental company for broadcast, A/V, audio, and computer equipment. We have the largest inventory in the nation with a full line of products including high definition/24P video projection, plasma screens, projectors, LED display walls,VTR's and cameras- all …
+			</p>
+		</div>
+	</div>
+	*}
+	<h1 style="color:#000;font-size:2.4em;font-weight:normal;"><div style="float: left;"><img src="{$imgDir}box.gif" alt="" /></div><div style="float:left; margin-top: 8px;">{$ci.title}</div></h1>
+	<div class="clear"><!-- --></div>
+    {if $model}
+    <br /><h1 style="color:#000;font-size:1.3em;font-weight:normal;">Model: <b>{$model}</b> | <a href="{$siteAdr}gear.php?ctg={$ctg}{if $state}&amp;state={$state}{/if}{if $city}&amp;city={$city}{/if}">Show All</a></h1>
+    {/if}
+    <br />
+    {if $pl}
+	<table class="employers-t">
+		<tr>
+			<th width="165">Company</th>
+			<th width="165">Location</th>
+			<th width="165">Type</th>
+			<th>Model</th>
+            <th></th>
+		</tr>
+        {foreach name=n key=k item=i from=$pl}
+		<tr{if 2 == $i.status} class="grey"{else} class="green"{/if}>
+			<td class="first"><a href="{$siteAdr}profile{$i.uid}">{if 1 == $i.status}{$i.name|wordwrap} {$i.lname|wordwrap}{else}{$i.company|wordwrap}{/if}</a></td>
+			<td><a href="{$siteAdr}gear.php?ctg={$ctg}&amp;city={$i.city}&amp;state={$i.state}">{$i.city},</a>{assign var="ov" value=$i.state}<a href="{$siteAdr}gear.php?ctg={$ctg}&amp;state={$i.state}">{$states.$ov}</a></td>
+			<td>{if 1 == $i.status}private owner{else}rental service{/if}</td>
+			<td>&nbsp;<a href="{$siteAdr}gear.php?ctg={$ctg}&amp;model={$i.title}{if $state}&amp;state={$state}{/if}{if $city}&amp;city={$city}{/if}">{$i.title|wordwrap:40}</a></td>
+            <td class="end"><a href="{$siteAdr}{if 2 == $i.status}rental{else}gear{/if}{$i.uid}/?id={$i.id}">View</a></td>
+		</tr>
+        {/foreach}
+		<tr>
+			<td class="nav-employer" colspan="2">{$pagging}</td>
+			<td class="nav-employer" colspan="2" align="right"><p></p></td>
+		</tr>
+	</table>
+    {else}
+        Gears not found<br /><a href="{$siteAdr}gear.php">Back</a>
+    {/if}
+</div>

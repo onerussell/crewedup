@@ -1,0 +1,45 @@
+<br />
+
+<h2><img border="0" src="includes/templates/images/menu/rs.gif" alt="" />&nbsp;{#mo1#}</h2>
+<br />
+
+<center>
+<form name="fb" method="post">
+    <input type="hidden" name="action" id="action" value="update" />
+    <input type="hidden" name="id" id="id" value="0" />
+
+<table cellSpacing="1" cellPadding="0" border="0" width="100%" bgcolor="#FFFFFF">
+<tr bgcolor="#DDDEDF" align="center" vAlign="middle" height="20">
+   <td width="70px">&nbsp;<b>{#mo2#}</b>&nbsp;</td>
+   <td>&nbsp;<b>{#mo3#}</b>&nbsp;</td>
+   <td>&nbsp;<b>{#mo4#}</b>&nbsp;</td>
+   <td width="90"><b>{#mo5#}</b>&nbsp;</td>
+   <td colSpan="2"><b>&nbsp;{#mo6#}&nbsp;</b></td>
+</tr>
+{section name=i loop=$list}
+<tr bgcolor="#ECEEF1" align="center" vAlign="middle">
+    <td>&nbsp;<input type="text" name="sortid{$list[i].id}" value="{$list[i].sortid}" style="width:30px" />&nbsp;</td>
+    <td>&nbsp;<input type="text" name="fname{$list[i].id}" style="width:100px" value="{$list[i].fname}" onKeyPress="filter(event,3,'_-',1)"/><b>.php</b>&nbsp;</td>
+    <td>&nbsp;<input type="text" name="name{$list[i].id}" style="width:180px" value="{$list[i].name}" />&nbsp;</td>
+    <td align="center"><nobr>{if $list[i].active==0}<a href="{$curScriptName}?action=active&id={$list[i].id}"><img src="includes/templates/images/status_green_l.gif " border="0"></a>&nbsp;<img src="includes/templates/images/status_red.gif ">
+                     {else}<img src="includes/templates/images/status_green.gif " border="0">&nbsp;<a href="{$curScriptName}?action=active&id={$list[i].id}"><img src="includes/templates/images/status_red_l.gif" border="0"></a>
+					{/if}</nobr></td>
+    <td width="30"><a href="#" onClick="document.getElementById('id').value='{$list[i].id}'; document.getElementById('action').value='edit'; document.fb.submit(); return false;" title="{#mo11#}"><img src="includes/templates/images/b_save.png" border="0" width="16" height="16" /></a></td>
+    <td width="30"><a href="{$curScriptName}?action=del&id={$list[i].id}" onClick="return confirmLink(this, '{#mo10#}');" title="{#mo9#}" ><img src="includes/templates/images/b_drop.png" border="0" width="16" height="16" /></a></td>
+</tr>
+{/section}
+    <td colspan="5" align="left"><input type="submit" value="{#mo11#}" /></td>
+</table>
+</form>
+<br />
+    <form name="fa" method="post">
+    <input type="hidden" name="action" value="edit" />
+    <table>
+    <tr bgcolor="#ECEEF1" align="center" vAlign="middle">
+        <td>&nbsp;<b>{#mo7#}</b>&nbsp;</td>
+        <td>&nbsp;{#mo3#}: <input type="text" name="fname" value="{$list[i].fname}" style="width:100px" onKeyPress="filter(event,3,'_-',1)" /><b>.php</b>&nbsp;</td>
+        <td>&nbsp;{#mo4#}: <input type="text" name="name" value="{$list[i].name}" style="width:100px" />&nbsp;</td>
+        <td>&nbsp;<input type="submit" value="{#mo8#}" /></td>
+    </table>
+    </form>
+</center>

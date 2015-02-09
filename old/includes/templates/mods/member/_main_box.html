@@ -1,0 +1,19 @@
+                <div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+                        <div class="container05">
+						    <div class="tl"><div class="tlc"></div><div class="trc"></div></div>
+						    <div class="ml">{if $is_user && !$is_public}<a href="{$siteAdr}?mod=bprofile&amp;uid={$uid}">{/if}<img src="{if $ui.image}{$icPath}{$ui.image}{else}{$imgDir}no_photo{if !($is_user && !$is_public)}2{/if}.gif{/if}" alt="{$ui.name|wordwrap} {$ui.lname|wordwrap}" />{if $is_user && !$is_public}</a>{/if}</div>
+							<div class="bl"><div class="blc"></div><div class="brc"></div></div>
+					    </div>
+                                                
+                    <div class="my-profile">
+
+						<h1>{$ui.name|wordwrap} {$ui.lname|wordwrap}</h1>
+						<p><b>{$ui.person_title}</b></p>
+						<p><span>{$ui.title}</span></p>
+						<p>{if $ui.age}<b>{$ui.age}</b> y.o.,{/if} {if $ui.city}{$ui.city}, {/if}{$ui.state}</p>
+						<p><img src="{$imgDir}goto_b.gif" alt="To Profile" /><a class="f16" href="{$siteAdr}profile{$uid}">Profile</a></p>
+					</div>
+				<div class="clear">&nbsp;</div>
+				</div>
+				<div class="grey-box-bottom">&nbsp;</div>

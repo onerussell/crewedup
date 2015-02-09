@@ -1,0 +1,20 @@
+<div class="content">
+	<p><img src="{$imgDir}title/all_content.gif" alt="All Content" /></p>
+	<br />
+	<table id="main-table">
+		<tr>
+			{section name=i loop=$pl}
+			{if !$smarty.section.i.index || $smarty.section.i.index mod $plc == 0}
+			<td class="leftbar">
+			{/if}
+				<div class="tv-box">
+					{if $pl[i].icon}<img src="{$imgDir}{$pl[i].icon}" alt="{$pl[i].title}" />{/if}
+					<a href="{$siteAdr}film2tv.php?ctg={$pl[i].id}">{$pl[i].title}</a><br />{$pl[i].cnt}
+				</div>
+			{if $smarty.section.i.index_next mod $plc == 0}	
+			</td>
+			{/if}
+			{/section}
+		</tr>
+	</table>
+</div>

@@ -1,0 +1,28 @@
+<div class="content">
+	<div class="crew-members-reg">
+		<p><img src="{$imgDir}title/signin.gif" alt="Sign In" /></p>
+		                <form class="crew_members_reg-form" name="fml" method="post" action="{$siteAdr}index.php">
+                        <input type="hidden" name="mod" value="login" />
+                         {if $errs}
+                         <p style="color: red;">
+                            {foreach key=k item=i from=$errs}
+                             - {$i}<br />
+                            {/foreach}
+                         </p>
+                         {/if}
+                        <table class="pass-t">
+						<tr>
+							<td><label>E-mail</label></td><td ><input type="text" name="system_login" value="{$system_login}" size="40" /></td>
+						</tr>
+						<tr>
+							<td><label>Password</label></td><td><input type="password" name="system_pass" value="" size="40" /></td>
+						</tr>
+                        <tr>
+							<td>&nbsp;</td>
+							<td><p style="padding:15px 50px"><a href="javascript: document.fml.submit();"><img src="{$imgDir}go_big_b.gif" alt="Go" /></a></p></td>
+						</tr>
+                        </table>
+                        </form>
+	</div>
+</div>
+

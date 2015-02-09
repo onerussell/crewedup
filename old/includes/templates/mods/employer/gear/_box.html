@@ -1,0 +1,18 @@
+                        {if $pl}
+						<table class="credits-t">
+						    {section name=i loop=$pl}
+                            <tr>
+								<td class="first">{if $pl[i].image}<a href="{$siteAdr}rental{$pl[i].uid}/?id={$pl[i].id}"><img src="{$icPath}/{$pl[i].image}" alt="{$pl[i].title}" /></a>{else}&nbsp;{/if}</td>
+								<td><b><a href="{$siteAdr}rental{$pl[i].uid}/?id={$pl[i].id}">{$pl[i].title}</a></b> {if $pl[i].cid}{assign var="ov" value=$pl[i].cid}({$catl.$ov}){/if}<br /> {$pl[i].story|strip_tags|truncate:120:"..."}</td>
+							</tr>
+                            {/section}
+						</table> 
+						{else}
+						<table class="credits-t">
+						<tr>
+								<td>
+						           No Rentals
+								</td>
+						</tr>
+                        </table>						
+						{/if}

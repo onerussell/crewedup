@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Crewed Up - A community for television and film professionals</title>
+    <meta name="verify-v1" content="RNuYMKNYRshm5tSEFE7NKKTDf/A+WoDLUb4goeGpDmk=" />
+    <meta name="description" content="{if $meta.descr}{$meta.descr}{else}A community for television and film professionals{/if}" />
+    <meta name="keywords"    content="{if $meta.keyw}{$meta.keyw}{else}community,television,film professionals{/if}" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="{$stlDir}styles.css?2.0" rel="stylesheet" type="text/css" />
+<link href="{$stlDir}forms.css?2.0" rel="stylesheet" type="text/css" />
+<link href="{$stlDir}curve.css?2.0" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript">
+    var siteAdr = '{$siteAdr}';
+</script>
+<script type="text/javascript" src="{$jsDir}JsHttpRequest.js"></script>
+<script type="text/javascript" src="{$jsDir}base.js"></script>
+<!--[if gte IE 5.5000]>
+<script type="text/javascript" src="{$jsDir}png.js"></script>
+<![endif]-->
+</head>
+<body>
+<div class="main-cont">
+<span id="search_res"><!-- --></span>
+<!-- Header -->
+<div id="header">
+	<div class="logo-main"><img src="{$imgDir}logo_main.gif" alt="CrewedUp.com" /></div>
+	<div class="center-main">
+		<p>
+			<span>{$online_users_cnt|numprice}</span> People Online<br />
+			<b>{$all_users_cnt|numprice}</b> Registered Members<br />
+			<b>{$new_users_cnt|numprice}</b> New Members
+		</p>
+	</div>
+	{include file="_top_login.html"}
+</div>
+<div id="header-main">
+	<div class="left"><img src="{$imgDir}header_left.jpg" alt="" /></div>
+	<div class="right">
+		<p><img src="{$imgDir}welcome.gif" alt="Welcome to CrewedUp" /></p>
+		<p><img src="{$imgDir}slogan.gif" alt="A community for television &amp; film professional" /></p>
+		<p style="margin-left:10px">{if !$system_login}<a href="{$siteAdr}index.php?mod=reg"><img src="{$imgDir}register_now_b.png" alt="Register Now" /></a>{/if}</p>
+	</div>
+</div>
+<!-- /Header -->
+<!-- Menu -->
+{include file="_menu.html"}
+<!-- /Menu -->
+<!-- Content -->
+<div class="content">
+	<table id="main-table">
+		<tr>
+			<td class="main">
+			<div id="new-members-box">
+				<p class="top-title"><img src="{$imgDir}title/new_members.gif" alt="" /><a href="{$siteAdr}crew.php"><img src="{$imgDir}see_more_b.gif" alt="See More" /></a>
+</p>
+				<!-- -->
+				{foreach name=n key=k item=i from=$lu}
+                <div class="info-box01">
+					<div class="container03">
+						<div class="tl"><div class="tlc"></div><div class="trc"></div></div>
+						<div class="ml"><a href="{$siteAdr}profile{$i.uid}"><img src="{if $i.image}{$icPath}/{$i.image}{else}{$imgDir}no_photo2.gif{/if}" alt="Photo" width="79px" /></a></div>
+						<div class="bl"><div class="blc"></div><div class="brc"></div></div>
+					</div>
+                    <p><a href="{$siteAdr}profile{$i.uid}">{$i.name|wordwrap} {$i.lname|wordwrap}</a></p> 
+					<p><b>{$i.person_title|ucfirst}</b>{if $i.dt} <span>Member Since {$i.dt}</span>{/if}</p>
+					<p>{$i.title}</p>
+				</div>
+				<!-- -->
+                {if !$smarty.foreach.n.last}
+				<div class="sep">&nbsp;</div>
+                {/if}
+                {/foreach}
+				
+			<div class="clear">&nbsp;</div>	
+			</div>	
+			</td>
+			<td class="main">
+			<div id="newest-jobs-box">	
+				<p class="top-title"><img src="{$imgDir}title/newest_jobs.gif" alt="Newest Jobs" /><a href="{$siteAdr}jobs.php"><img src="{$imgDir}see_all_jobs_b.gif" alt="All Jobs" /></a><a href="{$siteAdr}rss.php?mod=jobs" target="_blank"><img src="{$imgDir}rss3.gif" alt="Rss" /></a></p>
+				<!-- -->
+				{foreach key=k item=i from=$jl}
+                <div class="info-box02">
+					<p><a href="{$siteAdr}jobs.php?id={$i.id}">{$i.job_title}</a></p> 
+					<p>{$i.descr|strip_tags|truncate:200:"..."}</p>
+					<p>{if $i.image}<a href="{$siteAdr}profile{$i.uid}"><img src="{if $i.image}{$icPath}/s_{$i.image}{else}{$imgDir}no_photo2.gif{/if}" alt="Photo" height="20px;" /></a>{/if}
+						<span>{$i.pdate}</span><span>|</span><span><a href="{$siteAdr}profile{$i.uid}">{$i.company}</a></span>
+					</p>
+				</div>
+                {/foreach}
+				
+			</div>	
+			</td>
+			<td rowspan="3" class="right">
+				<div class="what-news">
+					<p style="font-size: 10px; width: 130px;">
+					{$homepage.pagetext}
+					</p>
+				</div>
+                
+				<div class="tags">
+					{foreach key=k item=i from=$tags}
+                    <a class="f{$i}" href="{$siteAdr}crew.php?tag={$k}">{$k}</a>  
+					{/foreach}
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="empty"><div class="sep">&nbsp;</div></td>
+		</tr>
+		<tr>
+			<td>
+			{if $fl}
+            <div id="featured-members-box">
+				<p class="top-title"><img src="{$imgDir}title/featured_members.gif" alt="Featured members" /></p>
+				<!-- -->
+				{foreach key=k item=i from=$fl} 
+                <div class="info-box01">
+					<div class="container03">
+						<div class="tl"><div class="tlc"></div><div class="trc"></div></div>
+						<div class="ml"><a href="{$siteAdr}profile{$i.uid}"><img src="{if $i.image}{$icPath}/{$i.image}{else}{$imgDir}no_photo2.gif{/if}" alt="Photo" width="79px" /></a></div>
+						<div class="bl"><div class="blc"></div><div class="brc"></div></div>
+					</div>					
+					<p><a href="{$siteAdr}profile{$i.uid}">{$i.name|wordwrap} {$i.lname|wordwrap}</a></p> 
+					<p><b>{$i.person_title}</b>{if $i.dt} <span>Member Since {$i.dt}</span>{/if}</p>
+					<p>{$i.title|strip_tags|truncate:80:"..."}</p>
+				</div>
+				<!-- -->
+				<div class="sep">&nbsp;</div>
+				<!-- -->
+                {/foreach}
+			<div class="clear">&nbsp;</div>	
+			</div>
+            {/if}	
+			</td>
+			<td>
+			<div id="recent-blog-entries-box" style="width:380px;">	
+				<p class="top-title"><img src="{$imgDir}title/recent_blog_entries.gif" alt="Recent Blog Entries" /></p>
+				<!-- -->
+				{foreach key=k item=i from=$blogs}
+                <div class="info-box03">
+					<p><a class="f15" href="{$siteAdr}blog.php?id={$i.id}">{$i.title|strip_tags|truncate:80:"..."}</a></p> 
+					<p>{$i.story|strip_tags|truncate:200:"..."}</p>
+					
+                        <div class="container01" style="float:left">
+							{if $i.image}
+                            <div class="tl"><div class="tlc"></div><div class="trc"></div></div>
+							<div class="ml"><a href="{$siteAdr}profile{$i.uid}"><img src="{$icPath}{$i.subdir}s_{$i.image}" alt="{$i.fname}" /></a></div>
+							<div class="bl"><div class="blc"></div><div class="brc"></div></div>
+                            {else}
+                            <a href="{$siteAdr}profile{$i.uid}"><img src="{$imgDir}empty.gif" alt="{$i.fname}" /></a>
+                            {/if}
+						</div>
+                                   
+						<span><a href="{$siteAdr}profile{$i.uid}">{if 1 == $i.status}{$i.name|wordwrap} {$i.lname|wordwrap}{else}{$i.company|wordwrap}{/if}</a><br />{if $i.com_cnt}{$i.com_cnt} comment{if $i.com_cnt}s{/if}{else}No comments{/if}</span><span>|</span><span>{$i.pdate}</span><span>|</span><span>{$i.ptime}</span>
+				
+				</div>
+                {/foreach}
+				
+				<!-- -->
+			<div class="clear">&nbsp;</div>	
+			</div>	
+			</td>
+		</tr>
+	</table>
+</div>
+<!-- /Content -->
+<!-- Footer -->
+{include file="_footer.html"}
+<!-- /Footer -->
+</div>
+{literal}
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-7452243-1");
+pageTracker._trackPageview();
+} catch(err) {}
+</script>
+{/literal}
+</body>
+</html>

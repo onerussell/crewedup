@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>CrewedUp</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="{$stlDir}styles.css" rel="stylesheet" type="text/css" />
+<link href="{$stlDir}forms.css" rel="stylesheet" type="text/css" />
+<link href="{$stlDir}curve.css" rel="stylesheet" type="text/css" />
+
+<script language="javascript" type="text/javascript">
+    var siteAdr = '{$siteAdr}';
+</script>
+<script type="text/javascript" src="{$jsDir}base.js"></script>
+{if 'profile' == $mwd}
+<script type="text/javascript" src="{$jsDir}block.js"></script>
+{/if}
+{if 'gallery' == $mwd || 'gear' == $mwd}
+    <link rel="stylesheet" type="text/css" href="{$stlDir}lightwindow.css" />
+	<script type="text/javascript" language="javascript">
+	    var siteAdr = '{$siteAdr}';
+ 	</script>
+	<script type="text/javascript" src="{$jsDir}prototype.js"></script>
+	<script type="text/javascript" src="{$jsDir}effects.js"></script>
+	<script type="text/javascript" src="{$jsDir}lightwindow.js"></script> 	
+{/if}
+{if 'calendar' == $mwd}
+<script type="text/javascript" src="{$jsDir}calendar.js"></script>
+{/if}
+<script type="text/javascript" src="{$jsDir}JsHttpRequest.js"></script>
+
+<!--[if gte IE 5.5000]>
+<script type="text/javascript" src="{$jsDir}png.js"></script>
+<![endif]-->
+</head>
+<body>
+<div class="main-cont">
+<span id="search_res"><!-- --></span>
+
+<!-- Header -->
+<div id="header">
+	<div class="logo"><a href="{$siteAdr}"><img src="{$imgDir}logo.gif" alt="CrewedUp.com" /></a></div>
+	<div class="center">
+		<a href="{$siteAdr}rss.php?mod=users" target="_blank"><img src="{$imgDir}rss_ico.gif" alt="Rss" /></a>
+		<p>
+			<span>{$online_users_cnt|numprice}</span> People Online<br />
+			<b>{$all_users_cnt|numprice}</b> Registered Members<br />
+			<b>{$new_users_cnt|numprice}</b> New Members
+		</p>
+	</div>
+	{include file="_top_login.html"}
+</div>
+<!-- /Header -->
+<!-- Menu -->
+{include file="_menu.html"}
+<!-- /Menu -->
+<!-- Content -->
+{$_content}
+<!-- /Content -->
+<!-- Footer -->
+{include file="_footer.html"}
+<!-- /Footer -->
+
+</div>
+{literal}
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-7452243-1");
+pageTracker._trackPageview();
+} catch(err) {}
+</script>
+{/literal}
+</body>
+</html>

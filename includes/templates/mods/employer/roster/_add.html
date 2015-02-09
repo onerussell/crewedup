@@ -1,0 +1,51 @@
+<div class="content">
+	<table id="main-table">
+		<tr>
+			<td class="left">
+				{include file="mods/employer/_main_box.html"}
+
+				<p class="top-title"><img src="{$imgDir}title/add_roster.gif" alt="Add to Roster" /></p><br />
+				
+                <div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+					<div class="comments_re">
+                    
+<form method="post" action="{$siteAdr}roster.php" id="fmx">
+<input type="hidden" name="mod" value="add" />
+<input type="hidden" name="fid" value="{$uf.uid}" />
+<input type="hidden" name="add" value="1" />
+<table>
+    <tr>
+	    <td style="padding: 4px;">
+        
+		{if $uf.image}
+		    <a href="{$siteAdr}profile{$uf.uid}"><img src="{$icPath}{$uf.image}" alt="" /></a><br /><br />
+		{else}
+		    {*<a href="{$siteAdr}profile{$uf.uid}"><img src="{$imgDir}empty.gif" alt="" /></a><br /><br />*}
+		{/if}
+		</td>
+		<td valign="top">
+            <br />
+			Are you sure you want to add <a href="{$siteAdr}profile{$uf.uid}">{if 1 == $uf.status}{$uf.name|wordwrap} {$uf.lname|wordwrap}{else}{$uf.company|wordwrap}{/if}</a> to your company roster?
+			<br /><br />
+            <a href="javascript: void(0)"><img src="{$imgDir}save_b.gif" alt="" onclick="_v('fmx').submit();" /></a>&nbsp;&nbsp;<a href="javascript: void(0)"><img src="{$imgDir}cancel_b.gif" alt="" onclick="Go('{$siteAdr}roster.php');" /></a>
+		</td>
+		
+	</tr>
+</table>
+</form>
+
+
+					</div>
+				<div class="clear">&nbsp;</div>
+				</div>
+				<div class="grey-box-bottom">&nbsp;</div>
+                				
+			      
+			</td>
+			<td class="right">
+			    {include file="mods/employer/_left_box.html"}	
+			</td>
+		</tr>
+	</table>
+</div>

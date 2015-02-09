@@ -1,0 +1,308 @@
+<script type="text/javascript" src="{$jsDir}jquery.js"></script>
+<script type="text/javascript" src="{$jsDir}jquery.bgiframe.js"></script>
+<script type="text/javascript" src="{$jsDir}jquery.ajaxQueue.js"></script>
+<script type="text/javascript" src="{$jsDir}jquery.autocomplete.js"></script>
+<link rel="stylesheet" type="text/css" href="{$stlDir}jquery.autocomplete.css" />
+
+<script type="text/javascript">
+// <![CDATA[
+var icPath = '{$icPath}';
+{literal}
+$().ready(function() {
+
+	function formatItem(row) 
+    {
+		return row[1];
+	}
+
+    function formatResult(row) 
+    {
+		return row[1].replace(/(<.+?>)/gi, '');
+	}
+
+	$("#fm_title").autocomplete(siteAdr + 'dict.php?action=get_movies', 
+    {
+        delay:       200,
+        cacheLength: 10,
+        minChars:    3,
+    	width: 270,
+    	formatItem: formatItem,
+    	formatResult: formatResult
+	});
+	
+    $("#fm_company").autocomplete(siteAdr + 'dict.php?action=get_companies', 
+    {
+        delay:       200,
+        cacheLength: 10,
+        minChars:    3,
+		width: 270,
+		formatItem: formatItem,
+    	formatResult: formatResult
+	});
+});
+
+function get_logo(type, val)
+{
+    var img  = new Image();
+    img.src  = imgDir + 'empty_big.gif';
+
+    var img2 = new Image();
+    img2.src = imgDir + 'empty_big.gif';
+
+    var field = (1 == type ? 'image' : 'image2');
+
+    if (2 < val.length && (1 == type ? 'Project Title' : 'Production Company Name') != val)
+    {
+        $.ajax({
+    	    cache:    false,
+        	mode:     'abort',
+    		port:     field,
+            dataType: 'json',
+    		url:  siteAdr + 'dict.php?action=get_' + (1 == type ? 'movie' : 'company') + '_logo&q=' + encodeURIComponent(val),
+    		success: function(data) 
+            {
+                if (data)
+                {
+                    if (data[0])
+                    {
+                       var img = new Image();
+                       img.src = icPath + '/' + data[0];
+
+                       _v('fi_' + field + '_').innerHTML       = '<img src="' + icPath + '/' + data[0] + '" alt="" />';
+                       _v('fm_' + field).disabled              = true;
+                       _v('fm_' + field + '_bl').style.display = 'none';
+                    }
+                    else
+                    {
+                       _v('fi_' + field + '_').innerHTML       = '<img src="' + imgDir + 'empty_big.gif" alt="" />';
+                       _v('fm_' + field).disabled              = false;
+                       _v('fm_' + field + '_bl').style.display = 'inline';
+                    }
+
+                    if (data[1])
+                    {
+                       var img2 = new Image();
+                       img2.src = icPath + '/' + data[1];
+
+                       _v('fi_' + field + '2_').innerHTML       = '<img src="' + icPath + '/' + data[1] + '" alt="" />';
+                       _v('fm_' + field + '2').disabled         = true;
+                       _v('fm_' + field + '2_bl').style.display = 'none';
+                    }
+                    else
+                    {
+                       _v('fi_' + field + '2_').innerHTML       = '<img src="' + imgDir + 'empty_big2.gif" alt="" />';
+                       _v('fm_' + field + '2').disabled         = false;
+                       _v('fm_' + field + '2_bl').style.display = 'inline';
+                    }
+                }
+                else
+                {
+                   _v('fi_' + field + '_').innerHTML        = '<img src="' + imgDir + 'empty_big.gif" alt="" />';
+                   _v('fm_' + field).disabled               = false;
+                   _v('fm_' + field + '_bl').style.display  = 'inline';
+
+                   _v('fi_' + field + '2_').innerHTML       = '<img src="' + imgDir + 'empty_big2.gif" alt="" />';
+                   _v('fm_' + field + '2').disabled         = false;
+                   _v('fm_' + field + '2_bl').style.display = 'inline';
+                }
+    		}
+    	});
+    }
+    else
+    {
+        _v('fi_' + field + '_').innerHTML       = '<img src="' + imgDir + 'empty_big.gif" alt="" />';
+        _v('fm_' + field).disabled              = false;
+        _v('fm_' + field + '_bl').style.display = 'inline';
+
+        _v('fi_' + field + '2_').innerHTML       = '<img src="' + imgDir + 'empty_big2.gif" alt="" />';
+        _v('fm_' + field + '2').disabled         = false;
+        _v('fm_' + field + '2_bl').style.display = 'inline';
+    }
+}
+{/literal}
+// ]]>
+</script>
+
+<div class="content">
+	<table id="main-table">
+		<tr>
+			<td class="left">
+				{include file="mods/member/_main_box.html"}
+    			<table>
+					<tr>
+						<td width="260"><p class="top-title"><img src="{$imgDir}title/company_credits.gif" alt="Company Credits" /></p></td>
+    					<td>{if $is_user && $id}<p class="gear-add"><a href="{$siteAdr}profile.php?act=resume&amp;what=add&amp;uid={$uid}"><img src="{$imgDir}gear_add_ico.gif" alt="Add" />Post a new entry</a></p>{/if}</td>
+					</tr>
+				</table>	
+
+				<div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+					
+                    {if $errs}
+                    <p><font style="color:#990000">
+                    {foreach key=k item=i from=$errs}
+                        {$i}<br />
+                    {/foreach}
+                    </font></p>
+                    {/if}
+					<form class="write-mail-form" method="post" action="{$siteAdr}profile.php" name="fmx" id="fmx" enctype="multipart/form-data">
+                    <input type="hidden" name="act"  value="credits" />
+                    <input type="hidden" name="what" value="add"     />
+                    <input type="hidden" name="uid"  value="{$uid}"  />
+                    {if $id}
+                        <input type="hidden" name="id" value="{$id}"   />
+                    {/if}
+                    
+                    <p><label style="color:#333;">{if !$id}Post a new{else}Edit{/if} entry</label></p>
+					<br />
+                    <table style="width:99%;" border="0" >
+                    <tr>
+                        <td style="width:90px;" align="center" id="fi_image_">
+                            {if $fi.image}
+                                <img id="fi_image" src="{$icPath}/{$fi.image}" alt="" />{*<br /><a href="javascript: void(0)" onclick="CGo('{$siteAdr}profile.php?act=resume&what=add&uid={$uid}&id={$id}&delimg=1', 'Delete this logo?');">Delete logo</a>*}
+                            {else}
+                                <img id="fi_image" src="{$imgDir}empty_big.gif" alt="" />
+                            {/if}
+                        </td>
+
+                        <td>
+                            <table cellSpacing="2" cellPadding="2" width="100%" >
+                            <tr><td>
+                            <input type     = "text" 
+                                   class    = "input_srh"
+                                   name     = "fm[title]" 
+                                   style    = "width:244px;" 
+                                   id       = "fm_title" 
+                                   onblur   = "get_logo(1, this.value); if ('' == this.value) this.value = 'Project Title';" 
+                                   onfocus  = "if ('Project Title' == this.value) this.value = '';" 
+                                   value    = "{if !$fm.title}Project Title{else}{$fm.title}{/if}" />
+                            </td></tr>
+                            <tr><td>
+                           Start <select name="fm[month]" style="margin-left:36px;" class="input_srh3" >
+                           <option value="0">Month</option>
+                           {section name=i loop=$ma}
+                           {assign var="ov" value=$smarty.section.i.index+1}
+                           <option value="{$ov}"{if $ov == $fm.month} selected="1"{/if}>{$ma[i]}</option>
+                           {/section}
+                           </select>
+                           
+                           <input type="text" name="fm[year]" style="width: 80px;" class="input_srh3" value="{if 1000 < $fm.year}{$fm.year}{else}Year{/if}" onblur="if ('' == this.value) this.value='Year';" onfocus="if ('Year' == this.value) this.value = '';"  onkeypress="filter(event,1,'',1)" /> ex.: 2009
+
+                           {*<select name="fm[year]" style="width: 80px;" class="input_srh3" onchange="add_years(_v('fm[year_f]'), this.value);" >
+                           <option value="0">Year</option>
+                           {section name=i loop=$ya}
+                           <option value="{$ya[i]}"{if $ya[i] == $fm.year} selected="1"{/if}>{$ya[i]}</option>
+                           {/section}*}
+                           </select>
+                            </td></tr>
+                            <tr><td>
+
+                           Finish <select name="fm[month_f]" style="margin-left:34px;" class="input_srh3" >
+                           <option value="0">Month</option>
+                           {section name=i loop=$ma}
+                           {assign var="ov" value=$smarty.section.i.index+1}
+                           <option value="{$ov}"{if $ov == $fm.month_f || false && (!$fm.month_f && 12== $ov)} selected="1"{/if}>{$ma[i]}</option>
+                           {/section}
+                           </select>
+                           
+                           <input type="text" name="fm[year_f]" style="width: 80px;" class="input_srh3" value="{if 1000 < $fm.year_f}{$fm.year_f}{else}Year{/if}" onblur="if ('' == this.value) this.value='Year';" onfocus="if ('Year' == this.value) this.value = '';" onkeypress="filter(event,1,'',1)" /> ex.: 2019
+
+                           {*<select id="fm[year_f]" name="fm[year_f]" style="width: 80px;" class="input_srh3">
+                               <option value="0">Year</option>
+                               {section name=i loop=$ya2}
+                                    <option value="{$ya2[i]}"{if $ya2[i] == $fm.year_f || false && (!$fm.year_f && date("Y") == $ya2[i])} selected="1"{/if}>{$ya2[i]}</option>
+                               {/section}
+                           </select>*}
+                            </td></tr>
+
+                            <tr>
+                                <td>
+                                    <div id="fm_image_bl" {if $fi.image}style="display:none;"{/if} ><nobr>Project Logo <input id="fm_image"  type="file" name="fm[image]" size="16" style="font-size:12px;" {if $fi.image}disabled="1"{/if} /></nobr></div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                   <select name="fm[prj_type]" class="input_srh3" style = "width:100px;">
+                                        <option value="0">Project Type</option>
+                                        {section name=iip loop=$prj_types}
+                                            <option value="{$prj_types[iip].id}"{if $prj_types[iip].id == $fm.prj_type} selected="1"{/if}>{$prj_types[iip].title}</option>
+                                        {/section}
+                                   </select>
+                                   <input type    = "text" 
+                                          name    = "fm[prj_episode]"
+                                          style   = "width:140px;"
+                                          class   = "input_srh" 
+                                          id      = "fm_episode" 
+                                          onblur  = "if ('' == this.value) this.value = 'Project Episode';" 
+                                          onfocus = "if ('Project Episode' == this.value) this.value = '';" 
+                                          value   = "{if !$fm.prj_episode}Project Episode{else}{$fm.prj_episode}{/if}" />
+                                 </td>
+                            </tr>
+
+                            </table>    
+
+                        </td>
+
+                        <td style="width:40%;">
+                            <table cellSpacing="0" cellPadding="0" width="100%" >
+                            <tr >
+                                <td vAlign="middle" align="center" id="fi_image2_">
+                                    {if $fi.image2}
+                                        <img id="fi_image2" src="{$icPath}/{$fi.image2}" alt="" />{*<br /><a href="javascript: void(0)" onclick="CGo('{$siteAdr}profile.php?act=resume&what=add&uid={$uid}&id={$id}&delimg2=1', 'Delete this logo?');">Delete logo</a>*}
+                                    {else}
+                                        <img id="fi_image2" src="{$imgDir}empty_big.gif" alt="" />
+                                    {/if}
+                                </td>
+                                <td style="vertical-align:middle;">
+                                    <input type     = "text" 
+                                           class    = "input_srh"
+                                           name     = "fm[company]" 
+                                           style    = "width:158px;margin-left:5px;" 
+                                           id       = "fm_company" 
+                                           onblur   = "if ('' == this.value) this.value = 'Production Company Name';" 
+                                           onfocus  = "if ('Production Company Name' == this.value) this.value = '';" 
+                                           value    = "{if !$fm.company}Production Company Name{else}{$fm.company}{/if}" />
+                                </td>
+                            <tr>
+                                <td colSpan="2">
+                                    <div id="fm_image2_bl" style="margin-top:4px;{if $fi.image2}display:none;{/if}" >Production Company Logo<br />
+                                        <input id="fm_image2" type="file" name="fm[image2]" size="16" style="font-size:12px;" {if $fi.image2}disabled="1"{/if} />
+                                    </div>
+                                </td>
+                            </tr>
+                            </tr>
+                            </table>
+                            
+                        </td>
+                    </tr>
+                    </table>    
+
+    				<p class="tools">{if !$id}<a href="{$siteAdr}profile.php?act=resume&amp;uid={$uid}"><img src="{$imgDir}cancel_b.gif" alt="" /></a> {/if}<a href="javascript:_v('fmx').submit();">{if $id}<img src="{$imgDir}save_b.gif" alt="Save" />{else}<img src="{$imgDir}post_b.gif" alt="Post" />{/if}</a>{if $id} <a href="{$siteAdr}profile{$uid}/resume/?what=del&amp;id={$id}"><img src="{$imgDir}remove_b.gif" alt="Remove" /></a>{/if}</p>
+
+					{*<p style="font-size: 14px;">Description:</p>
+					<p><textarea name="fm[story]" style="height: 200px;">{$fm.story}</textarea></p>*}
+
+                    <script type="text/javascript">
+                    // <![CDATA[
+                        get_logo(1, _v('fm_title').value);
+                        // get_logo(2, _v('fm_company').value);
+                    // ]]>
+                    </script>
+
+					</form>
+			
+				</div>
+				
+				<div class="grey-box-bottom">&nbsp;</div>
+				
+                {include file="mods/employer/resume/_resume_base.html"}				
+				{include file="_banner02.html"}
+				
+			</td>
+			<td class="right">
+			    {include file="mods/member/_left_box.html"}	
+			</td>
+		</tr>
+	</table>
+</div>

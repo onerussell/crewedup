@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+ * FCKeditor - The text editor for internet
+ * Copyright (C) 2003-2005 Frederico Caldeira Knabben
+ * 
+ * Licensed under the terms of the GNU Lesser General Public License:
+ * 		http://www.opensource.org/licenses/lgpl-license.php
+ * 
+ * For further information visit:
+ * 		http://www.fckeditor.net/
+ * 
+ * "Support Open Source software. What about a donation today?"
+ * 
+ * File Name: fckstyles.xml
+ * 	This is the sample style definitions file. It makes the styles combo
+ * 	completely customizable.
+ * 	See FCKConfig.StylesXmlPath in the configuration file.
+ * 
+ * File Authors:
+ * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
+-->
+<Styles>
+	<Style name="Body" element="span">
+		<Attribute name="style" value="font: 11px Verdana, Tahoma, Arial, sans-serif; color: #5F5F5F;" />
+	</Style>
+
+	<Style name="Head1" element="span">
+		<Attribute name="style" value="font: 12px Verdana, Tahoma, Arial, sans-serif; font-weight: bold; color: #336699;" />
+	</Style>
+
+	<Style name="Head2" element="span">
+		<Attribute name="style" value="font: 12px Verdana, Tahoma, Arial, sans-serif; font-weight: bold; color: #000000;" />
+	</Style>
+
+	<Style name="Head3" element="span">
+		<Attribute name="style" value="font: 11px Verdana, Tahoma, Arial, sans-serif; font-weight: bold; color: #5F5F5F;" />
+	</Style>
+
+	<Style name="Bullet" element="li">
+		<Attribute name="style" value="font: 11px Verdana, Tahoma, Arial, sans-serif; font-weight: bold; color: #5F5F5F;" />
+	</Style>
+
+	<Style name="Quote" element="span">
+		<Attribute name="style" value="font: 11px Verdana, Tahoma, Arial, sans-serif; font-style: italic; color: #336699;" />
+	</Style>
+
+	<Style name="Caption" element="span">
+		<Attribute name="style" value="font: 10px Verdana, Tahoma, Arial, sans-serif; font-style: italic; color: #336699;" />
+	</Style>
+
+
+</Styles>

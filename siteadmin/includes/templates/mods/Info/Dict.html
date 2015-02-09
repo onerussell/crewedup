@@ -1,0 +1,252 @@
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+        <td colspan="2" height="3"><img height="3" border="0"></td>
+    </tr>
+
+    <tr>
+        {*<!--Central part-->*}
+        <td colspan="2" height="450" align="left" valign="top">
+            <br />
+
+            <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td valign="top">
+                    <h2>{#spage#}</h2>
+                    <a href="{$curScriptName}">{#spage#}</a>
+                    {section name=i loop=$bc}
+                         &gt; <a href="{$bc[i].link}">{$bc[i].name}</a>
+                    {/section}
+                    <br />
+                    <br />
+                    <br />
+                   {if "change" == $action}
+   
+                   {if "ok" == $smarty.get.result}<font color="green"><b>Value successfully updated</b></font><br /><br />{/if}
+
+                   <b>{#action#}: {if $id == 0 || $id == ''}{#add#}{else}{#edit#}{/if} {#spageo#}</b>
+
+                   {if $fdata.javascript}
+                       {$fdata.javascript}
+                   {/if}
+
+                      <form {$fdata.attributes}>
+                      {if $fdata.errors}
+                        {foreach from=$fdata.errors item=err}
+                           <p style="color:red">{$err}</p>
+                        {/foreach}
+                      {/if}
+                       <table>
+                       {section name=i loop=$fdata.elements}
+                      {if $fdata.elements[i].type=='text' || $fdata.elements[i].type=='textarea' || $fdata.elements[i].type=='static'
+                                           || $fdata.elements[i].type=='file' || $fdata.elements[i].type=='select'
+										   || $fdata.elements[i].type == 'checkbox'}
+                       <tr>
+                           <td><b>{$fdata.elements[i].label}</b></td>
+                       </tr>
+                       <tr>
+                           <td>{$fdata.elements[i].html}</td>
+                       </tr>
+                      {elseif $fdata.elements[i].type=='hidden'}
+                         {$fdata.elements[i].html}
+                      {/if}
+                      {/section}
+                      </table>
+
+                     <table width="200" border="0" cellpadding="0" cellspacing="0">
+                     <tr valign="top">
+                         <td><input type="submit" name="submit" value="{#submit#}" />&nbsp;&nbsp;or&nbsp;&nbsp;</td>
+                         <td><input type="button" name="cancel" value="Return to elements list" onClick="document.location='{$curScriptName}?ctg={$ctg}&page={$page}';" /></td>
+                     </tr>
+                     </table>
+                     </form>
+					 {elseif $action == "edit"}
+
+                      <b>{#action#}: {if $cid == 0 || $cid == ''}{#add#}{else}{#edit#}{/if} {#category#}</b>
+
+                      {if $fdata.javascript}
+                          {$fdata.javascript}
+                      {/if}
+
+                      <form {$fdata.attributes}>
+                      {if $fdata.errors}
+                         {foreach from=$fdata.errors item=err}
+                         <p style="color:red">{$err}</p>
+                         {/foreach}
+                      {/if}
+                      <table>
+                      {section name=i loop=$fdata.elements}
+                          {if $fdata.elements[i].type=='text' || $fdata.elements[i].type=='textarea' || $fdata.elements[i].type=='static'
+                                           || $fdata.elements[i].type=='file' || $fdata.elements[i].type=='select'
+										   || $fdata.elements[i].type == 'checkbox'}
+                          <tr>
+                              <td><b>{$fdata.elements[i].label}</b></td>
+                          </tr>
+                          <tr>
+                              <td>{$fdata.elements[i].html}</td>
+                          </tr>
+                          {elseif $fdata.elements[i].type=='hidden'}
+                             {$fdata.elements[i].html}
+                          {/if}
+                      {/section}
+                      </table>
+
+                      <table width="200" border="0" cellpadding="0" cellspacing="0">
+                          <tr valign="top">
+                            <td><input type="submit" value="{#submit#}" />&nbsp;&nbsp;</td>
+                            <td><input type="button" name="cancel" value="{#cancel#}" onClick="document.location='{$curScriptName}?ctg={$ctg}';" /></td>
+                          </tr>
+                      </table>
+                      </form>
+					  
+                  {elseif "new_elements_moderation" == $action}
+                            <a href="dict.php"><img src="{$imgDir}12_.gif" alt="" border="0" /></a> <a href="dict.php">Return</a><br /><br /> 
+                            <form action="dict.php" method="post">
+                            
+                            <input type="hidden" name="action" value="change_elements_status" />
+                            
+                            <input type="submit" value="Apply changes" />&nbsp;&nbsp;<input type="reset" value="Reset" /><br /><br />
+
+                            <table border="0" cellspacing="2" cellpadding="3" bgcolor="#FFFFFF">
+                               <tr bgcolor="#DDDEDF" height="20" >
+                                <td align="center" ><b>Dictionary</b></td>
+                                <td align="center" ><b>New value</b></td>
+                                <td align="center" ><b>Status</b></td>
+                               </tr>
+
+                               {section name=iic loop=$NA.rows}
+                               <tr bgcolor="{if $smarty.section.iic.rownum % 2}#ECEEF1{else}#FFFFFF{/if}" align="center"  height="20">
+                                <td>{$NA.rows[iic].c_name}</td>
+                                <td><a href="dict.php?action=change&id={$NA.rows[iic].id}" target="_blank" >{$NA.rows[iic].name}</a></td>
+                                <td>
+                                    <select name="status[{$NA.rows[iic].id}]" >
+                                        <option value="0"  class="md" >allow</option>
+                                        <option value="-1" class="dl" >delete</option>
+                                    </select>
+                                </td>
+                               </tr>
+                               {/section}
+                            </table>
+
+                            <input type="submit" value="Apply changes" />&nbsp;&nbsp;<input type="reset" value="Reset" /><br /><br />
+                            </form>
+                            <div align="left">{html_paginal_viewing m_arr=$NA.gp base_url="dict.php?action=new_elements_moderation"}</div>
+                    {else}
+
+                    <form action="dict.php"><a href="dict.php?action=new_elements_moderation"><img border="0" src="{$imgDir}12.gif" alt="" /> New elements moderation</a> | <input type="text" name="srh" value="{if $srh}{$srh}{else}Search{/if}" onfocus="if ('Search' == this.value) this.value='';" onblur="if ('' == this.value) this.value='Search';" /></form><br /><br />
+
+                    {*<!--list output-->*}
+                    <table width="100%"  border="0" cellspacing="1" cellpadding="0">
+					
+                    {if !$srh}
+                    {*<!--Category list-->*}
+                    {section name=i loop=$category}
+                    <tr>
+                        <td width="15">{$category[i].sortid}&nbsp;</td>
+                        <td>
+                            <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td width="26"><img src="includes/templates/images/folder.gif" border="0"></td>
+                                    <td><a href="{$curScriptName}?ctg={$category[i].cid}">{$category[i].name}</a></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                       {if $category[i].active==0}
+                           <a href="{$curScriptName}?ctg={$ctg}&action=cactive&cid={$category[i].cid}"><img src="includes/templates/images/status_green_l.gif " border="0" alt="{#mactive#}"></a>
+                           &nbsp;<img src="includes/templates/images/status_red.gif" alt="{#nactive#}">
+                       {else}
+                           <img src="includes/templates/images/status_green.gif " border="0" alt="{#active#}">&nbsp;
+                           <a href="{$curScriptName}?ctg={$ctg}&action=cactive&cid={$category[i].cid}"><img src="includes/templates/images/status_red_l.gif" border="0" alt="{#mnactive#}"></a>
+                       {/if}
+                       </td>
+
+                       <td width="35"><a href="{$curScriptName}?ctg={$category[i].cid}"><IMG src="includes/templates/images/b_browse.png" border="0" width="16" height="16" title="{#enter#}" /></a></td>
+                       <td width="35"><a href="{$curScriptName}?ctg={$ctg}&action=edit&cid={$category[i].cid}"><IMG src="includes/templates/images/b_edit.png" border="0" width="16" height="16" title="{#edit#}" /></a></td>
+                       <td width="35"><a href="{$curScriptName}?ctg={$ctg}&action=delcat&cid={$category[i].cid}"><IMG src="includes/templates/images/b_drop.png" border="0" width="16" height="16" title="{#delete#}" /></a></td>
+                    </tr>
+					<tr>
+				        <td colspan="6" height="1px" bgcolor="#CCCCCC"></td>
+				    </tr>	
+                    {/section}
+					{/if}
+
+                    {*<!--pages list-->*}
+                    {section name=i loop=$list}
+                    <tr>
+                        <td width="15" style="height: 17px;" class="tdx">{$smarty.section.i.rownum+$page*100-100}&nbsp;</td>
+                        <td>
+                            <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td width="26"><img src="includes/templates/images/preview.gif" border="0"></td>
+                                    {if $srh}<td width="80"><a href="{$curScriptName}?ctg={$category[i].cid}">{$list[i].cat_name}</a></td>{/if}
+                                    <td>{if $srh} &rarr; {/if}<a href="{$curScriptName}?action=change&id={$list[i].id}&ctg={$list[i].cid}">{$list[i].name}</a></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                       {if $list[i].active==0}
+                           <a href="{$curScriptName}?action=active&id={$list[i].id}&ctg={$list[i].cid}"><img src="includes/templates/images/status_green_l.gif " border="0" alt="{#mactive#}"></a>
+                           &nbsp;<img src="includes/templates/images/status_red.gif" alt="{#nactive#}">
+                       {else}
+                           <img src="includes/templates/images/status_green.gif " border="0" alt="{#active#}">&nbsp;
+                           <a href="{$curScriptName}?action=active&id={$list[i].id}&ctg={$list[i].cid}"><img src="includes/templates/images/status_red_l.gif" border="0" alt="{#mnactive#}"></a>
+                       {/if}
+                       </td>
+                       <td width="35"><a href="{$curScriptName}?action=change&id={$list[i].id}&ctg={$list[i].cid}&amp;page={$page}"><IMG src="includes/templates/images/b_edit.png" border="0" width="16" height="16" title="{#edit#}" /></a></td>
+                       <td width="35"><a href="{$curScriptName}?action=delpage&id={$list[i].id}&ctg={$list[i].cid}&amp;page={$page}"><IMG src="includes/templates/images/b_drop.png" border="0" width="16" height="16" title="{#delete#}" /></a></td>
+                    </tr>
+					<tr>
+				        <td colspan="6" height="1px" bgcolor="#CCCCCC"></td>
+				    </tr>	
+                    {/section}
+                    <tr><td colspan="6"><div style="height:3px; width: 100%;"><!-- --></div>{$pagging}</td></tr>
+                   </table>
+				      {if $cinf.parent <> ''}
+                      <br /> <br />
+                      <input type="button" name="bup" value="{#ontop#}" onClick="document.location='{$curScriptName}?ctg={$cinf.parent}';" />
+				      {/if}     
+				  {/if}
+
+        </td>
+        {*<!--End Central part-->*}
+
+        <td width="4"><img width="4" height="0" alt="" src="{$imgDir}s.gif" /></td>
+
+        {*<!--Right part-->*}
+        <td width="250" valign="top">
+
+            {if $action=="delpage"}
+                <br /><br />
+                                <b>{#delpage#}</b> "{$inf.name}" ?
+                <br /><br />
+                <input type="button" name="submit" value="{#submit#}" onClick="document.location='{$curScriptName}?id={$inf.id}&action=delpage&do=1&ctg={$ctg}&page={$page}';" />
+                                &nbsp;&nbsp;
+                 <input type="button" name="cancel" value="{#cancel#}" onClick="document.location='{$curScriptName}?ctg={$ctg}&page={$page}';" />
+            
+			 {/if}
+             
+            
+			{if $action=="delcat"}
+                <br /><br />
+                               <b>{#delcat#}</b> "{$inf.name}" {#delwith#}?
+                <br /><br />
+               <input type="button" name="submit" value="{#submit#}" onClick="document.location='{$curScriptName}?ctg={$ctg}&cid={$inf.cid}&action=delcat&do=1';" />
+                &nbsp;&nbsp;<input type="button" name="cancel" value="{#cancel#}" onClick="document.location='{$curScriptName}?ctg={$ctg}';" />
+			{/if}
+			{if $action == ''}
+			{if $ctg > 0}
+            <input type="button" name="addcat" value="{#add#} {#spageo#}" onClick="document.location='{$curScriptName}?action=change&ctg={$ctg}';" />
+			{/if}
+
+			<br /><br />
+			    {if ($ctg == 0)}
+                 <input type="button" name="addcat" value="{#add#} {#category#}" onClick="document.location='{$curScriptName}?action=edit&ctg={$ctg}';" />
+			    {/if}
+
+           {/if}
+        </td>
+    </tr>
+</table>
+    </tr>
+</table>

@@ -1,0 +1,38 @@
+<div class="content">
+	<p class="top-title"><img src="{$imgDir}title/search_results.gif" alt="#" /></p>
+	<p>{$jc} result{if 1 < $search_c}s{/if} found for "<span class="color_brown">{$sstr}</span>"</p><br />
+	<table id="main-table">
+		<tr>
+			<td class="left">
+				<div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+                    {if $jc}  
+					<p><b>Jobs</b></p>
+					{*<p>Top 12 from 245 results</p>*}
+					<p>&nbsp;</p>
+					{section name=i loop=$jcl}
+                    <p><a href="{$siteAdr}jobs.php?id={$jcl[i].id}">{$jcl[i].job_title}</a> needed at <a href="{$siteAdr}jobs.php?cat={$jcl[i].cid}">{$jcl[i].cid}</a> in <a href="{$siteAdr}jobs.php?city={$jcl[i].city}&amp;state={$jcl[i].state}">{$jcl[i].city}</a>, {assign var="ov" value=$jcl[i].state}<a href="{$siteAdr}jobs.php?state={$jcl[i].state}">{$jcl[i].state}</a> from {$jcl[i].start_date}</p>
+					{/section}
+                    <br /><p class="view-all-found">{$pagging}</p>
+					{/if}
+                    <a href="{$siteAdr}search.php?sstr={$sstr}">Show All Search Results</a>
+				<div class="clear">&nbsp;</div>
+				</div>
+				<div class="grey-box-bottom">&nbsp;</div>
+
+			</td>
+			<td class="right">
+			<!-- Search Box -->
+				<p class="right-title"><img src="{$imgDir}search_ico.gif" alt="" />Search Categories</p>
+				<ul class="guide">
+					<li><a href="{$siteAdr}search.php?sstr={$sstr}">All Categories</a></li>
+					{if $mc}<li><a href="{$siteAdr}search.php?mod=member&amp;sstr={$sstr}">Crew Members</a></li>{/if}
+                    {if $ec}<li><a href="{$siteAdr}search.php?mod=employers&amp;sstr={$sstr}">Employers</a></li>{/if}
+                    <li>Jobs</li>
+                    {if $gc}<li><a href="{$siteAdr}search.php?mod=gear&amp;sstr={$sstr}">Gear</a></li>{/if}   
+				</ul>
+			</td>
+		</tr>
+	</table>
+</div>
+<!-- /Content -->

@@ -1,0 +1,9 @@
+{if $lprev}<a href="{$lprev}">Previous</a>{else}{/if}
+{section name = i loop = $pages}
+{if $page == $pages[i].page}
+    {if !$smarty.section.i.first}|{/if} <b>{$pages[i].page}</b>
+{else}	
+    {if !$smarty.section.i.first}|{/if} <a href="{$pages[i].link}">{$pages[i].page}</a>
+{/if} 
+{/section}
+{if $lnext}<a href="{$lnext}">Next</a>{else}{/if}

@@ -1,0 +1,243 @@
+<br />
+{if $action == 'view' && $what == 'list'}
+
+<h2><img border="0" src="includes/templates/images/menu/list_users.gif" alt="{#au1#}" />&nbsp;{#au1#}</h2>
+
+
+<center>
+<table cellSpacing="1" cellPadding="0" border="0" width="100%" bgcolor="#FFFFFF">
+<tr bgcolor="#DDDEDF" align="center" vAlign="middle" height="20">
+   <td>&nbsp;<b><a href="{$curScriptName}?action=view&what=list&pvstart={$pvstart}&ordercol=name&orderdesc={if $ordercol=='name'&&$orderdesc=='asc'}desc{else}asc{/if}">Name</a>{if $ordercol=='name'}&nbsp;<img src="includes/templates/images/s_{$orderdesc}.png" width="11" height="9" alt="" />{/if}</b>&nbsp;</td>
+   <td>&nbsp;<b><a href="{$curScriptName}?action=view&what=list&pvstart={$pvstart}&ordercol=company&orderdesc={if $ordercol=='company'&&$orderdesc=='asc'}desc{else}asc{/if}">Company</a>{if $ordercol=='company'}&nbsp;<img src="includes/templates/images/s_{$orderdesc}.png" width="11" height="9" alt="" />{/if}</b>&nbsp;</td>
+   <td>&nbsp;<b><a href="{$curScriptName}?action=view&what=list&pvstart={$pvstart}&ordercol=status&orderdesc={if $ordercol=='status'&&$orderdesc=='asc'}desc{else}asc{/if}">Type</a>{if $ordercol=='status'}&nbsp;<img src="includes/templates/images/s_{$orderdesc}.png" width="11" height="9" alt="" />{/if}</b>&nbsp;</td>
+   <td><b><a href="{$curScriptName}?action=view&what=list&pvstart={$pvstart}&ordercol=email&orderdesc={if $ordercol=='email'&&$orderdesc=='asc'}desc{else}asc{/if}">E-mail</a>{if $ordercol=='email'}&nbsp;<img src="includes/templates/images/s_{$orderdesc}.png" width="11" height="9" alt="" />{/if}</b>&nbsp;</td>
+   <td width="90"><b>&nbsp;<a href="{$curScriptName}?action=view&what=list&pvstart={$pvstart}&ordercol=featured&orderdesc={if $ordercol=='featured'&&$orderdesc=='asc'}desc{else}asc{/if}">Featured</a>{if $ordercol=='featured'}&nbsp;<img src="includes/templates/images/s_{$orderdesc}.png" width="11" height="9" alt="" />{/if}</b>&nbsp;</td>
+   <td><b>User active</b></td>
+   <td colspan="3"><b>&nbsp;{#au6#}&nbsp;</b></td>
+</tr>
+{section name=iif loop=$UA}
+<tr bgcolor="#ECEEF1" align="center" vAlign="middle">
+    <td>&nbsp;<a href="{$siteAdr}profile{$UA[iif].uid}" target="_blank">{$UA[iif].name} {$UA[iif].lname}</a>&nbsp;</td>
+    <td>&nbsp;<a href="{$siteAdr}profile{$UA[iif].uid}" target="_blank">{$UA[iif].company}</a>&nbsp;</td>
+    
+    <td>&nbsp;{if 1 == $UA[iif].status}<font color="#FF0000">Member</font>{else}Employer{/if}</td>
+    <td>&nbsp;{$UA[iif].email}</td>
+	<td><a href="{$curScriptName}?action=view&what=list&pvstart={$pvstart}&ordercol={$ordercol}&orderdesc={$orderdesc}&action=chgfeatured&uid={$UA[iif].uid}&val={if $UA[iif].featured}0{else}1{/if}"><b>{if $UA[iif].featured}<font color="#009900">Yes</font>{else}<font color="#CC0000">No</font>{/if}</b></a></td>
+    <td>
+        {if $UA[iif].active==0}
+        <a href="{$curScriptName}?action=active&pvstart={$pvstart}&ordercol={$ordercol}&orderdesc={$orderdesc}&uid={$UA[iif].uid}"><img src="includes/templates/images/status_green_l.gif " border="0" alt="{#mactive#}"></a>
+        &nbsp;<img src="includes/templates/images/status_red.gif" alt="{#nactive#}">
+        {else}
+        <img src="includes/templates/images/status_green.gif " border="0" alt="{#active#}">&nbsp;
+        <a href="{$curScriptName}?action=active&pvstart={$pvstart}&ordercol={$ordercol}&orderdesc={$orderdesc}&uid={$UA[iif].uid}"><img src="includes/templates/images/status_red_l.gif" border="0" alt="{#mnactive#}"></a>
+        {/if}
+    </td>
+    <td>{if $UA[iif].active}<a href="{$curScriptName}?action=signin&amp;uid={$UA[iif].uid}" target="_blank">SignIn</a>{else}&nbsp;{/if}</td>
+    <td width="30"><a href="{$curScriptName}?action=change&what=user&uid={$UA[iif].uid}&ordercol={$ordercol}&orderdesc={$orderdesc}&pvstart={$pvstart}"><img src="includes/templates/images/b_edit.png" alt="Edit" border="0" /></a></td>
+    <td width="30"><a href="{$curScriptName}?action=delete&what=user&uid={$UA[iif].uid}&ordercol={$ordercol}&orderdesc={$orderdesc}&pvstart={$pvstart}" onClick="return confirmLink(this, 'You really want to delete this user?');" title="{#au19#}" ><img src="includes/templates/images/b_drop.png" border="0" width="16" height="16" /></a></td>
+</tr>
+{/section}
+            
+            {if $pages > 1}
+                 <tr bgcolor="#FFFFFF"><td colSpan="8" align="right">&nbsp;</td></tr>
+                 <tr bgcolor="#FFFFFF">
+                    <td colSpan="8" align="right">{if $curPage>0}<a href="{$curScriptName}?action=view&what=list&status_sel={$status_sel}&ordercol={$ordercol}&orderdesc={$orderdesc}&pvstart={$pvstart-$ResOnPage}">&lt;&lt;&lt;</a>{/if}&nbsp;
+            Page <select name="pvstart" style="font-size:9px" onChange="self.location='{$curScriptName}?action=view&what=list&status_sel={$status_sel}&ordercol={$ordercol}&orderdesc={$orderdesc}{$SIDA}&pvstart='+ this.options[this.selectedIndex].value">
+            {section name=pg loop=$pgArr}
+            <option value="{$pgArr[pg]}" {if $pgArr[pg]==$pvstart}selected="selected"{/if}>{$smarty.section.pg.rownum}</option>
+            {/section}
+            </select> from {$pages}
+{if $curPage < $pages-1}&nbsp;<a href="{$curScriptName}?action=view&what=list&status_sel={$status_sel}&ordercol={$ordercol}&orderdesc={$orderdesc}&pvstart={$pvstart+$ResOnPage}">&gt;&gt;&gt;</a>{/if}</td>
+       </tr>
+{/if}
+</table>
+<br />
+</center>
+{elseif ($action=='add'||$action=='change')&&$what=='user'}
+                <center>
+                <h2>{#au1#} | {if $action=='add'}{#au17#}{elseif $action=='change'}{#au18#}{/if}</h2>
+                {if $errs}
+				    <font color="#990000">
+					<b>Errors:</b><br />
+					{foreach key=key item=item from=$errs}
+					    - {$item}<br />
+					{/foreach}
+					</font>
+					<br />
+				{/if}  
+							 {if $UserLastError != ''}<p><b><i><font color="red">{$UserLastError}</font></i></b></p>{/if}
+                             <form action="users.php" method="post" name="{if $action=='add'}AddUserForm{elseif $action=='change'}ChangeUserForm{/if}" enctype="application/x-www-form-urlencoded" >
+                             <input type="hidden" name="do"  value="1" />
+
+                             {if !empty($fm.uid)}
+                             <input type="hidden" name="uid"       value="{$fm.uid}" />
+                             {/if}
+                             <input type="hidden" name="action"    value="{$action}"       />
+                             <input type="hidden" name="what"      value="{$what}"         />
+                             <input type="hidden" name="ordercol"  value="{$ordercol}"     />
+                             <input type="hidden" name="orderdesc" value="{$orderdesc}"    />
+                             <input type="hidden" name="pvstart"   value="{$pvstart}"      />
+                             <table height="50%" cellSpacing="1" cellPadding="3" border="0" bgColor="#FFFFFF" >
+                             
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>Status</td>
+                                 <td><b>{if 1==$fm.status}Member{elseif 2==$fm.status}Employer{/if}</b></td>
+                             </tr>
+                             
+                             {if 1==$fm.status}
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>First Name</td>
+                                 <td><input type="text" name="fm[name]" value="{$fm.name}" size="40" /></td>
+                             </tr>
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>Last Name</td>
+                                 <td><input type="text" name="fm[lname]" value="{$fm.lname}" size="40" /></td>
+                             </tr>
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>Company</td>
+                                 <td><input type="text" name="fm[company]" value="{$fm.company}" size="40" /></td>
+                             </tr>
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>Email Address</td>
+                                 <td><input type="text" name="fm[email]" value="{$fm.email}" id="email" size="40" /></td>
+                             </tr>
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>Phone</td>
+                                 <td><input type="text" name="fm[phone]" value="{$fm.phone}" id="phone" size="40" /></td>
+                             </tr>
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>Street Address</td>
+                                 <td><input type="text" name="fm[address]" value="{$fm.address}" size="40" /></td>
+                             </tr>
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>Apartment/Suite</td>
+                                 <td><input type="text" name="fm[suite]" value="{$fm.suite}" size="15" /></td>
+                             </tr>
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>City</td>
+                                 <td><input type="text" name="fm[city]" value="{$fm.city}" size="25" /></td>
+                             </tr>
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>State</td>
+                                 <td>
+                                 <select name="fm[state]">
+                                <option value="0">Please select</option>
+                                {foreach key=k item=i from=$states}
+									<option value="{$i.code}"{if $i.code == $fm.state} selected="selected"{/if}>{$i.name}</option>
+                                {/foreach}    
+								</select>
+                                 </td>
+                             </tr>
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>ZIP</td>
+                                 <td><input type="text" name="fm[zip]" value="{$fm.zip}" size="15" /></td>
+                             </tr>
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>Birthday</td>
+                                 <td>
+                                 <select name="fm[dob_month]">
+									<option value="0">Month</option>
+									{foreach key=k item=i from=$months}
+									<option value="{$k}"{if $k == $fm.dob_month} selected="selected"{/if}>{$i}</option>
+                                    {/foreach} 
+								</select>
+								<select name="fm[dob_day]">
+									<option value="0">Day</option>
+									{foreach key=k item=i from=$days}
+									<option value="{$k}"{if $k == $fm.dob_day} selected="selected"{/if}>{$i}</option>
+                                    {/foreach}
+								</select>
+								<select name="fm[dob_year]">
+                                    <option value="0">Year</option>
+									{foreach key=k item=i from=$years}
+									<option value="{$k}"{if $k == $fm.dob_year} selected="selected"{/if}>{$i}</option>
+                                    {/foreach}
+								</select>
+                                 </td>
+                             </tr>
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>Gender</td>
+                                 <td>
+                                 <select name="fm[gender]">
+									<option value="0">Select gender</option>
+									<option value="1"{if 1 == $fm.gender} selected="selected"{/if}>Male</option>
+									<option value="2"{if 2 == $fm.gender} selected="selected"{/if}>Female</option>
+								</select>
+                                 </td>
+                             </tr>
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>New password</td>
+                                 <td><input type="password" name="fm[pass]" value="" size="30" /></td>
+                             </tr>
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>Confirm New Password</td>
+                                 <td><input type="password" name="fm[pass2]" value="" size="30" /></td>
+                             </tr>
+                             {elseif 2==$fm.status}
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>Company Name</td>
+                                 <td><input type="text" name="fm[company]" value="{$fm.company}" size="40" /></td>
+                             </tr> 
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>Email Address</td>
+                                 <td><input type="text" name="fm[email]" value="{$fm.email}" id="email" size="40" /></td>
+                             </tr>
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>Street Address</td>
+                                 <td><input type="text" name="fm[address]" value="{$fm.address}" size="40" /></td>
+                             </tr>
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>Suite/Stage</td>
+                                 <td><input type="text" name="fm[suite]" value="{$fm.suite}" size="40" /></td>
+                             </tr>
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>City</td>
+                                 <td><input type="text" name="fm[city]" value="{$fm.city}" size="25" /></td>
+                             </tr>
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>State</td>
+                                 <td>
+                                 <select name="fm[state]">
+                                <option value="0">Please select</option>
+                                {foreach key=k item=i from=$states}
+									<option value="{$i.code}"{if $i.code == $fm.state} selected="selected"{/if}>{$i.name}</option>
+                                {/foreach}    
+								</select>
+                                 </td>
+                             </tr>
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>ZIP</td>
+                                 <td><input type="text" name="fm[zip]" value="{$fm.zip}" size="15" /></td>
+                             </tr>
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>Phone Number</td>
+                                 <td><input type="text" name="fm[phone]" value="{$fm.phone}" size="40" /></td>
+                             </tr>
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>Fax Number</td>
+                                 <td><input type="text" name="fm[fax]" value="{$fm.fax}" size="40" /></td>
+                             </tr>
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>Contact Person within Company</td>
+                                 <td><input type="text" name="fm[name]" value="{$fm.name}" size="40" /></td>
+                             </tr>
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>Contact Person's Title</td>
+                                 <td><input type="text" name="fm[cperson_title]" value="{$fm.cperson_title}" size="40" /></td>
+                             </tr>
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>New Password</td>
+                                 <td><input type="password" name="fm[pass]" value="" size="30" /></td>
+                             </tr>
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle">
+                                 <td>Confirm New Password</td>
+                                 <td><input type="password" name="fm[pass2]" value="" size="30" /></td>
+                             </tr>
+                             {/if}
+                             <tr bgColor="#FFFFFF" align="center" vAlign="middle"> <td colSpan="2"><input type="submit" value="{#au15#}" style="width:70px;height:19px;font-size:12px;" /> <input type="submit" name="cancel" value="{#au16#}" style="width:70px;height:19px;font-size:12px;" /></td> </tr>
+                             </table>
+                             </form>
+
+                             </center>
+{/if}
+

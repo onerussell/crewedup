@@ -1,0 +1,23 @@
+<div class="top-login">
+		{if !$system_login}
+		<form method="post" name="flogin" action="{$siteAdr}index.php">
+        <input type="hidden" name="mod" value="login" />
+		<div>
+		<img src="{$imgDir}lock_ico.gif" alt="" />
+		<label>E-mail</label><input class="txt" type="text" name="system_login" value="{$systemLogin}" />
+		<label>Password</label><input class="txt" type="password" name="system_pass" value="" />
+		<input class="go-b" type="submit" value="" />
+		</div>
+		<p><a href="{$siteAdr}index.php?mod=reg">Register here</a>|<a href="{$siteAdr}index.php?mod=forgot">Forgot your password?</a>
+		<input type="checkbox" name="remember" value="1" /> Remember me |<a href="{$siteAdr}index.php?mod=page&amp;pn=help">Help</a>
+		</p>
+ 		</form>
+		{else}
+		<div>
+		<img src="{$imgDir}lock_ico.gif" alt="" />
+		<label><b>Welcome</b> <a href="{$siteAdr}profile.php?uid={$UserInfo.uid}">{if 2 == $UserInfo.status}{$UserInfo.company}{else}{$UserInfo.name|trim} {$UserInfo.lname|trim}{/if}</a> [<a href="{$siteAdr}profile.php?uid={$UserInfo.uid}">{$UserInfo.email}</a>]</label>
+		</div>
+		<p><a href="{$siteAdr}index.php?logout=1">Sign Out</a> |<a href="{$siteAdr}index.php?mod=page&amp;pn=help">Help</a>
+		</p>
+		{/if}
+	</div>

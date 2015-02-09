@@ -1,0 +1,9 @@
+Display <strong>{$range.0+1}-{$range.1}</strong> of <strong>{$range.2}</strong> items &nbsp;&nbsp;&nbsp; 
+<strong>Page </strong>
+{section name = i loop = $pages}
+{if $page == $pages[i].page}
+<strong>{$pages[i].page}</strong>
+{else}
+<strong> <a href="{$pages[i].link}">{$pages[i].page}</a></strong>
+{/if}
+{/section}

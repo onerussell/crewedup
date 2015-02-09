@@ -1,0 +1,6 @@
+    <p><b>New events:</b></p>
+    {foreach key=k item=i from=$wl}
+    <p><span><a href="http://{$smarty.const.DOMEN}{$smarty.const.PATH_ROOT}profile{$i.uid}">{$i.fname}</a></span> <a href="http://{$smarty.const.DOMEN}{$smarty.const.PATH_ROOT}{$i.link}">{$i.title}</a> <span>{$i.pdate}</span></p>
+	{/foreach}
+
+    <p><b>To unsubscribe please change your <a href="http://{$smarty.const.DOMEN}{$siteAdr}?mod=notify">notification settings</a></b></p>

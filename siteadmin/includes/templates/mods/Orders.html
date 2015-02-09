@@ -1,0 +1,170 @@
+{strip}
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+        <td colspan="2" height="3"><img src="{$imgDir}s.gif" height="3" width="1" alt="" border="0" /></td>
+    </tr>
+
+    <tr>
+    <td colspan="2" height="450" align="left" valign="top" width="100%">
+
+
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr><td height="5"></td></tr>
+                <tr>
+                    <td>
+                             <br />
+                             <h2><img src="{$imgDir}menu/orders.gif" border="0" height="16" alt="{#ModuleName#}" />&nbsp;{#ModuleName#}{if $action=='change'&&$what=='order'} | {#edit#}{/if}</h2>
+                             {if $action == 'view' && $what == 'list'}
+                             {if $OrderLastError != ''}<p>&#8226;&nbsp;<b><i><font color="red">{$OrderLastError}</font></i></b></p>{/if}
+
+                             <table cellSpacing="2" cellPadding="0" border="0" width="100%" bgcolor="#FFFFFF">
+                             <tr bgcolor="#FFFFFF">
+                             <td colSpan="10">
+                             <select name="statusSel" onChange="self.location='{$curScriptName}?action=view&what=list&ordercol={$ordercol}&orderdesc={$orderdesc}&pvstart={$pvstart}&status=' + this.options[this.selectedIndex].value+'{$SIDA}'" style="height:18px;font-size:10px">
+                             <option value="-1" {if $status==-1}selected="selected"{/if}>{#OrdStatus__#}</option>
+                             <option value="1"  {if $status==1} selected="selected"{/if}>{#OrdStatus_1#}</option>
+                             <option value="2"  {if $status==2} selected="selected"{/if}>{#OrdStatus_2#}</option>
+                             <option value="3"  {if $status==3} selected="selected"{/if}>{#OrdStatus_3#}</option>
+                             <option value="4"  {if $status==4} selected="selected"{/if}>{#OrdStatus_4#}</option>
+                             </select>
+                             </td>
+                             </tr>
+                             <tr bgcolor="#FFFFFF"><td colSpan="10" align="right">&nbsp;</td></tr>
+                             <tr bgcolor="#DDDEDF" align="center" vAlign="middle" height="20">
+                                <td>&nbsp;<b><a href="{$curScriptName}?action=view&what=list&pvstart={$pvstart}&status={$status}&ordercol=id&orderdesc={if $ordercol=='id'&&$orderdesc=='desc'}asc{else}desc{/if}">{#OrderId#}</a>{if $ordercol=='id'}&nbsp;<img src="{$siteAdmin}templates/images/s_{$orderdesc}.png" width="11" height="9" alt="" />{/if}</b>&nbsp;</td>
+                                <td>&nbsp;<b><a href="{$curScriptName}?action=view&what=list&pvstart={$pvstart}&status={$status}&ordercol=tracking_number&orderdesc={if $ordercol=='tracking_number'&&$orderdesc=='asc'}desc{else}asc{/if}">{#Tracking#}</a>{if $ordercol=='tracking_number'}&nbsp;<img src="{$siteAdmin}templates/images/s_{$orderdesc}.png" width="11" height="9" alt="" />{/if}</b>&nbsp;</td>
+                                <td>&nbsp;<b><a href="{$curScriptName}?action=view&what=list&pvstart={$pvstart}&status={$status}&ordercol=email&orderdesc={if $ordercol=='email'&&$orderdesc=='asc'}desc{else}asc{/if}">{#UserId#}</a>{if $ordercol=='email'}&nbsp;<img src="{$siteAdmin}templates/images/s_{$orderdesc}.png" width="11" height="9" alt="" />{/if}</b>&nbsp;</td>
+                                <td>&nbsp;<b><a href="{$curScriptName}?action=view&what=list&pvstart={$pvstart}&status={$status}&ordercol=dt&orderdesc={if $ordercol=='dt'&&$orderdesc=='asc'}desc{else}asc{/if}">{#OrderDate#}</a>{if $ordercol=='dt'}&nbsp;<img src="{$siteAdmin}templates/images/s_{$orderdesc}.png" width="11" height="9" alt="" />{/if}</b>&nbsp;</td>
+                                <td>&nbsp;<b><a href="{$curScriptName}?action=view&what=list&pvstart={$pvstart}&status={$status}&ordercol=total&orderdesc={if $ordercol=='total'&&$orderdesc=='asc'}desc{else}asc{/if}">{#OrderTotal#}</a>{if $ordercol=='total'}&nbsp;<img src="{$siteAdmin}templates/images/s_{$orderdesc}.png" width="11" height="9" alt="" />{/if}</b>&nbsp;</td>
+                                {if $status==-1}<td>&nbsp;<b><a href="{$curScriptName}?action=view&what=list&pvstart={$pvstart}&status={$status}&ordercol=status&orderdesc={if $ordercol=='status'&&$orderdesc=='asc'}desc{else}asc{/if}">{#OrderStat#}</a>{if $ordercol=='status'}&nbsp;<img src="{$siteAdmin}templates/images/s_{$orderdesc}.png" width="11" height="9" alt="" />{/if}</b>&nbsp;</td>{/if}
+                                <td colSpan="2"><b>&nbsp;{#Manage#}&nbsp;</b></td>
+                             </tr>
+                             {section name=iif loop=$OA}
+                             <tr bgcolor="#ECEEF1" align="center" vAlign="middle">
+                                 <td>&nbsp;<a href="{$curScriptName}?action=change&what=order&id={$OA[iif].id}&ordercol={$ordercol}&orderdesc={$orderdesc}&pvstart={$pvstart}&status={$status}" title="{#edit#}">{$OA[iif].id}</a>&nbsp;</td>
+                                 <td>&nbsp;{if $OA[iif].tracking_number > 0}{$OA[iif].tracking_number} {if $OA[iif].tracking_link}[<a href="{$OA[iif].tracking_link}" target="_blank">Link</a>]{/if}{/if}&nbsp;</td>
+                                 <td>&nbsp;<b><a href="mailto:{$OA[iif].email}">{$OA[iif].bill_lname} {$OA[iif].bill_fname}</a></b>&nbsp;</td>
+                                 <td>&nbsp;{$OA[iif].dt}&nbsp;</td>
+                                 <td>&nbsp;${$OA[iif].total|numprice}&nbsp;</td>
+                                 {if $status==-1}<td>&nbsp;{if $OA[iif].status==1}{#OrdStatus_1#}{elseif $OA[iif].status==2}{#OrdStatus_2#}{elseif $OA[iif].status==3}{#OrdStatus_3#}{else}{#OrdStatus_4#}{/if}&nbsp;</td>{/if}
+
+                                 <td width="30"><a href="{$curScriptName}?action=change&what=order&id={$OA[iif].id}&ordercol={$ordercol}&orderdesc={$orderdesc}&pvstart={$pvstart}&status={$status}" title="{#edit#}"><img src="{$siteAdmin}templates/images/b_edit.png" border="0" width="16" height="16" /></a></td>
+                                 <td width="30"><a href="{$curScriptName}?action=delete&what=order&id={$OA[iif].id}&ordercol={$ordercol}&orderdesc={$orderdesc}&pvstart={$pvstart}&status={$status}" onClick="return confirmLink(this, '{#confirm#} {#DeleteSpec#}?');" title="{#delete#}" ><img src="{$siteAdmin}templates/images/b_drop.png" border="0" width="16" height="16" /></a></td>
+                             </tr>
+                             {/section}
+                             {if $pages > 1}
+                 <tr bgcolor="#FFFFFF"><td colSpan="10" align="right">&nbsp;</td></tr>
+                 <tr bgcolor="#FFFFFF">
+                    <td colSpan="10" align="right">{if $curPage>0}<a href="{$curScriptName}?action=view&what=list&ordercol={$ordercol}&orderdesc={$orderdesc}&pvstart={$pvstart-$ResOnPage}">&lt;&lt;&lt;</a>{/if}&nbsp;
+            {#Page#} <select name="pvstart" style="font-size:8.5px" onChange="self.location='{$curScriptName}?action=view&what=list&ordercol={$ordercol}&orderdesc={$orderdesc}&pvstart='+ this.options[this.selectedIndex].value">
+            {section name=pg loop=$pgArr}
+            <option value="{$pgArr[pg]}" {if $pgArr[pg]==$pvstart}selected="selected"{/if}>{$smarty.section.pg.rownum}</option>
+            {/section}
+            </select> {#from#} {$pages}
+
+{if $curPage < $pages-1}&nbsp;<a href="{$curScriptName}?action=view&what=list&ordercol={$ordercol}&orderdesc={$orderdesc}&pvstart={$pvstart+$ResOnPage}">&gt;&gt;&gt;</a>{/if}</td>
+       </tr>
+{/if}
+                             </table>
+                             {elseif $action=='change'&&$what=='order'}
+                             {if $OrderLastError != ''}<p><b><i><font color="red">{$OrderLastError}</font></i></b></p>{/if}
+                             <form action="{$curScriptName}" method="post" name="ChangeOrderForm" enctype="application/x-www-form-urlencoded" >
+                             <input type="hidden" name="do"        value="1" />
+                             <input type="hidden" name="id"        value="{$OrderInfo.id}" />
+                             <input type="hidden" name="action"    value="{$action}" />
+                             <input type="hidden" name="what"      value="{$what}" />
+                             <input type="hidden" name="ordercol"  value="{$ordercol}" />
+                             <input type="hidden" name="orderdesc" value="{$orderdesc}" />
+                             <input type="hidden" name="pvstart"   value="{$pvstart}" />
+                             <input type="hidden" name="status"    value="{$status}" />
+                             <table height="50%" cellSpacing="1" cellPadding="5" border="0" bgColor="#C0C0C0" >
+                             <tr bgColor="#FFFFFF" align="left" vAlign="middle"> <td>{#OrderId#}</td>   <td>{$OrderInfo.id}</td> </tr>
+                             <tr bgColor="#FFFFFF" align="left" vAlign="middle"> <td>{#Tracking#}</td>  <td><input type="text" name="new_tracking_number"    value="{if 0 != $OrderInfo.tracking_number}{$OrderInfo.tracking_number}{/if}"     style="font-size:12px;width:150px;" onKeyPress="filter(event,1,'',1)" /></td> </tr>
+                             <tr bgColor="#FFFFFF" align="left" vAlign="middle"> <td>Tracking Link</td>  <td><input type="text" name="tracking_link"    value="{$OrderInfo.tracking_link}"     style="font-size:12px;width:300px;"  /></td> </tr>
+                             <tr bgColor="#FFFFFF" align="left" vAlign="middle"> <td>{#OrderDate#}</td> <td>{$OrderInfo.dt}</td> </tr>
+                             <tr bgColor="#FFFFFF" align="left" vAlign="middle"> <td>{#OrderStat#}</td> 
+                             <td>          
+                             <select name="new_status"  style="height:18px;font-size:10px">
+                             <option value="1"  {if $OrderInfo.status==1} selected="selected"{/if}>{#OrdStatus_1#}</option>
+                             <option value="2"  {if $OrderInfo.status==2} selected="selected"{/if}>{#OrdStatus_2#}</option>
+                             <option value="3"  {if $OrderInfo.status==3} selected="selected"{/if}>{#OrdStatus_3#}</option>
+                             <option value="4"  {if $OrderInfo.status==4} selected="selected"{/if}>{#OrdStatus_4#}</option>
+                             </select>
+                             </td> </tr>
+
+                             <tr bgColor="#FFFFFF" align="left" vAlign="middle"> <td>{#ShipType#}</td>   <td>{$OrderInfo.ship_name} {if $OrderInfo.ship_period}{$OrderInfo.ship_period}{/if}</td> </tr>
+
+                             <tr bgColor="#FFFFFF" align="left" vAlign="middle"> <td>{#Content#}</td>   
+                             <td>
+                                <table border="0" cellSpacing="0" cellPadding="0">
+                                {section name=cc loop=$OrderInfo.content.prods}
+                                <tr valign="top" bgColor="#FFFFFF">
+                                  <td class="tdx">&nbsp;<a target="_blank" href="{$siteAdr}?mod=cat&amp;pid={$OrderInfo.content.prods[cc].pid}">{$OrderInfo.content.prods[cc].name}</a> / #{$OrderInfo.content.prods[cc].model}&nbsp;</td>
+                                  <td width="85" align="center" valign="middle"  class="tdx">Color: {assign var="ov" value=$OrderInfo.content.prods[cc].colorx}{$colors.$ov} <br /> Size: {assign var="ov" value=$OrderInfo.content.prods[cc].sizex}{if 'm' == $OrderInfo.content.prods[cc].for}{$m_sizes.$ov}{else}{$wm_sizes.$ov}{/if}</td>
+                                  <td width="85" align="center" valign="middle"  class="tdx">${$OrderInfo.content.prods[cc].price|numprice}</td>
+                                  <td width="85" align="center" valign="middle"  class="tdx">x {$OrderInfo.content.prods[cc].cnt}</td>
+                                  <td width="85" align="center" valign="middle"  class="tdx">${$OrderInfo.content.prods[cc].line_total|numprice}</td>
+                                </tr>
+                                {/section}                             
+                                </table>
+                             </td>
+                             </tr>
+
+                             <tr bgColor="#FFFFFF" align="left" vAlign="middle"> <td>Subtotal</td>         <td>${$OrderInfo.content.subtotal|numprice}</td> </tr>
+                             
+                             {if $OrderInfo.content.disc_val}<tr bgColor="#FFFFFF" align="left" vAlign="middle"> <td>Discount, {$OrderInfo.content.disc_val}%</td>         <td>${$OrderInfo.content.disc|numprice}</td> </tr>{/if}
+                             
+                             <tr bgColor="#FFFFFF" align="left" vAlign="middle"> <td>Shipping</td>         <td>${$OrderInfo.content.shipping|numprice}</td> </tr>
+                             <tr bgColor="#FFFFFF" align="left" vAlign="middle"> <td>Tax</td>              <td>${$OrderInfo.content.Tax|numprice}</td> </tr>
+                             <tr bgColor="#FFFFFF" align="left" vAlign="middle"> <td>{#OrderTotal#}</td>   <td>${$OrderInfo.total|numprice}</td> </tr>
+                             <tr bgColor="#FFFFFF" align="left" vAlign="middle"> <td>{#Client#}</td>       
+                             <td>{$OrderInfo.bill_fname} {$OrderInfo.bill_lname} </td> 
+                             </tr>
+                             <tr bgColor="#FFFFFF" align="left" vAlign="middle"> <td>{#EMail#}:</td>       <td>{$OrderInfo.email}</td></tr>
+
+                             <tr bgColor="#FFFFFF" align="left" vAlign="middle"> <td>{#ShipInfo#}</td>   
+                             <td>
+                                <table border="0" cellSpacing="2" cellPadding="0">
+                                 <tr><td>{#Name#}:</td><td>{$OrderInfo.ship_fname} {$OrderInfo.ship_lname} {$OrderInfo.ship_mname}</td></tr>
+                                 <tr><td>Street Address :</td> <td>{$OrderInfo.ship_address}</td></tr>
+                                 <tr><td>{#Zip#}:</td>     <td>{$OrderInfo.ship_zip}</td></tr>
+                                 <tr><td>{#City#}:</td>    <td>{$OrderInfo.ship_city}</td></tr>
+                                 <tr><td>{#State#}:</td>   <td>{$OrderInfo.ship_state}</td></tr>
+                                 <tr><td>{#Country#}:</td> <td>{$OrderInfo.ship_country}</td></tr>
+                                 {*<tr><td>{#Phone#}:</td>   <td>{$OrderInfo.ship_phone}</td></tr>*}
+                                </table>
+                             </td>
+                             </tr>
+                             <tr bgColor="#FFFFFF" align="left" vAlign="middle"> <td>{#BillInfo#}</td>   
+                             <td>
+                                <table border="0" cellSpacing="2" cellPadding="0">
+                                 <tr><td>{#Name#}:</td><td>{$OrderInfo.bill_fname} {$OrderInfo.bill_lname}</td></tr>
+                                 <tr><td>Care of:</td><td>{$OrderInfo.bill_care}</td></tr>
+                                 <tr><td>Street Address :</td> <td>{$OrderInfo.bill_address}</td></tr>
+                                 <tr><td>{#Zip#}:</td>     <td>{$OrderInfo.bill_zip}</td></tr>
+                                 <tr><td>{#City#}:</td>    <td>{$OrderInfo.bill_city}</td></tr>
+                                 <tr><td>{#State#}:</td>   <td>{$OrderInfo.bill_state}</td></tr>
+                                 <tr><td>{#Country#}:</td> <td>{$OrderInfo.bill_country}</td></tr>
+                                 <tr><td>{#Phone#}:</td>   <td>{if $OrderInfo.bill_dphone}{$OrderInfo.bill_dphone}{/if}{if $OrderInfo.bill_ephone}, {$OrderInfo.bill_ephone}{/if}</td></tr>
+                                </table>
+                             </td>
+                             </tr>
+                             <tr bgColor="#FFFFFF" align="left" vAlign="middle"> <td>{#Description#}</td>  <td><textarea name="new_description"  style="font-size:12px;width:300px;height:100px" >{$OrderInfo.description}</textarea></td> </tr>
+                             <tr bgColor="#FFFFFF" align="left" vAlign="middle"> <td colSpan="2"><input type="submit" value="{#submit#}" style="width:70px;height:19px;font-size:12px;" /> <input type="submit" name="cancel" value="{#cancel#}" style="width:70px;height:19px;font-size:12px;" /></td> </tr>
+                             </table>
+                             </form>
+                             {/if}
+                    </td>
+                </tr>
+        </table>
+
+    </td>
+    <td width="250"></td>
+  </tr>
+</table>
+
+    </td>
+    </tr>   
+
+</table>
+{/strip}

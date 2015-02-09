@@ -1,0 +1,139 @@
+<script language="javascript" type="text/javascript">
+{literal}
+    function SubmCom() {
+	    if ('' == _v('story').value) {
+		    _v('errs').innerHTML = '<font style="color:#990000">Error: Please specify message text</font>';
+		}
+		else {
+		    _v('fmx').submit();
+		}
+	}
+	
+    function SubmReply( id ) {
+		if ('' == _v('storyr').value) {
+		    _v('errsr').innerHTML = '<font style="color:#990000">Error: Please specify message text</font>';
+		}
+		else {
+		    _v('fmxr').submit();
+		}
+	}
+	
+	function HideReply() {
+	    if (CurReply) {
+		    _v('reply_'+CurReply).innerHTML = '<p><a class="f11" href="javascript: ShowReply(\''+CurReply+'\');">Post a reply</a></p>';
+		    CurReply = 0;
+		}
+	}
+	
+	var CurReply = 0;
+	function ShowReply( id ) {
+	    if (id && CurReply != id) {
+	        if ( CurReply ) {
+			    _v('reply_'+CurReply).innerHTML = '<p><a class="f11" href="javascript: ShowReply(\''+CurReply+'\');">Post a reply</a></p>';
+			}
+			CurReply = id;
+	        _v('reply_'+CurReply).innerHTML = 
+			'<br /><span id="errsr"><!-- --></span>'+
+             '<form class="comments_re-form" method="post" name="fmxr" id="fmxr" action="{/literal}{$siteAdr}profile.php{literal}">' +
+             '<input type="hidden" name="act" value="comments" />' +
+             '<input type="hidden" name="what" value="addreply" />' +
+             '<input type="hidden" name="uid" value="{/literal}{$uid}{literal}" />' +
+	         '<input type="hidden" name="fm[cid]" id="cid" value="'+id+'" />' +
+			 '<input type="hidden" name="page" value="{/literal}{$page}{literal}" />' +
+			 '<textarea name="fm[story]" id="storyr"></textarea>' + 
+          	 '<p><a href="javascript: HideReply();"><img src="{/literal}{$imgDir}{literal}cancel_b.gif" alt="Cancel" /></a> <a href="javascript: SubmReply();"><img src="{/literal}{$imgDir}{literal}post_b.gif" alt="Post" /></a></p>' +        
+          	 '</form>';
+	    }
+	}
+	{/literal}
+</script>
+
+<div class="content">
+	<table id="main-table">
+		<tr>
+			<td class="left">
+				{include file="mods/employer/_main_box.html"}
+
+				<p class="top-title"><img src="{$imgDir}title/recommendations.jpg" alt="Recommendations" /></p><br />
+
+				<div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+					<div class="comments_re">
+						<p class="comments_re-top"><a href="{$siteAdr}profile.php?act=comments&amp;uid={$uid}"><img src="{$imgDir}recomend_b.gif" alt="Recommendations" /></a>                                                   </p>
+                      {foreach key=k item=i from=$pl} 
+						<div class="info-box02">
+							<div class="comments-close">{if $is_user || $i.author == $UserInfo.uid}<a href="{$siteAdr}profile.php?act=comments&amp;uid={$uid}&amp;what=del&amp;id={$i.id}"><img src="{$imgDir}crestik.gif" alt="Delete" /></a>{/if}</div>
+							<p>{$i.story}</p>
+							<p><span>{$i.pdate} {$i.ptime}</span><span><a href="{$siteAdr}profile{$i.author}">{if 1 == $i.status}{$i.name|wordwrap} {$i.lname|wordwrap}{else}{$i.company|wordwrap}{/if}</a></span>{if $i.person_title} ({$i.person_title}){/if}</p>
+							<div id="drop"><!-- --></div>
+                            
+                            {if $i.reply_text}
+                            <div style="background-color:#EEE; margin: 5px 20px 5px 20px; padding: 5px;">
+                               <p>{$i.reply_text}</p>
+                               <p><span>{$i.reply_date}</span><span><a href="{$siteAdr}profile{$i.uid}">{$ui.company|wordwrap}</a></span>{if $ui.person_title} ({$ui.person_title}){/if}</p>
+                            </div> 
+                            {/if}
+                            
+                            {if $is_user}
+                            {if $i.reply_text}
+                            <div>
+                                <p><a class="f11" href="{$siteAdr}profile.php?act=comments&amp;uid={$i.uid}&amp;id={$i.id}&amp;what=delreply&amp;page={$page}">Delete a reply</a></p>
+                            </div>
+                            {else}
+                            <div id="reply_{$i.id}">
+                                <p><a class="f11" href="javascript: ShowReply('{$i.id}');">Post a reply</a></p>
+                            </div>
+                            {/if}
+                            {/if}
+						</div>
+
+						<div class="comments-sep">&nbsp;</div>
+                        {foreachelse}
+                        <div class="info-box02">
+                            No Recommendations
+                      </div>    
+                        {/foreach}
+					</div>
+				<div class="clear" style="height:5px;">&nbsp;</div>
+				{$pagging}
+                </div>
+				<div class="grey-box-bottom">&nbsp;</div>
+                
+                {if $system_login && !$is_user}
+				<a name="newc" />
+				<p class="top-title"><img src="{$imgDir}title/new_recomend_entry.gif" alt="New Comment Entry" /></p><br />
+
+				<div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+                    <p id="errs">
+                    {if $errs}
+                    <font style="color:#990000">
+                    {foreach key=k item=i from=$errs}
+                        {$i}<br />
+                    {/foreach}
+                    </font>
+                    {/if}
+                    </p>
+                    
+					<form class="write-mail-form" method="post" action="{$siteAdr}profile.php" name="fmx" id="fmx">
+                    <input type="hidden" name="act" value="comments" />
+                    <input type="hidden" name="what" value="add" />
+                    <input type="hidden" name="uid" value="{$uid}" />
+					<p>Message</p>
+					<p><textarea name="fm[story]" id="story" style="height: 170px;">{$fm.story}</textarea></p>
+					<p class="tools"><a href="javascript: SubmCom();"><img src="{$imgDir}post_b.gif" alt="Post" /></a></p>
+					</form>
+				
+				</div>
+				<div class="grey-box-bottom">&nbsp;</div>                
+                {/if}
+               
+                
+				<div class="banner02"><a href="#"><img src="{$imgDir}banner02.gif" alt="#" /></a></div>
+			</td>
+			<td class="right">
+			    {include file="mods/employer/_left_box.html"}	
+			</td>
+		</tr>
+	</table>
+</div>

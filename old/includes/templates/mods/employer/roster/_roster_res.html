@@ -1,0 +1,82 @@
+﻿<!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />-->
+<div class="content">
+	<table id="main-table">
+		<tr>
+			<td class="left">
+				{include file="mods/employer/_main_box.html"}
+
+				<p class="top-title"><img src="{$imgDir}title/company_roster.gif" alt="Company Roster" /></p><br />
+
+				<div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+					<div class="contacts-box">
+						{if !$inv}
+                        <p class="contacts-top"><a href="{$siteAdr}roster{$uid}">{if $letter}All{else}<img src="{$imgDir}all_b.gif" alt="All" />{/if}</a>
+						{foreach key=k item=i from=$la}<a href="{$siteAdr}roster{$uid}?letter={$i}"{if $letter == $i} style="background-color:#CCC; padding: 3px;"{/if}>{$i}</a>{/foreach}
+						</p>
+						<form class="contacts-form" action="{$siteAdr}roster{$uid}" id="src">
+							<input type="hidden" name="letter" value="{$letter}" />
+                            <label>Search contacts</label>
+							<input class="txt" type="text" name="sstr" value="{$sstr}" style="padding-top: 0px;" />
+							<input class="contacts-b" type="submit" value="" onclick="_v('src').submit();" />
+						</form>
+                        {/if}
+					<table>
+						{foreach name=n key=k item=i from=$pl}
+                        <tr>
+							<td class="av"{if $UserInfo.uid == $uid && $i.active != 1} style="border: none;"{/if}>
+							{if $i.image}
+                                    <div class="container02">
+									    <div class="tl"><div class="tlc"></div><div class="trc"></div></div>
+									    <div class="ml"><a href="{$siteAdr}profile{$i.uid}"><img src="{$icPath}{$i.subdir}s_{$i.image}" alt="{if 1 == $i.status}{$i.name} {$i.lname}{else}{$i.company}{/if}" /></a></div>
+									    <div class="bl"><div class="blc"></div><div class="brc"></div></div>
+								    </div>
+                            {else}<a href="{$siteAdr}profile{$i.uid}"><img src="{$imgDir}empty.gif" alt="No Photo" /></a>{/if}
+							</td>
+							<td{if $UserInfo.uid == $uid && $i.active != 1} style="border: none;"{/if}><a href="{$siteAdr}profile{$i.uid}">{if 1 == $i.status}{$i.name|wordwrap} {$i.lname|wordwrap}{else}{$i.company|wordwrap}{/if}</a><br /><span>{$i.person_title}</span></td>
+							<td{if $UserInfo.uid == $uid && $i.active != 1} style="border: none;"{/if}><p>{if $is_user && 1 == $i.active}{if $i.company}<b>Company:&nbsp;&nbsp;</b><a href="#">{$i.company|wordwrap}</a><br />{/if}{*<b>Current project:&nbsp;&nbsp;</b><a href="#">Lost Season 3</a>*}{/if}</p></td>
+							<td{if $UserInfo.uid == $uid && $i.active != 1} style="border: none;"{/if}><p>{if $is_user && 1 == $i.active}<b>Email:&nbsp;&nbsp;</b><a href="mailto: {$i.email}">{$i.email}</a><br />{if $i.phone}<b>Phone:&nbsp;&nbsp;</b><span>{$i.phone}</span><br />{/if}{if $i.city}<a href="#">{$i.city}</a> {/if}{if $i.state}<a href="#">{assign var="st" value=$i.state}{$states.$st}</a>{/if}{/if}</p></td>
+							<td align="right"{if $UserInfo.uid == $uid && $i.active != 1} style="border: none;"{/if}>
+                            	{if $is_user}
+                                <p><a href="{$siteAdr}mc.php?mod=send&amp;uid={$i.uid}"><img src="{$imgDir}arrow_left.gif" alt="Send message" /></a>&nbsp;&nbsp;
+	                               <a href="{$siteAdr}friend{$i.uid}"><img src="{$imgDir}quest.gif" alt="User contacts" /></a>&nbsp;&nbsp;
+	                               {if !$inv && $uid == $UserInfo.uid}
+	                                   {if $i.active != 1}
+	                                       <a href="javascript: CGo('{$siteAdr}roster.php?fid={$i.uid}&amp;mod=del', 'Do You want to delete user from contacts?');"><img src="{$imgDir}close.gif" alt="Delete" /></a></p>
+	                                   {else}
+	                                       <a href="javascript: CGo('{$siteAdr}roster.php?fid={$i.uid}&amp;mod=del', 'Do You want to delete user from contacts?');"><img src="{$imgDir}close.gif" alt="Delete" /></a></p>
+	                                   {/if}
+	                               {/if}
+                                </p>
+                                {/if}
+                            </td>
+						</tr>
+                        {foreachelse}
+                        <tr>
+							<td colspan="5">
+                            Contacts not found
+                            </td>
+                        </tr>    
+                        {/foreach}
+						
+						<tr>
+							<td colspan="3" class="nav-contacts">
+								{$pagging}
+							</td>
+							<td class="nav-contacts" align="right" colspan="2">
+								
+							</td>
+						</tr>
+					</table>
+					</div>
+				<div class="clear">&nbsp;</div>
+				</div>
+				<div class="grey-box-bottom">&nbsp;</div>
+				<div class="banner02"><a href="#"><img src="{$imgDir}banner02.gif" alt="#" /></a></div>
+			</td>
+			<td class="right">
+                {include file="mods/employer/_left_box.html"}	
+			</td>
+		</tr>
+	</table>
+</div>

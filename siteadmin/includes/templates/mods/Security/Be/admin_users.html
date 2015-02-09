@@ -1,0 +1,121 @@
+<br />
+{if $action == 'view' && $what == 'list'}
+
+<h2><img border="0" src="includes/templates/images/menu/list_users.gif" alt="{#au1#}" />&nbsp;{#au1#}</h2>
+
+&nbsp;&nbsp;<img border="0" src="includes/templates/images/12.gif" alt="" width="10" height="10" />&nbsp;<a href="{$curScriptName}?action=add&what=user&ordercol={$ordercol}&orderdesc={$orderdesc}&pvstart={$pvstart}">{#au7#}</a>
+<br /><br />
+
+<center>
+<table cellSpacing="1" cellPadding="0" border="0" width="100%" bgcolor="#FFFFFF">
+<tr bgcolor="#DDDEDF" align="center" vAlign="middle" height="20">
+   <td>&nbsp;<b><a href="{$curScriptName}?action=view&what=list&pvstart={$pvstart}&ordercol=login&orderdesc={if $ordercol=='login'&&$orderdesc=='asc'}desc{else}asc{/if}">{#au2#}</a>{if $ordercol=='login'}&nbsp;<img src="includes/templates/images/s_{$orderdesc}.png" width="11" height="9" alt="" />{/if}</b>&nbsp;</td>
+   <td>&nbsp;<b><a href="{$curScriptName}?action=view&what=list&pvstart={$pvstart}&ordercol=name&orderdesc={if $ordercol=='name'&&$orderdesc=='asc'}desc{else}asc{/if}">{#au3#}</a>{if $ordercol=='name'}&nbsp;<img src="includes/templates/images/s_{$orderdesc}.png" width="11" height="9" alt="" />{/if}</b>&nbsp;</td>
+   <td>&nbsp;<b>{#au4#}</b>&nbsp;</td>
+   <td width="90"><b>&nbsp;<a href="{$curScriptName}?action=view&what=list&pvstart={$pvstart}&ordercol=status&orderdesc={if $ordercol=='status'&&$orderdesc=='asc'}desc{else}asc{/if}">{#au5#}</a>{if $ordercol=='status'}&nbsp;<img src="includes/templates/images/s_{$orderdesc}.png" width="11" height="9" alt="" />{/if}</b>&nbsp;</td>
+   <td colSpan="2"><b>&nbsp;{#au6#}&nbsp;</b></td>
+</tr>
+{section name=iif loop=$UA}
+<tr bgcolor="#ECEEF1" align="center" vAlign="middle">
+    <td>&nbsp;{$UA[iif].login}&nbsp;</td>
+    <td>&nbsp;{$UA[iif].name}&nbsp;</td>
+    <td>&nbsp;<small>{if 'admin' != $UA[iif].login}{$UA[iif].modules_arr|wordwrap:50:"<br />":false}{else}all modules{/if}</small>&nbsp;</td>
+    <td>
+       {if 'admin' != $UA[iif].login}
+       <select name="status" style="font-size:10px" onChange="self.location='{$curScriptName}?action=change&what=status&uid={$UA[iif].uid}&pvstart={$pvstart}&ordercol={$ordercol}&orderdesc={$orderdesc}{$SIDA}&status='+ this.options[this.selectedIndex].value">
+        <option value="0"  {if 0  == $UA[iif].status}selected="selected"{/if} >{#au20#}</option>
+        <option value="1"  {if 1  == $UA[iif].status}selected="selected"{/if} >{#au21#}</option>
+        <option value="2"  {if 2  == $UA[iif].status}selected="selected"{/if} >{#au22#}</option>
+        </select>
+       {else}
+       <small>adminitstrator</small>
+       {/if}
+    </td>
+
+    <td width="30"><a href="{$curScriptName}?action=change&what=user&uid={$UA[iif].uid}&ordercol={$ordercol}&orderdesc={$orderdesc}&pvstart={$pvstart}" title="{#au18#}"><img src="includes/templates/images/b_edit.png" border="0" width="16" height="16" /></a></td>
+    <td width="30"><a href="{$curScriptName}?action=delete&what=user&uid={$UA[iif].uid}&ordercol={$ordercol}&orderdesc={$orderdesc}&pvstart={$pvstart}" onClick="return confirmLink(this, 'You really want to delete this user?');" title="{#au19#}" ><img src="includes/templates/images/b_drop.png" border="0" width="16" height="16" /></a></td>
+</tr>
+{/section}
+                             {if $pages > 1}
+                 <tr bgcolor="#FFFFFF"><td colSpan="8" align="right">&nbsp;</td></tr>
+                 <tr bgcolor="#FFFFFF">
+                    <td colSpan="8" align="right">{if $curPage>0}<a href="{$curScriptName}?action=view&what=list&status_sel={$status_sel}&ordercol={$ordercol}&orderdesc={$orderdesc}&pvstart={$pvstart-$ResOnPage}">&lt;&lt;&lt;</a>{/if}&nbsp;
+            Page <select name="pvstart" style="font-size:9px" onChange="self.location='{$curScriptName}?action=view&what=list&status_sel={$status_sel}&ordercol={$ordercol}&orderdesc={$orderdesc}{$SIDA}&pvstart='+ this.options[this.selectedIndex].value">
+            {section name=pg loop=$pgArr}
+            <option value="{$pgArr[pg]}" {if $pgArr[pg]==$pvstart}selected="selected"{/if}>{$smarty.section.pg.rownum}</option>
+            {/section}
+            </select> from {$pages}
+{if $curPage < $pages-1}&nbsp;<a href="{$curScriptName}?action=view&what=list&status_sel={$status_sel}&ordercol={$ordercol}&orderdesc={$orderdesc}&pvstart={$pvstart+$ResOnPage}">&gt;&gt;&gt;</a>{/if}</td>
+       </tr>
+{/if}
+</table>
+<br />
+</center>
+{elseif ($action=='add'||$action=='change')&&$what=='user'}
+                             <center>
+                             <h2>{#au1#} | {if $action=='add'}{#au17#}{elseif $action=='change'}{#au18#}{/if}</h2>
+                             {if $UserLastError != ''}<p><b><i><font color="red">{$UserLastError}</font></i></b></p>{/if}
+                             <form action="usersa.php" method="post" name="{if $action=='add'}AddUserForm{elseif $action=='change'}ChangeUserForm{/if}" enctype="application/x-www-form-urlencoded" >
+                             <input type="hidden" name="do"  value="1" />
+
+                             {if !empty($UserInfo.uid)}
+                             <input type="hidden" name="uid"       value="{$UserInfo.uid}" />
+                             {/if}
+                             <input type="hidden" name="action"    value="{$action}"       />
+                             <input type="hidden" name="what"      value="{$what}"         />
+                             <input type="hidden" name="ordercol"  value="{$ordercol}"     />
+                             <input type="hidden" name="orderdesc" value="{$orderdesc}"    />
+                             <input type="hidden" name="pvstart"   value="{$pvstart}"      />
+                             <table height="50%" cellSpacing="1" cellPadding="3" border="0" bgColor="#FFFFFF" >
+                             {if 'admin' != $UserInfo.login}
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle"> <td>{#au2#}</td>     <td> <input type="text" name="UserInfo[login]"    value="{$UserInfo.login}"     maxlength="30"  style="font-size:12px;width:150px;" onKeyPress="filter(event,2,'01234567890_-',1)" /> </td> </tr>
+                             {else}
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle"> <td>{#au2#}</td>     <td> <input type="hidden" name="UserInfo[login]" value="admin" /> <input type="text" value="{$UserInfo.login}" style="font-size:12px;width:150px;" disabled="disabled" /> </td> </tr>
+                             {/if}
+
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle"> <td>{#au8#}</td>  <td> <input type="password" name="UserInfo[pass]"  value=""                  maxlength="21" style="font-size:12px;width:150px;" onKeyPress="filter(event,3,'_-',1)" /> </td> </tr>
+                             {if $action == 'change'}
+                             <tr bgcolor="#DDDEDF" align="left" vAlign="middle"> <td colSpan="2"><small><i>{#au9#}</i></small></td> </tr>
+                             {/if}
+                             {if 'admin' == $UserInfo.login}
+                             <tr bgColor="#ECEEF1" align="left" vAlign="middle"> <td>{#au10#}</td> 
+                                                               <td> 
+                                     <input type="hidden" value="0" name="UserInfo[status]" />
+                                     <select disabled="disabled">
+                                      <option>administrator</option>
+                                     </select>
+                                                               
+                                                               </td> </tr>
+                             {else}
+                             <tr bgColor="#ECEEF1"  align="left" vAlign="middle"> <td>{#au10#}</td> 
+                                                               <td> 
+                                     <select name="UserInfo[status]">
+                                      <option value="0"  {if 0  == $UserInfo.status}selected="selected"{/if} >{#au20#}</option>
+                                      <option value="1"  {if 1  == $UserInfo.status}selected="selected"{/if} >{#au21#}</option>
+                                      <option value="2"  {if 2  == $UserInfo.status}selected="selected"{/if} >{#au22#}</option>
+                                     </select>
+                                                               
+                                                               </td> </tr>
+
+                             <tr bgColor="#ECEEF1" align="left" vAlign="middle"> <td>{#au11#}</td> 
+                                                               <td> 
+                                     <select name="UserInfo[modulesx][]" multiple="multiple" size="10">
+                                     {section name=iim loop=$modules}
+                                      <option value="{$modules[iim]}"  {if ereg($modules_[iim], $UserInfo.modules)}selected="selected"{/if} >{$modulesNames[iim]}</option>
+                                     {/section}
+                                     </select>
+                                     {#au12#}
+                                                               </td> </tr>
+                            {/if}                                   
+
+                             <tr bgColor="#DDDEDF" align="left" vAlign="middle"> <td>{#au13#}</td>  <td> <input type="text" name="UserInfo[name]" value="{$UserInfo.name}" maxlength="50" style="font-size:12px;width:150px;" /> </td> </tr>
+
+                             <tr bgColor="#DDDEDF" align="left" vAlign="middle"> <td>{#au14#}</td>     <td> <input type="text" name="UserInfo[email]" value="{$UserInfo.email}" maxlength="96" style="font-size:12px;width:150px;" onKeyPress="filter(event,2,'@.-_0123456789',1)" /> </td> </tr>
+
+                             <tr bgColor="#FFFFFF" align="center" vAlign="middle"> <td colSpan="2"><input type="submit" value="{#au15#}" style="width:70px;height:19px;font-size:12px;" /> <input type="submit" name="cancel" value="{#au16#}" style="width:70px;height:19px;font-size:12px;" /></td> </tr>
+                             </table>
+                             </form>
+
+                             </center>
+{/if}
+

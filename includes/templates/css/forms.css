@@ -1,0 +1,87 @@
+.input_srh1
+{
+    cursor: hand; cursor: pointer; border:1px solid #A5ACB2; vertical-align:top; border-right:0px; margin-top: 0px;
+}
+
+.input_srh2
+{                                                                 
+    background-color:#fff;border:1px solid #A5ACB2;font-size:12px;height:16px; border-left:0px;vertical-align:top; margin-top: -1px;
+}
+
+.input_srh3
+{                                                                 
+    font-size:12px;vertical-align:middle;
+}
+
+.input_srh
+{                                                                 
+    background:url(/tmpl/images/input_srh.png) left no-repeat; padding-left:27px;background-color:#fff;border:1px solid #A5ACB2;font-size:12px;height:16px;vertical-align:middle;
+}
+
+/* HTML tags : start */
+form, input, select, label, textarea {
+        margin: 0;
+        padding: 0;
+}
+
+/* Login Form */
+.top-login label{font-size:12px;margin:0 3px}
+.top-login input.txt{border:0;background:url(/includes/templates/images/login_input_bg.gif) right no-repeat;width:90px;padding:6px 3px 0 5px;font-size:0.9em;height:20px}
+.top-login input.go-b{background:url(/includes/templates/images/go_b.gif) no-repeat;width:58px;height:37px;cursor:pointer;margin-top:-5px;border:0;position:absolute;}
+*html .top-login input.go-b{float:right;margin:-30px 5px 0 0;border:0}
+*html p input{margin-bottom:-2px}
+/* Login Form */
+/* Seacrh Form */
+.searchtxt{background:url(/includes/templates/images/search_input_bg.gif) right no-repeat;width:186px;height:19px;font-size:0.9em;padding:6px 10px 0 10px;color:#777;border:0}
+*html .searchtxt{width:196px;padding:6px 3px 0 7px;}
+.search-b
+{
+    background:url(/includes/templates/images/search_b.gif) no-repeat;width:18px;height:18px;margin:0 0 0 5px;cursor:pointer;border:0;vertical-align:middle;
+    // margin-top: -7px;
+}
+*html .search-b{margin:0 0 2px 5px;vertical-align:middle;}
+/* Seacrh Form */
+
+/* Account-setting-form */
+.account-setting-form ul{margin:0;padding:2px 0;list-style-type:none}
+.account-setting-form ul li{padding:4px 0}
+.account-setting-form input{margin-right:3px;}
+.account-setting-form .radio-input{margin-bottom:-3px}
+.account-setting-form p img{margin:0 5px -10px 5px}
+.account-setting-form select{}
+
+.tools{text-align:right;padding-bottom:50px;}
+/* Account-setting-form */
+
+/* Write-Mail-form */
+.write-mail-form{padding-bottom:20px}
+.write-mail-form textarea{width:650px;height:350px}
+.write-mail-form label {width:80px;font-size:1.6em}
+.write-mail-form p{padding:10px 0 0 0}
+.write-mail-form p img{margin:0 5px -10px 5px}
+/* Write-Mail-form */
+
+
+
+/* members_reg-form */
+.members_reg-form input{margin-right:3px;}
+.members_reg-form .radio-input{margin-bottom:-3px}
+.members_reg-form p img{margin:0 5px -10px 5px}
+/* members_reg-form */
+
+/* Comments / Recommendations */
+.comments_re-form{margin:10px 0}
+.comments_re-form textarea{width:100%;height:135px}
+.comments_re-form p{float:right;margin:10px 0 5px 0;padding-top:10px}
+/* Comments / Recommendations */
+
+/* Contacts Form */
+.contacts-form{margin:15px 0}
+.contacts-form .txt{background:url(/includes/templates/images/contact_input.gif) no-repeat;height:19px;width:213px;padding:2px 10px 3px 10px;margin-bottom:-2px;border:0}
+*html .contacts-form .txt{margin-bottom:-8px}
+.contacts-b{background:url(/includes/templates/images/contacts_search_b.gif) no-repeat;width:16px;height:16px;cursor:pointer;margin-left:5px;border:0}
+*html .contacts-b{margin:0 0 0px 10px}
+/* Contacts Form */
+
+
+

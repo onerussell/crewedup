@@ -1,0 +1,69 @@
+<div class="menu{if 'reg' == $mod || 'page' == $mod || $index}-main{/if}">
+	<ul>
+		<li><p><a href="{$siteAdr}"><img src="{$imgDir}menu01{if $index}_a{/if}.png" alt="Home Page" /></a></p></li>
+		<li{if 2 == $menu_act} class="act"{/if} onclick="Go('{$siteAdr}profile.php');" style="cursor: hand;"><p><a href="{$siteAdr}profile.php"><img src="{$imgDir}menu02.png" alt="My CrewedUp" /></a></p></li>
+		<li{if 3 == $menu_act} class="act"{/if} onclick="Go('{$siteAdr}jobs.php');" style="cursor: hand;"><p><a href="{$siteAdr}jobs.php"><img src="{$imgDir}menu03.png" alt="Jobs" /></a></p></li>
+		<li{if 4 == $menu_act || 41 == $menu_act} class="act"{/if} onclick="Go('{$siteAdr}employers.php');" style="cursor: hand;"><p><a href="{$siteAdr}employers.php"><img src="{$imgDir}menu04.png" alt="Employers" /></a></p></li>
+		<li{if 5 == $menu_act || 51 == $menu_act} class="act"{/if} onclick="Go('{$siteAdr}crew.php');" style="cursor: hand;"><p><a href="{$siteAdr}crew.php"><img src="{$imgDir}menu05.png" alt="Crew Members" /></a></p></li>
+		<li{if 6 == $menu_act} class="act"{/if} onclick="Go('{$siteAdr}gear.php');" style="cursor: hand;"><p><a href="{$siteAdr}gear.php"><img src="{$imgDir}menu06.png" alt="Gear" /></a></p></li>
+		<li{if 7 == $menu_act} class="act"{/if} onclick="Go('{$siteAdr}film2tv.php');" style="cursor: hand;"><p><a href="{$siteAdr}film2tv.php"><img src="{$imgDir}menu08.png" alt="Films2Tv.com" /></a></p></li>
+	</ul>
+	<div class="search">
+		<form method="post" action="{$siteAdr}search.php">
+			<input class="searchtxt" id="sstr" name="sstr" type="text" value="{if $sstr}{$sstr}{else}Search site{/if}" onclick="if ('Search site' == this.value) this.value = '';" onkeyup="ShowDelay(_v('sstr').value, 'sstr', 'search_res', '{if $index}1{else}0{/if}', 'search_wait' ); return false;" /><input class="search-b" type="submit" value="" />
+		</form>
+	</div>
+    {if $bc}
+	<div style="padding-left:{if 2 == $menu_act}90{elseif 3 == $menu_act}180{elseif 4 == $menu_act}255{elseif 41 == $menu_act}185{elseif 5 == $menu_act}370{elseif '51' == $menu_act}305{elseif 6 == $menu_act}500{else}40{/if}px">
+	<div id="drop">
+		<ul>
+			{if $bcwl}
+            <li class="pos03 white_tab"><a href="{$bcwl.1}">{$bcwl.0}</a></li>
+            {/if}
+            
+            {foreach name=n key=k item=i from=$bc}
+            {if $smarty.foreach.n.first}
+            <li class="pos01 green_tab"><a href="{if $i}{$i}{else}javascript: void(0);{/if}">{$k|strip_tags|truncate:37:"..."}</a></li>			
+			{elseif !$smarty.foreach.n.last}
+            <li class="pos02 green_tab"><a href="{if $i}{$i}{else}javascript: void(0);{/if}">{$k|strip_tags|truncate:37:"..."}</a></li>
+			{else}
+			<li class="pos03 grey_tab"><a href="{if $i}{$i}{else}javascript: void(0);{/if}">{$k|strip_tags|truncate:37:"..."}</a></li>
+            {/if}
+            {/foreach}
+			
+            {if $bcw}
+            <li class="pos03 white_tab"><a href="{$bcw.1}">{$bcw.0}</a></li>
+            {/if}
+            
+			{if 'jobs' ==$mwd}
+                <li style="margin-left: 20px;"><select style="font-size: 13px;" name="state" id="state" onchange="Go('{$siteAdr}jobs.php?is_state=1&state='+_v('state').value+'&city='+_v('city').value+'&cat='+_v('cat').value);"><option value="0">State</option>{foreach key=k item=i from=$statea}<option value="{$i}"{if $i == $state} selected="selected"{/if}>{$states.$i}</option>{/foreach}</select></li>
+                <li style="margin-left: 20px;"><select style="font-size: 13px;" name="city" id="city" onchange="Go('{$siteAdr}jobs.php?state='+_v('state').value+'&city='+_v('city').value+'&cat='+_v('cat').value);"><option value="0">City</option>{foreach key=k item=i from=$cities}<option value="{$i}"{if $i == $city} selected="selected"{/if}>{$i}</option>{/foreach}</select></li>
+                <li style="margin-left: 20px;"><select style="font-size: 13px;" name="cat" id="cat" onchange="Go('{$siteAdr}jobs.php?state='+_v('state').value+'&city='+_v('city').value+'&cat='+_v('cat').value);">
+                <option value="0">Category</option>
+                         {foreach key=k item=i from=$prof}
+                         <optgroup label="{$k}">
+                             {foreach key=k2 item=i2 from=$i}   
+                                 <option value="{$i2}"{if $cat == $i2} selected="selected"{/if}>{$i2}</option>
+                             {/foreach}
+                         </optgroup>
+                         {/foreach}
+                     </select>
+                </li>
+            {elseif 'gear' ==$mwd}
+                {if $ctg}
+                <li style="margin-left: 20px;"><select style="font-size: 13px;" name="state" id="state" onchange="Go('{$siteAdr}gear.php?ctg={$ctg}&is_state=1&state='+_v('state').value+'&city='+_v('city').value);"><option value="0">State</option>{foreach key=k item=i from=$statea}<option value="{$i}"{if $i == $state} selected="selected"{/if}>{$states.$i}</option>{/foreach}</select></li>
+                <li style="margin-left: 20px;"><select style="font-size: 13px;" name="city" id="city" onchange="Go('{$siteAdr}gear.php?ctg={$ctg}&state='+_v('state').value+'&city='+_v('city').value);"><option value="0">City</option>{foreach key=k item=i from=$cities}<option value="{$i}"{if $i == $city} selected="selected"{/if}>{$i}</option>{/foreach}</select></li>               
+                {/if}
+            {elseif 'employers' == $mwd}
+                <li style="margin-left: 20px;"><select style="font-size: 13px;" name="state" id="state" onchange="Go('{$siteAdr}employers.php?is_state=1&state='+_v('state').value+'&city='+_v('city').value+'&cat='+_v('cat').value);"><option value="0">State</option>{foreach key=k item=i from=$statea}<option value="{$i}"{if $i == $state} selected="selected"{/if}>{$states.$i}</option>{/foreach}</select></li>
+                <li style="margin-left: 20px;"><select style="font-size: 13px;" name="city" id="city" onchange="Go('{$siteAdr}employers.php?state='+_v('state').value+'&city='+_v('city').value+'&cat='+_v('cat').value);"><option value="0">City</option>{foreach key=k item=i from=$cities}<option value="{$i}"{if $i == $city} selected="selected"{/if}>{$i}</option>{/foreach}</select></li>
+                <li style="margin-left: 20px;"><select style="font-size: 13px;" name="cat" id="cat" onchange="Go('{$siteAdr}employers.php?state='+_v('state').value+'&city='+_v('city').value+'&cat='+_v('cat').value);"><option value="0">Type</option><option value="1"{if 1 == $cat} selected="selected"{/if}>production company</option><option value="2"{if 2 == $cat} selected="selected"{/if}>rental house</option></select></li>               
+            {elseif 'crew' == $mwd && !$cat_c}
+                <li style="margin-left: 20px;"><select style="font-size: 13px;" name="state" id="state" onchange="Go('{$siteAdr}crew.php?cat={$cat}&is_state=1&state='+_v('state').value+'&city='+_v('city').value);"><option value="0">State</option>{foreach key=k item=i from=$statea}<option value="{$i}"{if $i == $state} selected="selected"{/if}>{$states.$i}</option>{/foreach}</select></li>
+                <li style="margin-left: 20px;"><select style="font-size: 13px;" name="city" id="city" onchange="Go('{$siteAdr}crew.php?cat={$cat}&state='+_v('state').value+'&city='+_v('city').value);"><option value="0">City</option>{foreach key=k item=i from=$cities}<option value="{$i}"{if $i == $city} selected="selected"{/if}>{$i}</option>{/foreach}</select></li>
+			{/if}
+		</ul>
+	</div>
+	</div>    
+    {/if}
+</div>

@@ -1,0 +1,6 @@
+DirectoryIndex spages.php 
+#php_flag  display_errors         1
+#php_flag  display_startup_errors 1
+#php_value error_reporting 2047
+#php_flag magic_quotes_gpc     0
+#php_flag magic_quotes_runtime 0   

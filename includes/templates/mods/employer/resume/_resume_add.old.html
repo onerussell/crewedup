@@ -1,0 +1,137 @@
+<script type="text/javascript" src="{$jsDir}jquery.js"></script>
+<script type="text/javascript" src="{$jsDir}jquery.bgiframe.js"></script>
+<script type="text/javascript" src="{$jsDir}jquery.ajaxQueue.js"></script>
+<script type="text/javascript" src="{$jsDir}jquery.autocomplete.js"></script>
+<link rel="stylesheet" type="text/css" href="{$stlDir}jquery.autocomplete.css" />
+
+<script type="text/javascript">
+{literal}
+// <![CDATA[
+$().ready(function() {
+
+	function formatItem(row) 
+    {
+		return row[1];
+	}
+
+    function formatResult(row) 
+    {
+		return row[1].replace(/(<.+?>)/gi, '');
+	}
+
+	$("#fm_title").autocomplete(siteAdr + 'dict.php?action=get_movies', 
+    {
+    	width: 270,
+    	formatItem: formatItem,
+    	formatResult: formatResult
+	});
+	
+    $("#fm_company").autocomplete(siteAdr + 'dict.php?action=get_companies', 
+    {
+		width: 270,
+		formatItem: formatItem,
+    	formatResult: formatResult
+	});
+});
+// ]]>
+{/literal}
+</script>
+
+<div class="content">
+	<table id="main-table">
+		<tr>
+			<td class="left">
+				{include file="mods/employer/_main_box.html"}
+				<table>
+					<tr>
+						<td width="260"><p class="top-title"><img src="{$imgDir}title/company_credits.gif" alt="Company Credits" /></p></td>
+						<td></td>
+					</tr>
+				</table>	
+
+				<div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+					
+                    {if $errs}
+                    <p><font style="color:#990000">
+                    {foreach key=k item=i from=$errs}
+                        {$i}<br />
+                    {/foreach}
+                    </font></p>
+                    {/if}
+					<form class="write-mail-form" method="post" action="{$siteAdr}profile.php" name="fmx" id="fmx" enctype="multipart/form-data">
+                    <input type="hidden" name="act" value="resume" />
+                    <input type="hidden" name="what" value="add" />
+                    <input type="hidden" name="uid" value="{$uid}" />
+                    {if $id}
+                    <input type="hidden" name="id" value="{$id}" />
+                    {/if}
+                    <input type="hidden" name="fm[prof]" value="" />
+                    <p><label style="color:#333;">{if !$id}Post a new{else}Edit{/if} entry</label></p>
+					<br />
+                    <table style="width:99%;">
+                    <tr>
+                        <td style="width:50%; font-size: 14px;">
+                            <table>
+                            <tr>
+                                <td style="padding-top: 4px; width: 180px;">Movie/Show&nbsp;Title:&nbsp;</td>
+                                <td><input type="text" value="{$fm.title}" name="fm[title]" style="width:270px;" id="fm_title" /></td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top: 4px;">Month, Year:</td>
+                                <td>
+                                <select name="fm[month]">
+                                <option value="0">---</option>
+                                {section name=i loop=$ma}
+                                {assign var="ov" value=$smarty.section.i.index+1}
+                                <option value="{$ov}"{if $ov == $fm.month} selected="selected"{/if}>{$ma[i]}</option>
+                                {/section}
+                                </select>
+                                
+                                <select name="fm[year]" style="width: 80px;">
+                                <option value="0">---</option>
+                                {section name=i loop=$ya}
+                                <option value="{$ya[i]}"{if $ya[i] == $fm.year} selected="selected"{/if}>{$ya[i]}</option>
+                                {/section}
+                                </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top: 4px;">Picture:</td>
+                                <td><input type="file" name="fm[image]" />
+                                {if $fi.image}<br /><img src="{$icPath}/{$fi.image}" alt="" /> <a href="javascript: void(0)" onclick="CGo('{$siteAdr}profile.php?act=resume&what=add&uid={$uid}&id={$id}&delimg=1', 'Do You want to delete this image?');">Delete image</a>{/if}</td>
+                            </tr>
+                            
+                            <tr>
+                                <td style="padding-top: 4px;">Production company name:</td>
+                                <td><input type="text" value="{$fm.company}" name="fm[company]" style="width:270px;" id="fm_company" /></td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top: 4px;">Production company logo:</td>
+                                <td><input type="file" name="fm[image2]" />
+                                {if $fi.image2}<br /><img src="{$icPath}/{$fi.image2}" alt="" /> <a href="javascript: void(0)" onclick="CGo('{$siteAdr}profile.php?act=resume&what=add&uid={$uid}&id={$id}&delimg2=1', 'Do You want to delete this logo?');">Delete logo</a>{/if}</td>
+                            </tr>
+                            </table>    
+                        </td>
+                    </tr>
+                    </table>    
+
+					<p style="font-size: 14px;">Description:</p>
+					<p><textarea name="fm[story]" style="height: 200px;">{$fm.story}</textarea></p>
+					<p class="tools"><a href="{$siteAdr}profile.php?act=resume&amp;uid={$uid}"><img src="{$imgDir}cancel_b.gif" alt="" /></a> <a href="javascript:_v('fmx').submit();">{if $id}<img src="{$imgDir}save_b.gif" alt="Save" />{else}<img src="{$imgDir}post_b.gif" alt="Post" />{/if}</a></p>
+					</form>
+			
+				</div>
+				
+				<div class="grey-box-bottom">&nbsp;</div>
+				
+                {include file="mods/employer/resume/_resume_base.html"}				
+				{include file="_banner02.html"}
+				
+			</td>
+			<td class="right">
+			    {include file="mods/employer/_left_box.html"}	
+			</td>
+		</tr>
+	</table>
+</div>

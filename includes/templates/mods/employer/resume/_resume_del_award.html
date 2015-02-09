@@ -1,0 +1,35 @@
+<div class="content">
+	<table id="main-table">
+		<tr>
+			<td class="left">
+				{include file="mods/employer/_main_box.html"}
+				<table>
+					<tr>
+						<td width="310"><p class="top-title"><img src="{$imgDir}title/affilations.gif" alt="Affiliations/Awards" /></p></td>
+						<td></td>
+					</tr>
+				</table>	
+
+				<div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+					
+                    <p style="font-size: 16px;"><b>Delete Entry</b></p>
+                    <div class="info-box02" style="padding-left: 20px; width: 95%;">
+					    <p class="color_blue"><font style="font-size:12px"><a href="{$fm.link}">{$fm.title}</a></font></p>
+                        <div class="clear"><!-- --></div>
+                    </div> 
+                    <p align="right"><a href="{$siteAdr}profile{$uid}/credits"><img src="{$imgDir}cancel_b.gif" alt="" /></a> <a href="{$siteAdr}profile{$uid}/credits/?id={$id}&amp;what=delaward&amp;do=1">{if $id}<img src="{$imgDir}delete_b.gif" alt="Delete" />{else}<img src="{$imgDir}post_b.gif" alt="Post" />{/if}</a></p>
+				</div>
+				
+				<div class="grey-box-bottom">&nbsp;</div>
+				
+                {include file="mods/employer/resume/_resume_base.html"}				
+				{include file="_banner02.html"}
+				
+			</td>
+			<td class="right">
+			    {include file="mods/employer/_left_box.html"}	
+			</td>
+		</tr>
+	</table>
+</div>

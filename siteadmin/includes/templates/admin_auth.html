@@ -1,0 +1,81 @@
+<html>
+<head><title>{$supportSiteName|escape} - Back-Office - Authentication</title>
+<meta http-equiv="Content-Type" content="text/HTML; charset={$charset}" /> 
+<link rel="SHORTCUT ICON" href="{$siteAdm}favicon.ico" />
+<style>
+<!--
+{literal}
+html {
+    height: 100%;
+}
+
+body {
+  background-color:#ffffff;
+  margin:0;
+  padding:0;
+  height:auto !important;
+  height:100%;
+  min-height:100%;
+  font: 11px verdana; 
+}
+
+input {
+    border: 1px solid black; font: 8pt verdana;
+}
+select {
+    border-right: #006699 1px outset; border-top: #006699 1px outset; font: 8pt verdana; border-left: #006699 1px outset; border-bottom: #006699 1px outset
+}
+textarea {
+    border-right: #006699 1px outset; border-top: #006699 1px outset; font: 8pt verdana; border-left: #006699 1px outset; border-bottom: #006699 1px outset
+}
+a {
+    color: #4f76b3; text-decoration: none
+}
+a:hover {
+    color: #4f76b3; text-decoration: none
+}
+a:active {
+    color: #4f76b3; text-decoration: none
+}
+a:visited {
+    color: #4f76b3; text-decoration: none
+}
+td {
+    font: 11px verdana
+}
+{/literal}
+// -->
+</style>
+</head>
+<body>
+<table style="height:100%; width:100%;" border="0" cellSpacing="0" cellPadding="0">
+<tr><td align="center" vAlign="middle"><img src="../tmpl/images/logo.gif" border="0" alt="{$supportSiteName|escape}" />
+<br /><br />
+<form action="{$smarty.server.REQUEST_URI}" method="post" name="AuthForm">
+<table cellSpacing="1" cellPadding="6" align="center" bgColor="#c0c0c0" border="0">
+  <tr bgColor="#ffffff" align="right">
+    <td width="100">Username:</td>
+    <td align="left" width="150"><input maxLength="21" name="system_login" value="{$systemLogin}" style="width:150px;" /></td></tr>
+  <tr bgColor="#ffffff" align="right">
+    <td>Password:</td>
+    <td align="left"><input type="password" maxLength="21" name="system_pass" value="" style="width:150px;" /></td></tr>
+  <tr bgColor="#ffffff">
+    <td align="center" colSpan="2">{if $authMessage}
+<br /><font color="red">
+{$authMessage}
+<br /><br />
+</font>
+{/if}
+<br /><input type="submit" value=" login " /><br /><br /></td></tr></table></form>
+<p>Copyright &#169; 2007-2009 <a href="http://engine37.com" target="_blank"><b>Engine37</b></a></p>
+<br /><br /></td></tr></table>
+
+<script type="text/javascript">
+//<![CDATA[
+    if (!document.AuthForm.elements['system_login'].value)
+        document.AuthForm.elements['system_login'].focus();
+    else
+        document.AuthForm.elements['system_pass'].focus();
+//]]>    
+</script>
+</body></html>

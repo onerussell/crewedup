@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Crewed Up - A community for television and film professionals</title>
+    <meta name="description" content="{if $meta.descr}{$meta.descr}{else}A community for television and film professionals{/if}" />
+    <meta name="keywords"    content="{if $meta.keyw}{$meta.keyw}{else}community,television,film professionals{/if}" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="{$stlDir}styles.css" rel="stylesheet" type="text/css" />
+<link href="{$stlDir}forms.css" rel="stylesheet" type="text/css" />
+<link href="{$stlDir}curve.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{$jsDir}main.js"></script>
+
+
+
+<script type="text/javascript">
+// <![CDATA[
+    var siteAdr = '{$siteAdr}';
+    var imgDir  = '{$imgDir}';
+// ]]>
+</script>
+<script type="text/javascript" src="{$jsDir}base.js"></script>
+{if 'profile' == $mwd}
+<script type="text/javascript" src="{$jsDir}block.js"></script>
+{/if}
+
+    <link rel="stylesheet" type="text/css" href="{$stlDir}lightwindow.css" />
+	<script type="text/javascript" src="{$jsDir}prototype.js"></script>
+	<script type="text/javascript" src="{$jsDir}effects.js"></script>
+	<script type="text/javascript" src="{$jsDir}lightwindow.js"></script>
+
+	  
+{if 'calendar' == $mwd}
+<script type="text/javascript" src="{$jsDir}calendar.js"></script>
+{/if}
+<script type="text/javascript" src="{$jsDir}JsHttpRequest.js"></script>
+
+<!--[if gte IE 5.5000]>
+<script type="text/javascript" src="{$jsDir}png.js"></script>
+<![endif]-->
+</head>
+<body onload="{$onload}">
+<div class="main-cont">
+<span id="search_res"><!-- --></span>
+
+<!-- Header -->
+<div id="header">
+	<div class="logo"><a href="{$siteAdr}"><img src="{$imgDir}logo.gif" alt="CrewedUp.com" /></a></div>
+	<div class="center">
+		<a href="{$siteAdr}rss.php?mod=users" target="_blank"><img src="{$imgDir}rss_ico.gif" alt="Rss" /></a>
+		<p>
+			<span>{$online_users_cnt|numprice}</span> People Online<br />
+			<b>{$all_users_cnt|numprice}</b> Registered Members<br />
+			<b>{$new_users_cnt|numprice}</b> New Members
+		</p>
+	</div>
+	{include file="_top_login.html"}
+</div>
+<!-- /Header -->
+<!-- Menu -->
+{include file="_menu.html"}
+<!-- /Menu -->
+<!-- Content -->
+{$_content}
+<!-- /Content -->
+<!-- Footer -->
+{include file="_footer.html"}
+<!-- /Footer -->
+
+</div>
+</body>
+</html>

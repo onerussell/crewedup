@@ -1,0 +1,28 @@
+<div class="content">
+	<div class="info-box">
+		<p class="top-title">
+		{if 'about' == $pi.pagename}
+		    <img src="{$imgDir}title/about_us.gif" alt="{$pi.name}" />
+		{elseif 'advert' == $pi.pagename}
+		    <img src="{$imgDir}title/advertise.gif" alt="{$pi.name}" />
+		{elseif 'promo' == $pi.pagename}
+		    <img src="{$imgDir}title/promotion.gif" alt="{$pi.name}" />
+		{elseif 'contactus' == $pi.pagename}
+		    <img src="{$imgDir}title/contact_us.gif" alt="{$pi.name}" />
+		{elseif 'privacy' == $pi.pagename}
+		    <img src="{$imgDir}title/privacy_policy.gif" alt="{$pi.name}" />
+		{elseif 'terms' == $pi.pagename}
+		    <img src="{$imgDir}title/terms_of_use.gif" alt="{$pi.name}" />
+		{elseif 'help' == $pi.pagename}
+		    <img src="{$imgDir}title/help.gif" alt="{$pi.name}" />
+		{else}
+		    <h1 style="color:#555;font-size: 25px;">{$pi.name}</h1>
+		{/if}
+		</p>
+		<div class="clear">&nbsp;</div>
+		<p>
+		    {$pi.pagetext}
+		</p>
+		
+	</div>
+</div>

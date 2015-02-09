@@ -1,0 +1,48 @@
+<div class="search-drop" style="{if $blt}margin-top: 100px;{/if} margin-left: 532px;">
+	<div>
+		{if !$search_c}
+        <br /><p>Items not found</p><br />
+        {/if}
+    
+        {if $mc}
+        <p>Crew Members
+		<ul>
+			{section name=i loop=$mcl}
+            <li><a href="{$siteAdr}profile{$mcl[i].uid}">{if 1 == $mcl[i].status}{$mcl[i].name} {$mcl[i].lname}{else}{$mcl[i].company}{/if}</a>{$mcl[i].person_title|truncate:20:"..."}</li>
+			{/section}
+		</ul>
+        {/if}
+		</p>
+        {if $ec}
+		<p>Employers
+		<ul>
+			{section name=i loop=$ecl}
+            <li><a href="{$siteAdr}profile{$ecl[i].uid}">{if 1 == $ecl[i].status}{$ecl[i].name} {$ecl[i].lname}{else}{$ecl[i].company}{/if}</a>{$ecl[i].person_title|truncate:20:"..."}</li>
+            {/section}
+		</ul>
+		</p>
+        {/if}
+        
+        {if $jc}  
+		<p>Jobs
+		<ul>
+			{section name=i loop=$jcl}
+            <li><a href="{$siteAdr}jobs.php?id={$jcl[i].id}">{$jcl[i].job_title}</a> at {$jcl[i].cid} in {$jcl[i].city}, {assign var="ov" value=$jcl[i].state}{$jcl[i].state}</li>
+			{/section}
+		</ul>
+		</p>
+        {/if}
+        
+        {if $gc}
+		<p>Gear
+		<ul>
+			{section name=i loop=$gcl}
+            <li><a href="{$siteAdr}gear{$gcl[i].uid}/?id={$gcl[i].id}">{$gcl[i].title}</a></li>
+			{/section}
+		</ul>
+		</p>
+        {/if}
+	</div>
+    
+	<p class="view-results">{if $search_c}<span style="float:left"><a href="{$siteAdr}search.php?sstr={$sstr}">View all results ({$search_c}) </a></span>{/if}<span style="float:right"><a href="javascript: void(0);" onclick="_v('search_res').style.display='none'; return false;">Close Box</a></span></p>
+</div>

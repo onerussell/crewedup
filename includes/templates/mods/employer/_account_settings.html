@@ -1,0 +1,116 @@
+<div class="content">
+	<table id="main-table">
+		<tr>
+			<td class="left">
+				{include file="mods/employer/_main_box.html"}
+
+				<p class="top-title"><img src="{$imgDir}title/account_settings.gif" alt="Account Settings" /></p><br />
+
+				<div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+					<form class="account-setting-form" method="post" action="{$siteAdr}" id="fmx">
+                    <input type="hidden" name="mod" value="profile" />
+                    <input type="hidden" name="uid" value="{$uid}" />
+					<input type="hidden" name="fm[showpass]" id="showpass" value="0" />
+                    <p><a href="javascript://"><img src="{$imgDir}personal_information_b.gif" alt="Personal Information" /></a><a class="f12" href="{$siteAdr}?mod=notify&amp;uid={$uid}">Notifications</a></p>
+					<div class="clear">&nbsp;</div><br />
+					<script type="text/javascript">
+                    {literal}
+					function Shp()
+					{
+					    _v('cp').style.display = (_v('cp').style.display == 'block') ? 'none' : 'block';
+					    _v('showpass').value   = (_v('cp').style.display == 'block') ? '1' : '0';
+					}
+					{/literal}
+					</script>
+                    
+					{if $errs}
+                    <p style="color: red;">
+                    {foreach key=k item=i from=$errs}
+                         - {$i}<br />
+                    {/foreach}
+                    </p>
+                    {/if}
+					{if $save}
+					    <p style="color: green;">Profile was changed</p>
+					{/if}
+                    
+                    
+					<table class="pass-t">
+                        <tr>
+							<td style="width: 140px;"><label>Company Name</label></td><td ><input type="text" name="fm[company]" value="{$fm.company}" size="40" /></td>
+						</tr>
+                        
+						<tr>
+							<td><label>Email Address</label></td><td><input type="text" name="fm[email]" value="{$fm.email}" id="email" size="40" /></td>
+						</tr>
+                        
+						<tr>
+							<td>&nbsp;</td><td><a class="f13" href="javascript: Shp();">New Password</a></td>
+						</tr>
+                    </table>
+                    
+                    <span style="display:none;" id="cp">
+                    <table class="pass-t">     
+						<tr>
+							<td style="width:140px;"><label>New Password</label></td><td><input type="password" name="fm[pass]" value="" size="30" /></td>
+						</tr>
+                        <tr>
+							<td><label>Confirm New Password</label></td><td><input type="password" name="fm[pass2]" value="" size="30" /></td>
+						</tr>
+                    </table>    
+                    </span>
+                    
+                    <table class="pass-t">    
+						<tr>
+							<td style="width:140px;"><label>Street Address</label></td><td><input type="text" name="fm[address]" value="{$fm.address}" size="60" /></td>
+						</tr>
+						<tr>
+							<td><label>Suite/Stage</label></td><td><input type="text" name="fm[suite]" value="{$fm.suite}" size="40" /></td>
+						</tr>
+						<tr>
+							<td><label>City</label></td><td><input type="text" name="fm[city]" value="{$fm.city}" size="25" /></td>
+						</tr>
+						<tr>
+							<td><label>State</label></td>
+							<td>{*<input type="text" name="fm[state]" value="{$fm.state}" size="25" />*}
+                                <select name="fm[state]">
+                                <option value="0">Please select</option>
+                                {foreach key=k item=i from=$states}
+									<option value="{$i.code}"{if $i.code == $fm.state} selected="selected"{/if}>{$i.name}</option>
+                                {/foreach}    
+								</select>
+                            </td>
+						</tr>
+						<tr>
+							<td><label>ZIP</label></td><td><input type="text" name="fm[zip]" value="{$fm.zip}" size="15" /></td>
+						</tr>
+						<tr>
+							<td><label>Phone Number</label></td><td><input type="text" name="fm[phone]" value="{$fm.phone}" size="40" /></td>
+						</tr>
+						<tr>
+							<td><label>Fax Number</label></td><td><input type="text" name="fm[fax]" value="{$fm.fax}" size="40" /></td>
+						</tr>
+						<tr>
+							<td><label>Contact Person within Company</label></td><td><input type="text" name="fm[name]" value="{$fm.name}" size="40" /></td>
+						</tr>
+						<tr>
+							<td><label>Contact Person's Title</label></td><td><input type="text" name="fm[cperson_title]" value="{$fm.cperson_title}" size="40" /></td>
+						</tr>
+					</table>
+						<p class="tools"><a href="javascript: Go('{$siteAdr}profile.php?uid={$uid}');"><img src="{$imgDir}cancel_b.gif" alt="Cancel" /></a><a href="javascript: _v('fmx').submit();"><img src="{$imgDir}save_b.gif" alt="Save" /></a></p>
+					</form>
+                    {if $fm.showpass}
+                    <script language="javascript" type="text/javascript">
+					Shp();
+                    </script>
+                    {/if}
+				</div>
+				<div class="grey-box-bottom">&nbsp;</div>
+			</td>
+			<td class="right">
+			    {include file="mods/employer/_left_box.html"}	
+			</td>
+		</tr>
+	</table>
+</div>

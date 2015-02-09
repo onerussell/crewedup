@@ -1,0 +1,34 @@
+<div class="content">
+	<table id="main-table">
+		<tr>
+			<td class="left">
+				{include file="mods/employer/_main_box.html"}
+				<table>
+					<tr>
+						<td width="210"><p class="top-title"><img src="{$imgDir}title/jobs.gif" alt="Jobs" /></p></td>
+						<td></td>
+					</tr>
+				</table>
+
+				<div class="grey-box-top">&nbsp;</div>
+				<div class="grey-box-bg">
+					
+                    <p style="font-size: 16px;"><b>Delete Job</b></p>
+
+                        <p class="color_blue"><font style="font-size:18px">{$fm.job_title}</font><br  />Start Date: {$fm.sd}{if $fm.cid}<br  />Category: {$fm.cid}{/if}{if $fm.show_proj && $fm.project_title}<br  />Project: {$fm.project_title}{/if}<br />Company: <a href="{$siteAdr}profile{$fm.uid}" style="font-size: 12px;">{$ui.company}</a></p>
+                        <div class="clear"><!-- --></div>
+                        <br /><p>{$fm.descr|strip_tags|truncate:200:"..."}</p>
+                    <p align="right"><a href="{$siteAdr}jobs.php?id={$id}"><img src="{$imgDir}cancel_b.gif" alt="" /></a> <a href="{$siteAdr}jobs.php?id={$id}&amp;mod=del&amp;do=1"><img src="{$imgDir}save_b.gif" alt="Save" /></a></p>
+				</div>
+				
+				<div class="grey-box-bottom">&nbsp;</div>
+				
+				{include file="_banner02.html"}
+				
+			</td>
+			<td class="right">
+			    {include file="mods/employer/_left_box.html"}	
+			</td>
+		</tr>
+	</table>
+</div>

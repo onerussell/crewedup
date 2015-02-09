@@ -1,0 +1,93 @@
+<!-- Content -->
+<div class="content">
+	{*
+	<p><img src="{$imgDir}title/featured_jobs.gif" alt="Featured Jobs" /></p>
+	<br />
+	<table class="employers-t">
+		<tr>
+			<th width="100">Posted</th>
+			<th width="185">Job Title</th>
+			<th width="130">Company</th>
+			<th width="180">Location</th>
+			<th width="120">Category</th>
+			<th width="100">Start</th>
+		</tr>
+		<tr class="grey">
+			<td class="first">09/09/2007</td>
+			<td><a href="#">1st Assistant Director</a></td>
+			<td><a href="#">Discovery</a></td>
+			<td><a href="#">Phoenix,</a><a href="#">Arizona</a></td>
+			<td><a href="#">Video Production</a></td>
+			<td class="end">11/12/2007</td>
+		</tr>
+		<tr >
+			<td>09/09/2007</td>
+			<td><a href="#">1st Assistant Director</a></td>
+			<td><a href="#">Discovery</a></td>
+			<td><a href="#">Phoenix,</a><a href="#">Arizona</a></td>
+			<td><a href="#">Video Production</a></td>
+			<td>11/12/2007</td>
+		</tr>
+		<tr class="grey">
+			<td class="first">09/09/2007</td>
+			<td><a href="#">1st Assistant Director</a></td>
+			<td><a href="#">Discovery</a></td>
+			<td><a href="#">Phoenix,</a><a href="#">Arizona</a></td>
+			<td><a href="#">Video Production</a></td>
+			<td class="end">11/12/2007</td>
+		</tr>
+	</table>
+	
+	<br />
+	*}
+	<table>
+		<tr>
+			<td width="170"><p><img src="{$imgDir}title/all_jobs.gif" alt="All Jobs" /></p></td>
+			<td>{if $is_user && 2 == $UserInfo.status}<p class="gear-add"><img src="{$imgDir}gear_add_ico.gif" alt="" /><a href="{$siteAdr}jobs.php?mod=add">Post new job</a></p>{/if}</td>
+		</tr>
+	</table>
+	<br />
+    {if $is_user && 2 == $UserInfo.status}
+    <h1 style="color:#000;font-size:1.3em;font-weight:normal;">{if $is_my}<a href="{$siteAdr}jobs.php">Show All</a>{else}Show All{/if} | {if !$is_my}<a href="{$siteAdr}jobs.php?is_my=1">Show My Jobs</a>{else}Show My Jobs{/if}</h1>
+    <br />{/if}
+    {if $pl}
+	<table class="employers-t">
+		<tr>
+			<th width="100">Posted</th>
+			<th width="185">Job Title</th>
+			<th width="130">Company</th>
+			<th width="180">Location</th>
+			<th width="120">Category</th>
+			<th width="100">Start</th>
+		</tr>
+		{foreach name=n key=k item=i from=$pl}
+        <tr{if 0 == $smarty.foreach.n.index mod 2} class="grey"{/if}>
+        
+        {if $i.isRSS == "RSS"}
+			<td height="23" class="first">{$i.pdate}</td>
+			<td><a href="{$i.URL}">{$i.job_title}</a></td>
+			<td><a href="{$i.URL}">{$i.rssCompany}</a></td>
+			<td><a href="{$i.URL}">{$i.rssCity}</a></td>
+			<td><a href="{$i.URL}">{$i.rssjobType}</a></td>
+			<td class="end">{$i.start_date}</td>
+		</tr>
+        {else}
+			<td height="23" class="first">{$i.pdate}</td>
+			<td><a href="{$siteAdr}jobs.php?id={$i.id}">{$i.job_title}</a></td>
+			<td><a href="{$siteAdr}profile{$i.uid}">{$i.company}</a></td>
+			<td><a href="{$siteAdr}jobs.php?city={$i.city}&amp;state={$i.state}">{$i.city},</a>{assign var="ov" value=$i.state}<a href="{$siteAdr}jobs.php?state={$i.state}">{$states.$ov}</a></td>
+			<td><a href="{$siteAdr}jobs.php?cat={$i.cid}{if $state}&amp;state={$state}{/if}{if $city}&amp;city={$city}{/if}">{$i.cid}</a></td>
+			<td class="end">{$i.start_date}</td>
+		</tr>
+        {/if}
+        {/foreach}
+		<tr>
+			<td class="nav-employer" colspan="3">{*Showing 1 to 25 of 356 employers*}</td>
+			<td class="nav-employer" colspan="3" align="right">{$pagging}</td>
+		</tr>        
+	</table>
+	{else}
+	Jobs not found
+	{/if}
+</div>
+<!-- /Content -->

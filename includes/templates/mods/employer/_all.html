@@ -1,0 +1,25 @@
+<div class="content">
+	<p><img src="{$imgDir}title/employers.gif" alt="#" /></p>
+	<br />
+	<table class="employers-t">
+		<tr>
+			<th width="165">Company</th>
+			<th width="185">Location</th>
+			<th width="165">Category</th>
+			
+		</tr>
+        {foreach name=n key=k item=i from=$pl}
+		<tr{if $smarty.foreach.n.index mod 2==0} class="grey"{/if}>
+			<td class="first"><a href="{$siteAdr}profile{$i.uid}">{$i.company|wordwrap}</a></td>
+			<td>{if $i.city}<a href="{$siteAdr}employers.php?state={$i.state}&amp;city={$i.city}{if $cat}&amp;cat={$cat}{/if}">{$i.city},</a>{/if}{assign var="ov" value=$i.state}<a href="{$siteAdr}employers.php?state={$i.state}{if $cat}&amp;cat={$cat}{/if}">{$states.$ov}</a></td>
+			<td class="end">{$i.person_title}</td>
+			{*<td class="end">{section name=j loop=$i.jobs}{if 3 > $smarty.section.j.index}<a href="{$siteAdr}jobs.php?id={$i.jobs[j].id}">{$i.jobs[j].job_title}</a>{if 2 > $smarty.section.j.index && !$smarty.section.j.last}, {elseif !$smarty.section.j.last}...{/if}{/if}{/section}&nbsp;</td>*}
+		</tr>
+        {/foreach}
+
+		<tr>
+			<td class="nav-employer" colspan="2">{*Showing 1 to 25 of 356 employers*}</td>
+			<td class="nav-employer" colspan="2" align="right">{$pagging}</td>
+		</tr>
+	</table>
+</div>

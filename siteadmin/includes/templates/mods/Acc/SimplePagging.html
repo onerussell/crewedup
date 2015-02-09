@@ -1,0 +1,14 @@
+{if 1 < $gpArr.pages}
+   <table border="0" cellSpacing="0" cellPadding="5">
+   <tr bgcolor="#FFFFFF">
+
+      <td align="right">{if $gpArr.curPage > 0}<a href="{$gpArr.baseUrl}&pstart={$gpArr.pStart-$gpArr.ResOnPage}">&lt;&lt;&lt;</a>{/if}&nbsp;
+            Page <select name="pstart" style="font-size:9px" onChange="self.location='{$gpArr.baseUrl}{$SIDA}&pstart='+ this.options[this.selectedIndex].value">
+            {section name=pg loop=$gpArr.pgArr}
+            <option value="{$gpArr.pgArr[pg]}" {if $smarty.section.pg.rownum == $gpArr.curPage+1}selected="selected"{/if}>{$smarty.section.pg.rownum}</option>
+            {/section}
+            </select> from {$gpArr.pages}
+        {if $gpArr.curPage < $gpArr.pages-1}&nbsp;<a href="{$gpArr.baseUrl}&pstart={$gpArr.pStart+$gpArr.ResOnPage}">&gt;&gt;&gt;</a>{/if}</td>
+   </tr>
+   </table>
+{/if}
